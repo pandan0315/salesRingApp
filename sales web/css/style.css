@@ -82,7 +82,7 @@ a:hover
 .tab-group .active a
 {
     color: #ffffff;
-    background-color: rgba(51, 51, 145, 0.77);
+    background-color: rgba(84, 145, 51, 0.77);
 }
 
 .tab-content > div:last-child
@@ -100,16 +100,16 @@ h1
 
 label
 {
-    position: absolute;
+    position: static;
     -webkit-transform: translateY(6px);
     transform: translateY(6px);
-    left: 13px;
     color: rgba(26, 21, 21, 0.5);
     -webkit-transition: all 0.25s ease;
     transition: all 0.25s ease;
     -webkit-backface-visibility: hidden;
     pointer-events: none;
     font-size: 14px;
+    text-align: left;
 }
 
 label .req
@@ -124,16 +124,18 @@ label.active
     transform: translateY(50px);
     left: 2px;
     font-size: 14px;
+    color: #ede7e7;
 }
 
 label.active .req
 {
     opacity: 0;
+    color: #f5ebeb;
 }
 
 label.highlight
 {
-    color: #ffffff;
+    color: #f9f3f3;
 }
 
 input, textarea
@@ -146,7 +148,7 @@ input, textarea
     background: none;
     background-image: none;
     border: 1px solid #a0b3b0;
-    color: #ffffff;
+    color: #320606;
     border-radius: 0;
     -webkit-transition: border-color .25s ease, box-shadow .25s ease;
     transition: border-color .25s ease, box-shadow .25s ease;
@@ -168,6 +170,7 @@ textarea
 {
     position: relative;
     margin-bottom: 20px;
+    text-align: left;
 }
 
 .top-row:after
@@ -182,6 +185,7 @@ textarea
     float: left;
     width: 100%;
     margin-right: 4%;
+    text-align: left;
 }
 
 .top-row > div:last-child
@@ -202,7 +206,7 @@ textarea
     -webkit-transition: all 0.5s ease;
     transition: all 0.5s ease;
     -webkit-appearance: none;
-    background-color: rgba(51, 51, 145, 0.77);
+    background-color: rgba(84, 145, 51, 0.77);
 }
 
 .button:hover, .button:focus
