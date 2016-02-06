@@ -570,11 +570,30 @@ null
 
 .pop-close:hover
 {
-    -webkit-transform:translate(50%, -50%) rotate(180deg);
-    transform:translate(50%, -50%) rotate(180deg);
-    background:rgba(0,0,0,1);
-    text-decoration:none;
+    -webkit-transform: translate(50%, -50%) rotate(180deg);
+    transform: translate(50%, -50%) rotate(180deg);
+    background: rgba(0,0,0,1);
+    text-decoration: none;
+}
 
+.input
+{
+    height: 35px;
+    width: 275px;
+    font-size: 20px;
+}
+
+.addBtn
+{
+    height: 40px;
+    font-size: 20px;
+    padding: 0px 20px;
+}
+
+li
+{
+    list-style: none;
+  font-size: 20px;
 }
 
 
