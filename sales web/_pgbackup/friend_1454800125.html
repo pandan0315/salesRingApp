@@ -36,13 +36,13 @@
             Personal Menu <span class="drawer-caret"></span></a>
                         <ul class="drawer-dropdown-menu">
                             <li>
-                                <a class="drawer-dropdown-menu-item" href="./friend.html">Friends</a>
+                                <a class="drawer-dropdown-menu-item" href="./home.html">Friends</a>
                             </li>
                             <li>
-                                <a class="drawer-dropdown-menu-item" href="./home.html">My Profile</a>
+                                <a class="drawer-dropdown-menu-item" href="./home.html">Post</a>
                             </li>
                             <li>
-                                <a class="drawer-dropdown-menu-item" href="./sign.html">Log out</a>
+                                <a class="drawer-dropdown-menu-item" href="./home.html">Log out</a>
                             </li>
                         </ul>
                     </li>
@@ -62,15 +62,11 @@
             <div ng-app="friendApp">
                 <div ng-controller="friendCtrl">
                     <form ng-submit="addFriend()">
-                        <input type="text" placeholder="Enter new friend" ng-model="nameInput" class="inputFriend" />
+                        <input type="text" placeholder="Enter new friend" ng-model="nameInput" />
                         <input type="submit" value="Add Friend" />
                     </form>
-                    <br>
-                    <br>
                     <h2>My Friends List</h2>
-                    <br>
-                    <br>
-                    <input type="text" placeholder="Search For Friend..." ng-model="findFriend" class="inputFriend" />
+                    <input type="text" placeholder="Search For Friend..." ng-model="findFriend" />
                     <ul>
                         <li ng-repeat="friend in friends | filter:findFriend | orderBy:friend.name" ng-model="listName">
                             <span ng-hide="editing">{{ friend.name }}</span>
