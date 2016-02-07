@@ -638,6 +638,7 @@ li
 .description
 {
     height: 95pt;
+    width: 55%;
 }
 
 h2
@@ -650,19 +651,29 @@ h2
     color: #fff;
 }
 
-.price
-{
-}
-
-.price
-{
-    background-position: 5px 7px;
-    background-repeat: no-repeat;
-}
-
 .inputFriend
 {
     height: 20px;
     font-size: 12pt;
+}
+
+.catagory
+{
+    width: 60%;
+}
+
+.price
+{
+    width: 35%;
+}
+
+.discount
+{
+    width: 30%;
+}
+
+.name
+{
+    width: 55%;
 }
 
