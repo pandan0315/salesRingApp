@@ -1,5 +1,6 @@
 package com.example.zhehuan.saleapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
@@ -28,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
         PostsAdapter adapter = new PostsAdapter(MainActivity.this,posts);
         postsLV = (ListView) findViewById(R.id.postsListView);
         postsLV.setAdapter(adapter);
+
+        Intent intent = new Intent(MainActivity.this,DetailedViewActivity.class);
+        startActivity(intent);
 
     }
 }
