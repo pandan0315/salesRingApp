@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.zhehuan.saleapp.DetailedViewActivity">
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView"
+        android:layout_weight="1"
+        android:paddingBottom="70dp">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <GridLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#b3dcfb">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="67dp"
+                android:id="@+id/posterProfileImage"
+                android:src="@drawable/profile29" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Khalid Mahgoub"
+                android:id="@+id/posterName"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="1/2/2015  19:24"
+                android:id="@+id/detailedDateTV"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="20dp" />
+
+        </GridLayout>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/photo"
+            android:src="@drawable/b" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Store: HM"
+                android:id="@+id/detailedStoreTV"
+                android:layout_marginLeft="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Price (Before discount): 192 sek"
+                android:id="@+id/detailedPriceTV"
+                android:layout_marginLeft="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="19% off"
+                android:id="@+id/detailedSaleTV"
+                android:layout_marginLeft="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Clothes"
+                android:id="@+id/deteiledCategoryTV"
+                android:layout_marginLeft="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="This is the greated sales ever, using the greatest app ever. done by the greatest people ever"
+                android:id="@+id/detailedDescription"
+                android:layout_marginLeft="10dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+    </ScrollView>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="0px"
+        android:padding="0px">
+
+        <ImageButton
+            android:layout_height="wrap_content"
+            android:id="@+id/homeIB"
+            android:layout_width="0px"
+            android:layout_weight="1"
+            android:src="@drawable/home168" />
+
+        <ImageButton
+            android:layout_height="wrap_content"
+            android:id="@+id/userProfileIB"
+            android:layout_width="0px"
+            android:layout_weight="1"
+            android:src="@drawable/user91" />
+
+        <ImageButton
+            android:layout_height="wrap_content"
+            android:id="@+id/friendsIB"
+            android:layout_width="0px"
+            android:layout_weight="1"
+            android:src="@drawable/multiple25" />
+
+        <ImageButton
+            android:layout_height="wrap_content"
+            android:id="@+id/newPostIB"
+            android:layout_width="0px"
+            android:layout_weight="1"
+            android:src="@drawable/pencil124" />
+
+    </LinearLayout>
+</RelativeLayout>
