@@ -8,10 +8,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.ImageSize;
+import com.bumptech.glide.Glide;
+
 
 import java.util.ArrayList;
 
@@ -26,7 +24,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // The code below is for the image loaders
-        DisplayImageOptions options = new DisplayImageOptions.Builder()
+
+        ImageView homeIV = (ImageView) findViewById(R.id.homeIB);
+        ImageView userProfileIV = (ImageView)findViewById(R.id.userProfileIB);
+        ImageView friendsIV = (ImageView) findViewById(R.id.friendsIB);
+        ImageView newPostIV = (ImageView)findViewById(R.id.newPostIB);
+        Glide.with(this).load(R.drawable.internet).into(homeIV);
+        Glide.with(this).load(R.drawable.social).into(userProfileIV);
+        Glide.with(this).load(R.drawable.editing).into(newPostIV);
+        Glide.with(this).load(R.drawable.people).into(friendsIV);
+        /** options = new DisplayImageOptions.Builder()
                 .cacheInMemory(true)
                 .cacheOnDisk(true).build();
         ImageLoaderConfiguration configuration = new ImageLoaderConfiguration.Builder(getApplicationContext())
@@ -41,13 +48,13 @@ public class MainActivity extends AppCompatActivity {
 
         ImageSize size = new ImageSize(100,100);
 
-        //ImageLoader.getInstance().displayImage("drawable://" + R.drawable.internet,homeIV,size);
-        //ImageLoader.getInstance().displayImage("drawable://" + R.drawable.social,userProfileIV,size);
-        //ImageLoader.getInstance().displayImage("drawable://" + R.drawable.people,friendsIV,size);
-        //ImageLoader.getInstance().displayImage("drawable://" + R.drawable.editing,newPostIV,size);
+        ImageLoader.getInstance().displayImage("drawable://" + R.drawable.internet,homeIV,size);
+        ImageLoader.getInstance().displayImage("drawable://" + R.drawable.social,userProfileIV,size);
+        ImageLoader.getInstance().displayImage("drawable://" + R.drawable.people,friendsIV,size);
+        ImageLoader.getInstance().displayImage("drawable://" + R.drawable.editing,newPostIV,size);
 
 
-
+        */
         posts = new ArrayList<SalePost>();
         homeButton = (ImageButton) findViewById(R.id.homeIB);
         homeButton.setOnClickListener(new View.OnClickListener() {
@@ -62,9 +69,9 @@ public class MainActivity extends AppCompatActivity {
         posts.add(new SalePost("","Dan","Stadium","","44%","44%","21-2-2016 15:41","21-2-2016 15:41",true,"",""));
 
 
-        //PostsAdapter adapter = new PostsAdapter(MainActivity.this,posts);
-        //postsLV = (ListView) findViewById(R.id.postsListView);
-        //postsLV.setAdapter(adapter);
+        PostsAdapter adapter = new PostsAdapter(MainActivity.this,posts);
+        postsLV = (ListView) findViewById(R.id.postsListView);
+        postsLV.setAdapter(adapter);
     }
 
     public void newPost(View view)
