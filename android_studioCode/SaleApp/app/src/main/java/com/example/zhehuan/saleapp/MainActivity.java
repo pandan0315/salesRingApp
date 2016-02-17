@@ -5,7 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
+
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageSize;
 
 import java.util.ArrayList;
 
@@ -18,6 +24,30 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // The code below is for the image loaders
+        DisplayImageOptions options = new DisplayImageOptions.Builder()
+                .cacheInMemory(true)
+                .cacheOnDisk(true).build();
+        ImageLoaderConfiguration configuration = new ImageLoaderConfiguration.Builder(getApplicationContext())
+                .defaultDisplayImageOptions(options)
+                .build();
+        ImageLoader.getInstance().init(configuration);
+
+        ImageView homeIV = (ImageView) findViewById(R.id.homeIB);
+        ImageView userProfileIV = (ImageView)findViewById(R.id.userProfileIB);
+        ImageView friendsIV = (ImageView) findViewById(R.id.friendsIB);
+        ImageView newPostIV = (ImageView)findViewById(R.id.newPostIB);
+
+        ImageSize size = new ImageSize(100,100);
+
+        //ImageLoader.getInstance().displayImage("drawable://" + R.drawable.internet,homeIV,size);
+        //ImageLoader.getInstance().displayImage("drawable://" + R.drawable.social,userProfileIV,size);
+        //ImageLoader.getInstance().displayImage("drawable://" + R.drawable.people,friendsIV,size);
+        //ImageLoader.getInstance().displayImage("drawable://" + R.drawable.editing,newPostIV,size);
+
+
+
         posts = new ArrayList<SalePost>();
         homeButton = (ImageButton) findViewById(R.id.homeIB);
         homeButton.setOnClickListener(new View.OnClickListener() {

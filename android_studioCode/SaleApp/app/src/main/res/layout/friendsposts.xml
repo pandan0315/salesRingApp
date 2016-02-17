@@ -70,7 +70,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/postPhoto"
-            android:layout_marginBottom="20dp"
-            android:src="@drawable/b" />
+            android:layout_marginBottom="20dp" />
     </LinearLayout>
 </LinearLayout>

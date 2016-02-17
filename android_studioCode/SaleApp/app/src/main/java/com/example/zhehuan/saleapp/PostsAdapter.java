@@ -9,6 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+
 import java.util.ArrayList;
 
 import static com.example.zhehuan.saleapp.R.layout.friendsposts;
@@ -31,6 +33,8 @@ class PostsAdapter extends ArrayAdapter<SalePost> {
         TextView dateTV = (TextView) rowView.findViewById(R.id.postDate);
         TextView saleTV = (TextView) rowView.findViewById(R.id.saleInfo);
         //ImageView imageView = (ImageView) rowView.findViewById(R.id.userProfilePhoto);
+        ImageView postIV = (ImageView) rowView.findViewById(R.id.postPhoto);
+        ImageLoader.getInstance().displayImage("drawable://" + R.drawable.b,postIV);
 
         userNameTV.setText(posts.get(position).getPoster());
         dateTV.setText(posts.get(position).getPostDate());

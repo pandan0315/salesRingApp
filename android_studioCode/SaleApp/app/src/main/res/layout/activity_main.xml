@@ -30,29 +30,25 @@
                 android:layout_height="wrap_content"
                 android:id="@id/homeIB"
                 android:layout_width="0px"
-                android:layout_weight="1"
-                android:src="@drawable/home168" />
+                android:layout_weight="1" />
 
             <ImageButton
                 android:layout_height="wrap_content"
                 android:id="@+id/userProfileIB"
                 android:layout_width="0px"
-                android:layout_weight="1"
-                android:src="@drawable/user91" />
+                android:layout_weight="1" />
 
             <ImageButton
                 android:layout_height="wrap_content"
                 android:id="@+id/friendsIB"
                 android:layout_width="0px"
-                android:layout_weight="1"
-                android:src="@drawable/multiple25" />
+                android:layout_weight="1" />
 
             <ImageButton
                 android:layout_height="wrap_content"
                 android:id="@+id/newPostIB"
                 android:layout_width="0px"
                 android:layout_weight="1"
-                android:src="@drawable/pencil124"
                 android:onClick="newPost" />
 
         </LinearLayout>
