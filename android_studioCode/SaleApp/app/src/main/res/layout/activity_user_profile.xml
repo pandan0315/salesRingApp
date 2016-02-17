@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.example.zhehuan.saleapp.UserProfileActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView"
+        android:layout_weight="1"
+        android:paddingBottom="70dp">
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/userProfilePhoto" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Khalid Mahgoub"
+                        android:id="@+id/userName" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="created: feb 2016"
+                        android:id="@+id/otherInfo"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="0px"
+        android:padding="0px">
+
+        <ImageButton
+            android:layout_height="wrap_content"
+            android:id="@+id/homeIB"
+            android:layout_width="0px"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:layout_height="wrap_content"
+            android:id="@+id/userProfileIB"
+            android:layout_width="0px"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:layout_height="wrap_content"
+            android:id="@+id/friendsIB"
+            android:layout_width="0px"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:layout_height="wrap_content"
+            android:id="@+id/newPostIB"
+            android:layout_width="0px"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -33,28 +33,7 @@ public class MainActivity extends AppCompatActivity {
         Glide.with(this).load(R.drawable.social).into(userProfileIV);
         Glide.with(this).load(R.drawable.editing).into(newPostIV);
         Glide.with(this).load(R.drawable.people).into(friendsIV);
-        /** options = new DisplayImageOptions.Builder()
-                .cacheInMemory(true)
-                .cacheOnDisk(true).build();
-        ImageLoaderConfiguration configuration = new ImageLoaderConfiguration.Builder(getApplicationContext())
-                .defaultDisplayImageOptions(options)
-                .build();
-        ImageLoader.getInstance().init(configuration);
 
-        ImageView homeIV = (ImageView) findViewById(R.id.homeIB);
-        ImageView userProfileIV = (ImageView)findViewById(R.id.userProfileIB);
-        ImageView friendsIV = (ImageView) findViewById(R.id.friendsIB);
-        ImageView newPostIV = (ImageView)findViewById(R.id.newPostIB);
-
-        ImageSize size = new ImageSize(100,100);
-
-        ImageLoader.getInstance().displayImage("drawable://" + R.drawable.internet,homeIV,size);
-        ImageLoader.getInstance().displayImage("drawable://" + R.drawable.social,userProfileIV,size);
-        ImageLoader.getInstance().displayImage("drawable://" + R.drawable.people,friendsIV,size);
-        ImageLoader.getInstance().displayImage("drawable://" + R.drawable.editing,newPostIV,size);
-
-
-        */
         posts = new ArrayList<SalePost>();
         homeButton = (ImageButton) findViewById(R.id.homeIB);
         homeButton.setOnClickListener(new View.OnClickListener() {

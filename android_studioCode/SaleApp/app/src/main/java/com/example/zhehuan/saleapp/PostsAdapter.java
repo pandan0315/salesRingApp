@@ -35,7 +35,7 @@ class PostsAdapter extends ArrayAdapter<SalePost> {
         ImageView userProfilePhoto = (ImageView) rowView.findViewById(R.id.userProfilePhoto);
         ImageView postIV = (ImageView) rowView.findViewById(R.id.postPhoto);
         Glide.with(mainActivity).load(R.drawable.b).into(postIV);
-        Glide.with(mainActivity).load(R.drawable.social).into(userProfilePhoto);
+        Glide.with(mainActivity).load(R.drawable.poster).into(userProfilePhoto);
 
         userNameTV.setText(posts.get(position).getPoster());
         dateTV.setText(posts.get(position).getPostDate());

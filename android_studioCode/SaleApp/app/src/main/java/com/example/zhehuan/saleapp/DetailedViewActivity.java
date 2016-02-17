@@ -9,32 +9,29 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+
 public class DetailedViewActivity extends AppCompatActivity {
-    static final int REQUEST_IMAGE_CAPTURE = 1;
-    ImageView postPhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed_view);
-        postPhoto = (ImageView)findViewById(R.id.postPhoto);
+
+        ImageView homeIV = (ImageView) findViewById(R.id.homeIB);
+        ImageView userProfileIV = (ImageView)findViewById(R.id.userProfileIB);
+        ImageView friendsIV = (ImageView) findViewById(R.id.friendsIB);
+        ImageView newPostIV = (ImageView)findViewById(R.id.newPostIB);
+        Glide.with(this).load(R.drawable.internet).into(homeIV);
+        Glide.with(this).load(R.drawable.social).into(userProfileIV);
+        Glide.with(this).load(R.drawable.editing).into(newPostIV);
+        Glide.with(this).load(R.drawable.people).into(friendsIV);
+        ImageView postPhtoIV = (ImageView)findViewById(R.id.postPhotoUsed);
+        Glide.with(this).load(R.drawable.b).into(postPhtoIV);
+        ImageView posterProfileImage = (ImageView)findViewById(R.id.posterProfileImage);
+        Glide.with(this).load(R.drawable.poster).into(posterProfileImage);
     }
 
-    private void launchCamera(View view)
-    {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent,REQUEST_IMAGE_CAPTURE);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode== REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK)
-        {
-            Bundle extra = data.getExtras();
-            Bitmap photo = (Bitmap) extra.get("data");
-            postPhoto.setImageBitmap(photo);
-        }
-    }
 }
 
 
