@@ -1,0 +1,11 @@
+
+1. Environment IDE: eclipse(create maven project)+tomcat+mysql+jersey
+
+2. import jersey jar and mysql connector jar to the project maven.
+
+3. already implemented function:
+    
+     login/signup (user table )
+
+     get all posts/add new post (post table), just basic attributes, we can add some other later
+
