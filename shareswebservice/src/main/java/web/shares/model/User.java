@@ -1,12 +1,14 @@
 package web.shares.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
 	
-	
-	//private Long id;
+
 	private String userName;
 	private String password;
-	//private String email;
+	
 	
 	
 	public User(){
@@ -16,11 +18,13 @@ public class User {
 	
 	public User(String userName, String password) {
 	
-		//this.id = id;
 		this.userName = userName;
 		this.password = password;
 		//this.email=email;
 	}
+	
+	
+	
 	
 	public String getUserName() {
 		return userName;
@@ -34,9 +38,7 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
-	
+
 	
 
 }

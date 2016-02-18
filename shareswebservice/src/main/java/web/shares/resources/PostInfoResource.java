@@ -42,6 +42,7 @@ public class PostInfoResource {
 
 	@POST
 	public PostInfo addNewPost(PostInfo newPost){
+        
 		return postService.addNewPost(newPost);
 	}
 	

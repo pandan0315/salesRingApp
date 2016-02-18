@@ -5,7 +5,31 @@
 
 3. already implemented function:
     
-     login/signup (user table )
+     login/signup 
+    
+     get/add userInterest, 
 
-     get all posts/add new post (post table), just basic attributes, we can add some other later
+     get/add/delete user’s friend
 
+     get all posts/add new post (postinfo table)
+
+
+How to import java project into eclipse to run on tomcat server
+
+1,On Eclipse Click File->Import , then Select General->Existing Projects into Wrokspace.
+2,Select the folder which have your Project ,Click on Finish
+3,From Window->Preferences Menu, select Server->Runtime environments
+4,Add your Tomcat server instance(need to download from web)
+5,From Window->Show view menu, select 'Servers'
+6,On Servers Tab right click, select Add Server
+7,Add Tomcat,Tomcat instance show up in 'Servers' Tab
+8,Right click on 'Tomcat server' and select 'Add/Remove'
+9,Add your Project to Tomcat
+10,Right click on 'Tomcat server' again and click on 'Clean' then 'Publish'
+11,Select Tomcat and click on Run button
+
+
+tomcat server.xml configuration:
+ <Context docBase="/Users/danpan/Documents/eclipse/testApp/shareswebservice/image" path="/shares/image"/>
+
+pay attention to maven dependencies (add many needed dependencies)
