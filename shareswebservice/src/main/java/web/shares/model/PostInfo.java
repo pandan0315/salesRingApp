@@ -1,6 +1,6 @@
 package web.shares.model;
 
-import java.io.File;
+
 import java.sql.Date;
 
 
@@ -12,13 +12,17 @@ public class PostInfo {
 	
 	private long id;
 	private Date created;
-	private String username;
+	private String postUser;
+	private String taggedUser;
 	private String category;
 	private double price_before;
 	private String sale_discount;
 	private String shop;
 	//private String description;
-	//private File image;
+	private String imageName;
+	private String encodeImage;
+	private String imagePath;
+	
 	
 	
 	public PostInfo(){
@@ -27,19 +31,48 @@ public class PostInfo {
 	
 	
    
-	public PostInfo(long id, Date created, String username, String category, double price_before, String sale_discount,
-			String shop) {
+	
+
+
+	public PostInfo(long id,String taggedUser, Date created, String postUser, String category, double price_before, String sale_discount,
+			String shop,String imagePath) {
 		super();
-		this.id = id;
+		this.id=id;
+		this.taggedUser=taggedUser;
 		this.created = created;
-		this.username = username;
+		this.postUser = postUser;
 		this.category = category;
 		this.price_before = price_before;
 		this.sale_discount = sale_discount;
 		this.shop = shop;
-		//this.description = description;
-		//this.image = image;
+	    this.imagePath=imagePath;
+
+		
 	}
+
+	public PostInfo(long id, String postUser,String taggedUser){
+		this.id=id;
+		this.postUser=postUser;
+		this.taggedUser=taggedUser;
+	}
+
+
+	public PostInfo(long id, Date created, String postUser, String category, double price_before, String sale_discount,
+			String shop, String imageName, String encodeImage) {
+		super();
+		this.id = id;
+		this.created = created;
+		this.postUser = postUser;
+		this.category = category;
+		this.price_before = price_before;
+		this.sale_discount = sale_discount;
+		this.shop = shop;
+		this.imageName = imageName;
+		this.encodeImage = encodeImage;
+	}
+
+
+
 
 
 
@@ -53,7 +86,14 @@ public class PostInfo {
 		this.id = id;
 	}
 
+	public String getTaggedUser() {
+		return taggedUser;
+	}
 
+
+	public void setTaggedUser(String taggedUser) {
+		this.taggedUser = taggedUser;
+	}
 
 	public Date getCreated() {
 		return created;
@@ -67,15 +107,24 @@ public class PostInfo {
 
 
 
-	public String getUsername() {
-		return username;
+
+
+
+	public String getPostUser() {
+		return postUser;
 	}
 
 
 
-	public void setUsername(String username) {
-		this.username = username;
+
+
+
+	public void setPostUser(String postUser) {
+		this.postUser = postUser;
 	}
+
+
+
 
 
 
@@ -124,6 +173,62 @@ public class PostInfo {
 	public void setShop(String shop) {
 		this.shop = shop;
 	}
+
+
+
+
+
+
+	public String getImageName() {
+		return imageName;
+	}
+
+
+
+
+
+
+	public void setImageName(String imageName) {
+		this.imageName = imageName;
+	}
+
+
+
+
+
+
+	public String getEncodeImage() {
+		return encodeImage;
+	}
+
+
+
+
+
+
+	public void setEncodeImage(String encodeImage) {
+		this.encodeImage = encodeImage;
+	}
+
+
+
+
+
+
+	public String getImagePath() {
+		return imagePath;
+	}
+
+
+
+
+
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
+
+
 
 
 
