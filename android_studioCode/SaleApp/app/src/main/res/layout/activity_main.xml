@@ -36,7 +36,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/userProfileIB"
                 android:layout_width="0px"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:onClick="goToProfile"/>
 
             <ImageButton
                 android:layout_height="wrap_content"

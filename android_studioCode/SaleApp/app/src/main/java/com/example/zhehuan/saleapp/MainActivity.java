@@ -58,4 +58,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(MainActivity.this,NewPostActivity.class));
     }
 
+    public void goToProfile(View view)
+    {
+        startActivity(new Intent(MainActivity.this,UserProfileActivity.class));
+    }
+
 }
