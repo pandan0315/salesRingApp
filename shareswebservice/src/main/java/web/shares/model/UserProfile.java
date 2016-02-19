@@ -27,6 +27,7 @@ public class UserProfile {
 		super();
 		
 		this.username = username;
+		
 		this.interest_category = interest_category;
 	}
 
@@ -58,6 +59,8 @@ public class UserProfile {
 		this.interest_category = interest_category;
 	}
 
+
+	
 	
 
 	

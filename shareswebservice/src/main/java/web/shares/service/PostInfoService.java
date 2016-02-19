@@ -28,6 +28,12 @@ public class PostInfoService {
 		
 		return newPost;
 	}
+	
+	public void updatePost(long postid,String tagged_user){
+		dataHandler.updatePostInfo(postid, tagged_user);
+	}
+	
+	
 	public List<PostInfo> getAllPosts(){
 		return new ArrayList<PostInfo>(allposts.values());
 		
@@ -67,4 +73,5 @@ public class PostInfoService {
 		return null;
        
 	}
+	
 }

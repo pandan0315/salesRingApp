@@ -194,7 +194,27 @@ public class DataHandler {
             System.err.println(ex.getMessage());
         }
     }
-    
+    public void updatePostInfo(long postid,String tagged_user){
+    	
+    	PostInfo currentPost=this.getPostById(postid);
+    	String tagged_userBefore=currentPost.getTaggedUser();
+    	try{
+    		
+    		if(tagged_user==null){
+    			return;
+    		}
+    		PreparedStatement stmt = con.prepareStatement("UPDATE  share.posts SET " +
+                     "tagged_user = ? WHERE postid = ?");      
+    		 
+    		 stmt.setString(1, tagged_userBefore+","+tagged_user);
+    		 stmt.setLong(2, postid);
+    		 stmt.executeUpdate();
+    		 stmt.close();
+    		
+    	}catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
     
     
     public UserProfile getUserInterest(String name){
