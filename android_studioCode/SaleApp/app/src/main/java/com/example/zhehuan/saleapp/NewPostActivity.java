@@ -31,7 +31,7 @@ public class NewPostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_post);
         postPhoto = (ImageView)findViewById(R.id.postPhoto);
-        Glide.with(this).load(R.drawable.signs).into(postPhoto);
+        Glide.with(this).load(R.drawable.camera2).into(postPhoto);
 
         dateTV = (TextView)findViewById(R.id.selectDateTV);
         calendar = Calendar.getInstance();

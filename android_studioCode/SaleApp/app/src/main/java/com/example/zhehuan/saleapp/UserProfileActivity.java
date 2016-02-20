@@ -1,9 +1,7 @@
 package com.example.zhehuan.saleapp;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,7 +12,7 @@ public class UserProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.profile_main);
+        setContentView(R.layout.activity_user_profile);
         ImageView homeIV = (ImageView) findViewById(R.id.homeIB);
         ImageView userProfileIV = (ImageView)findViewById(R.id.userProfileIB);
         ImageView friendsIV = (ImageView) findViewById(R.id.friendsIB);
@@ -26,12 +24,8 @@ public class UserProfileActivity extends AppCompatActivity {
 
 
         // temp configuration to be removed later
-        ImageView myProfile = (ImageView) findViewById(R.id.imageView7);
+        ImageView myProfile = (ImageView) findViewById(R.id.userProfilePhoto);
         Glide.with(this).load("https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/3/005/0b2/019/14e0f5c.jpg").into(myProfile);
 
-    }
-
-    public void jumpToEdit(View view) {
-        startActivity(new Intent(UserProfileActivity.this, EditProfileActivity.class));
     }
 }

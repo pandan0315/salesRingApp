@@ -36,8 +36,6 @@
         <activity android:name=".NewPostActivity" />
         <activity android:name=".UserProfileActivity" />
         <activity android:name=".AboutAppActivity" />
-        <activity android:name=".FriendActivity" />
-        <activity android:name=".EditProfileActivity" />
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login"></activity>
