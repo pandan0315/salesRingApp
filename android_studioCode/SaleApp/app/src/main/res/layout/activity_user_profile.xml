@@ -29,7 +29,8 @@
                     android:layout_width="0px"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:id="@+id/userProfilePhoto" />
+                    android:id="@+id/userProfilePhoto"
+                    android:onClick="changePhoto" />
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -85,9 +86,10 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Edit Profile"
-                    android:id="@+id/button"
-                    android:layout_gravity="center_horizontal" />
+                    android:text="Edit Interests"
+                    android:id="@+id/editProfileButton"
+                    android:layout_gravity="center_horizontal"
+                    android:onClick="editProfile" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

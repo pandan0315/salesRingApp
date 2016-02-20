@@ -1,5 +1,8 @@
 package com.example.zhehuan.saleapp;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -9,10 +12,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -57,12 +62,6 @@ public class MainActivity extends AppCompatActivity
         Glide.with(this).load(R.drawable.people).into(friendsIV);
 
         posts = new ArrayList<SalePost>();
-        homeButton = (ImageButton) findViewById(R.id.homeIB);
-        homeButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,DetailedViewActivity.class));
-            }
-        });
 
         posts.add(new SalePost("","Khalid","HM","","12%","12%","5-4-2016 12:32","5-4-2016 12:32",true,"",""));
         posts.add(new SalePost("","Zhehuan","D&G","","33%","33%","1-2-2013 12:41","1-2-2013 12:41",true,"",""));
@@ -73,6 +72,17 @@ public class MainActivity extends AppCompatActivity
         PostsAdapter adapter = new PostsAdapter(MainActivity.this,posts);
         postsLV = (ListView) findViewById(R.id.postsListView);
         postsLV.setAdapter(adapter);
+
+        postsLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                startActivity(new Intent(MainActivity.this, DetailedViewActivity.class));
+            }
+        });
+
+
+        startActivity(new Intent(MainActivity.this, LoginActivity.class));
     }
 
 
@@ -143,4 +153,8 @@ public class MainActivity extends AppCompatActivity
         startActivity(new Intent(MainActivity.this,UserProfileActivity.class));
     }
 
+    public void listOrAddFriends(View view)
+    {
+        startActivity(new Intent(MainActivity.this,FriendActivity.class));
+    }
 }
