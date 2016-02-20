@@ -2,86 +2,53 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Sunny Gu"
-        android:id="@+id/textView21"
-        android:layout_marginTop="44dp"
-        android:layout_marginLeft="52dp"
-        android:layout_marginStart="52dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Kholid"
-        android:id="@+id/textView22"
-        android:layout_marginTop="42dp"
-        android:layout_below="@+id/textView21"
-        android:layout_alignLeft="@+id/textView21"
-        android:layout_alignStart="@+id/textView21" />
+        <ListView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/friendsListView" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Pan"
-        android:id="@+id/textView23"
-        android:layout_marginTop="46dp"
-        android:layout_below="@+id/textView22"
-        android:layout_alignLeft="@+id/textView22"
-        android:layout_alignStart="@+id/textView22" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="0px"
+            android:padding="0px">
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/homeIB"
-        android:src="@android:drawable/ic_delete"
-        android:layout_above="@+id/textView22"
-        android:layout_toRightOf="@+id/textView22"
-        android:layout_toEndOf="@+id/textView22"
-        android:layout_marginLeft="84dp"
-        android:layout_marginStart="84dp" />
+            <ImageButton
+                android:layout_height="wrap_content"
+                android:id="@+id/homeButt"
+                android:layout_width="0px"
+                android:layout_weight="1" />
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/userProfileIB"
-        android:src="@android:drawable/ic_delete"
-        android:layout_above="@+id/textView23"
-        android:layout_alignLeft="@+id/homeIB"
-        android:layout_alignStart="@+id/homeIB" />
+            <ImageButton
+                android:layout_height="wrap_content"
+                android:id="@+id/userProfileButt"
+                android:layout_width="0px"
+                android:layout_weight="1"
+                android:onClick="goToProfile"/>
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/friendsIB"
-        android:src="@android:drawable/ic_delete"
-        android:layout_alignBottom="@+id/textView23"
-        android:layout_alignLeft="@+id/userProfileIB"
-        android:layout_alignStart="@+id/userProfileIB" />
+            <ImageButton
+                android:layout_height="wrap_content"
+                android:id="@+id/friendsButt"
+                android:layout_width="0px"
+                android:layout_weight="1" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Shu"
-        android:id="@+id/textView24"
-        android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/textView23"
-        android:layout_alignStart="@+id/textView23" />
+            <ImageButton
+                android:layout_height="wrap_content"
+                android:id="@+id/newPostButt"
+                android:layout_width="0px"
+                android:layout_weight="1"
+                android:onClick="newPost" />
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageButton4"
-        android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/friendsIB"
-        android:layout_alignStart="@+id/friendsIB"
-        android:src="@android:drawable/ic_delete" />
+        </LinearLayout>
+
+    </LinearLayout>
 </RelativeLayout>
