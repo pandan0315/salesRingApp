@@ -143,6 +143,12 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+
+    public void homeClicked(View view)
+    {
+        startActivity(new Intent(MainActivity.this, MainActivity.class));
+    }
+
     public void newPost(View view)
     {
         startActivity(new Intent(MainActivity.this,NewPostActivity.class));

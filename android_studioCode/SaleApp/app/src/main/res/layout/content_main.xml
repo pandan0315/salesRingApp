@@ -33,7 +33,8 @@
                 android:layout_height="wrap_content"
                 android:id="@id/homeIB"
                 android:layout_width="0px"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:onClick="homeClicked"/>
 
             <ImageButton
                 android:layout_height="wrap_content"

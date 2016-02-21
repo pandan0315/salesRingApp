@@ -35,7 +35,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
         // temp configuration to be removed later
         ImageView profilePhoto = (ImageView) findViewById(R.id.userProfilePhoto);
-        Glide.with(this).load("https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/3/005/0b2/019/14e0f5c.jpg").into(profilePhoto);
+        Glide.with(this).load("http://philosophy.ucr.edu/wp-content/uploads/2014/10/no-profile-img.gif").into(profilePhoto);
 
 
 
@@ -82,6 +82,26 @@ public class UserProfileActivity extends AppCompatActivity {
         }
     }
 
+<<<<<<< HEAD
+    public void homeClicked(View view)
+    {
+        startActivity(new Intent(UserProfileActivity.this, MainActivity.class));
+    }
+
+    public void newPost(View view)
+    {
+        startActivity(new Intent(UserProfileActivity.this,NewPostActivity.class));
+    }
+
+    public void goToProfile(View view)
+    {
+        startActivity(new Intent(UserProfileActivity.this, UserProfileActivity.class));
+    }
+
+    public void listOrAddFriends(View view)
+    {
+        startActivity(new Intent(UserProfileActivity.this,FriendActivity.class));
+=======
     public void jumpToHome(View view) {
         startActivity(new Intent(UserProfileActivity.this, MainActivity.class));
     }
@@ -92,5 +112,6 @@ public class UserProfileActivity extends AppCompatActivity {
 
     public void jumpToPost(View view) {
         startActivity(new Intent(UserProfileActivity.this, NewPostActivity.class));
+>>>>>>> 84427ce6b76b0ee642a87e49947978b7392464f9
     }
 }
