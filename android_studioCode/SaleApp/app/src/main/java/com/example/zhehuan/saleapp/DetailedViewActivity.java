@@ -32,6 +32,26 @@ public class DetailedViewActivity extends AppCompatActivity {
         Glide.with(this).load(R.drawable.poster).into(posterProfileImage);
     }
 
+    public void homeClicked(View view)
+    {
+        startActivity(new Intent(DetailedViewActivity.this, MainActivity.class));
+    }
+
+    public void newPost(View view)
+    {
+        startActivity(new Intent(DetailedViewActivity.this,NewPostActivity.class));
+    }
+
+    public void goToProfile(View view)
+    {
+        startActivity(new Intent(DetailedViewActivity.this,UserProfileActivity.class));
+    }
+
+    public void listOrAddFriends(View view)
+    {
+        startActivity(new Intent(DetailedViewActivity.this,FriendActivity.class));
+    }
+
 }
 
 
