@@ -1,0 +1,7 @@
+{
+  "name": "salesring web service api",
+  "version": "0.1.0",
+  "description": "all the restful api method description",
+  "title": "Custom apiDoc browser title",
+  "url" : "https://localhost:8080/webapi"
+}
