@@ -106,7 +106,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/homeIB"
             android:layout_width="0px"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:onClick="jumpToHome"/>
 
         <ImageButton
             android:layout_height="wrap_content"
@@ -118,13 +119,15 @@
             android:layout_height="wrap_content"
             android:id="@+id/friendsIB"
             android:layout_width="0px"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:onClick="jumpToFriend"/>
 
         <ImageButton
             android:layout_height="wrap_content"
             android:id="@+id/newPostIB"
             android:layout_width="0px"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:onClick="jumpToPost"/>
 
     </LinearLayout>
 

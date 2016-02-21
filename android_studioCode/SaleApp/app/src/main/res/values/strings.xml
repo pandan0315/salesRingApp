@@ -6,6 +6,17 @@
 
     <string name="action_settings">Settings</string>
 
+    <string-array name="category">
+        <item>-----</item>
+        <item>Fashion</item>
+        <item>Eelectric Appliances</item>
+        <item>Beauty</item>
+        <item>Books</item>
+        <item>Electronics</item>
+        <item>Music and videos</item>
+        <item>Others</item>
+    </string-array>
+
     <string-array name="categories">
         <item>Fashion</item>
         <item>Eelectric Appliances</item>

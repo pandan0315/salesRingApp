@@ -12,7 +12,9 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-
+/**
+ * Created by zhehuan on 20/02/2016.
+ */
 public class FriendActivity extends AppCompatActivity {
     ArrayList<FriendDetail> friends;
     ListView friendLV;
@@ -25,12 +27,20 @@ public class FriendActivity extends AppCompatActivity {
         ImageView userProfileIV = (ImageView)findViewById(R.id.userProfileButt);
         ImageView friendsIV = (ImageView) findViewById(R.id.friendsButt);
         ImageView newPostIV = (ImageView)findViewById(R.id.newPostButt);
+        ImageView searchIcon = (ImageView) findViewById(R.id.searchIcon);
         Glide.with(this).load(R.drawable.internet).into(homeIV);
         Glide.with(this).load(R.drawable.social).into(userProfileIV);
         Glide.with(this).load(R.drawable.editing).into(newPostIV);
         Glide.with(this).load(R.drawable.people).into(friendsIV);
+        Glide.with(this).load(R.drawable.searchicon).into(searchIcon);
 
         friends = new ArrayList<FriendDetail>();
+        homeButton = (ImageButton) findViewById(R.id.homeButt);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(FriendActivity.this, LoginActivity.class));
+            }
+        });
 
         friends.add(new FriendDetail("Khalid", "H&M, CK"));
         friends.add(new FriendDetail("Yuqing", "CHANEL"));
@@ -38,5 +48,16 @@ public class FriendActivity extends AppCompatActivity {
         FriendAdapter adapter = new FriendAdapter(FriendActivity.this,friends);
         friendLV = (ListView) findViewById(R.id.friendsListView);
         friendLV.setAdapter(adapter);
+    }
+    public void friend_jumpToHome(View view) {
+        startActivity(new Intent(FriendActivity.this, MainActivity.class));
+    }
+
+    public void friend_jumpToProfile(View view) {
+        startActivity(new Intent(FriendActivity.this, UserProfileActivity.class));
+    }
+
+    public void friend_jumpToPost(View view) {
+        startActivity(new Intent(FriendActivity.this, NewPostActivity.class));
     }
 }

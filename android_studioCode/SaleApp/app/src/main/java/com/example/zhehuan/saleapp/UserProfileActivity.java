@@ -81,4 +81,16 @@ public class UserProfileActivity extends AppCompatActivity {
             profilePhoto.setImageBitmap(photo);
         }
     }
+
+    public void jumpToHome(View view) {
+        startActivity(new Intent(UserProfileActivity.this, MainActivity.class));
+    }
+
+    public void jumpToFriend(View view) {
+        startActivity(new Intent(UserProfileActivity.this, FriendActivity.class));
+    }
+
+    public void jumpToPost(View view) {
+        startActivity(new Intent(UserProfileActivity.this, NewPostActivity.class));
+    }
 }

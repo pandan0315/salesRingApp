@@ -23,7 +23,7 @@ public class EditProfileActivity  extends AppCompatActivity {
         setContentView(R.layout.edit_profile);
 
         final Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.categories, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.category, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -33,6 +33,7 @@ public class EditProfileActivity  extends AppCompatActivity {
                 if (!item.toString().equals("-----")) {
                     Toast.makeText(EditProfileActivity.this, item.toString() + " added!", Toast.LENGTH_SHORT).show();
                     addButt(item);
+                    spinner.setSelection(0);
                 }
             }
 
