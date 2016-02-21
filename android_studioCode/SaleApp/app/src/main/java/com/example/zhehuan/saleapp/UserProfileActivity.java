@@ -82,7 +82,7 @@ public class UserProfileActivity extends AppCompatActivity {
         }
     }
 
-<<<<<<< HEAD
+
     public void homeClicked(View view)
     {
         startActivity(new Intent(UserProfileActivity.this, MainActivity.class));
@@ -98,10 +98,9 @@ public class UserProfileActivity extends AppCompatActivity {
         startActivity(new Intent(UserProfileActivity.this, UserProfileActivity.class));
     }
 
-    public void listOrAddFriends(View view)
-    {
-        startActivity(new Intent(UserProfileActivity.this,FriendActivity.class));
-=======
+    public void listOrAddFriends(View view) {
+        startActivity(new Intent(UserProfileActivity.this, FriendActivity.class));
+    }
     public void jumpToHome(View view) {
         startActivity(new Intent(UserProfileActivity.this, MainActivity.class));
     }
@@ -112,6 +111,6 @@ public class UserProfileActivity extends AppCompatActivity {
 
     public void jumpToPost(View view) {
         startActivity(new Intent(UserProfileActivity.this, NewPostActivity.class));
->>>>>>> 84427ce6b76b0ee642a87e49947978b7392464f9
+
     }
 }
