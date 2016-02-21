@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity
                 startActivity(new Intent(MainActivity.this, DetailedViewActivity.class));
             }
         });
-        startActivity(new Intent(MainActivity.this, AboutAppActivity.class));
+
     }
 
 
@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            startActivity(new Intent(MainActivity.this,  AboutAppActivity.class));
             return true;
         }
 
@@ -162,7 +163,7 @@ public class MainActivity extends AppCompatActivity
         startActivity(new Intent(MainActivity.this,FriendActivity.class));
     }
 
-    public void aboutApp(View view)
+    public void aboutAppClicked(View view)
     {
         startActivity(new Intent(MainActivity.this,AboutAppActivity.class));
     }

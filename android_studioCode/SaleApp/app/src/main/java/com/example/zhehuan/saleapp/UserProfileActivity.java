@@ -82,10 +82,7 @@ public class UserProfileActivity extends AppCompatActivity {
         }
     }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 2009471fe24e0aa7f0571798f3e55c740bcf0a03
     public void homeClicked(View view)
     {
         startActivity(new Intent(UserProfileActivity.this, MainActivity.class));
@@ -114,9 +111,5 @@ public class UserProfileActivity extends AppCompatActivity {
 
     public void jumpToPost(View view) {
         startActivity(new Intent(UserProfileActivity.this, NewPostActivity.class));
-<<<<<<< HEAD
-=======
-
->>>>>>> 2009471fe24e0aa7f0571798f3e55c740bcf0a03
     }
 }
