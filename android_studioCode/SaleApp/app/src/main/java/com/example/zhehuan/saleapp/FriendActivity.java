@@ -35,12 +35,6 @@ public class FriendActivity extends AppCompatActivity {
         Glide.with(this).load(R.drawable.searchicon).into(searchIcon);
 
         friends = new ArrayList<FriendDetail>();
-        homeButton = (ImageButton) findViewById(R.id.homeButt);
-        homeButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                startActivity(new Intent(FriendActivity.this, LoginActivity.class));
-            }
-        });
 
         friends.add(new FriendDetail("Khalid", "H&M, CK"));
         friends.add(new FriendDetail("Yuqing", "CHANEL"));

@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">SaleApp</string>
+    <string name="app_name">Sales Ring</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">About The App</string>
 
     <string-array name="category">
         <item>-----</item>
@@ -26,7 +26,7 @@
         <item>Music and videos</item>
         <item>Others</item>
     </string-array>
-    <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_login">Sales Ring</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>

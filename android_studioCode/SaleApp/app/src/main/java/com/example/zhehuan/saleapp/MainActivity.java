@@ -80,9 +80,7 @@ public class MainActivity extends AppCompatActivity
                 startActivity(new Intent(MainActivity.this, DetailedViewActivity.class));
             }
         });
-
-
-        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+        startActivity(new Intent(MainActivity.this, AboutAppActivity.class));
     }
 
 
@@ -162,5 +160,10 @@ public class MainActivity extends AppCompatActivity
     public void listOrAddFriends(View view)
     {
         startActivity(new Intent(MainActivity.this,FriendActivity.class));
+    }
+
+    public void aboutApp(View view)
+    {
+        startActivity(new Intent(MainActivity.this,AboutAppActivity.class));
     }
 }
