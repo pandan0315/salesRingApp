@@ -14,11 +14,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="User Name:"
+            android:text="Please input your email:"
             android:id="@+id/textView7" />
 
         <EditText
-            android:layout_width="207dp"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:id="@+id/editText2" />
 
@@ -26,11 +26,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Password:"
+            android:text="Please set a password:"
             android:id="@+id/textView8" />
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="276dp"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:ems="10"
@@ -40,25 +40,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="re-Password"
+            android:text="Input your password again:"
             android:id="@+id/textView9" />
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="283dp"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:ems="10"
             android:id="@+id/editText4" />
 
-    </LinearLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Register"
+            android:id="@+id/button2"
+            android:layout_gravity="center_horizontal"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="#4d5ee5" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Register"
-        android:id="@+id/button2"
-        android:layout_gravity="center_horizontal"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+    </LinearLayout>
 
 </RelativeLayout>
