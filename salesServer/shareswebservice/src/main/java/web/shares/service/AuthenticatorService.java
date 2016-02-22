@@ -10,21 +10,21 @@ public class AuthenticatorService {
 	DataHandler dataHandler=new DataHandler();
    
 
-    public boolean authenticate(String name,String password){
+    public User authenticate(String email,String password){
     	
     	
-    	User user= dataHandler.getUserByNameAndPassword(name, password);
+    	User user= dataHandler.getUserByNameAndPassword(email, password);
     
     	if(user==null)
     	{
-    		return false;
+    		return null;
     	}
-    	return true;
+    	return new User(user.getUserName(),user.getEmailAddress());
 
 }
-    public boolean checkUser(String name){
+    public boolean checkUser(String email){
     	
-    	User user=dataHandler.getUserByname(name);
+    	User user=dataHandler.getUserByname(email);
     	return user!=null;
     }
     

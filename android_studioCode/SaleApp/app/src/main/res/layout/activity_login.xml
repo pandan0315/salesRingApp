@@ -89,6 +89,7 @@
                 android:text="Sign up and Join us!"
                 android:id="@+id/SignUpBotton"
                 android:background="#b7b7ba"
+                android:onClick="RegisterActivity"
                 android:clickable="true" />
 
         </LinearLayout>

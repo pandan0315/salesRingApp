@@ -27,6 +27,8 @@ public class SignupResource {
 	 * @apiGroup Authentication
 	 * @apiParam (Signup @FormParam) {String} username username needed to
 	 *           register the salesinfo app.
+	 * @apiParam (Signup @FormParam) {String} email email needed to
+	 *           register the salesinfo app.
 	 * @apiParam (Signup @FormParam) {String} password password needed to
 	 *           register the salesinfo app.
 	 * @apiSuccessExample Success-Response: 
@@ -44,12 +46,13 @@ public class SignupResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Response Signup(@FormParam("username") String username,
+    		                    @FormParam("email") String email,
     		                 
                                      @FormParam("password") String password) {
 
    if(!authentication.checkUser(username)){
 	   
-	   User newUser=new User(username,password);
+	   User newUser=new User(username,email,password);
 	   dataHandler.storeUserAccount(newUser);
     	  
 	   return  Response.status(201).entity("User created successfully!").build();

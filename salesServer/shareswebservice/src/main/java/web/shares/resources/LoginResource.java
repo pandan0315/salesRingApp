@@ -12,6 +12,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import web.shares.model.ErrorResponse;
+import web.shares.model.User;
 import web.shares.service.AuthenticatorService;
 
 
@@ -27,7 +28,7 @@ public class LoginResource {
 	 * @api{post} /login  user login to the saleinfo app.
 	 * @apiName  LoginToApp
 	 * @apiGroup Authentication
-	 * @apiParam (Login @FormParam) {String} username  username for entering the salesinfo app.
+	 * @apiParam (Login @FormParam) {String} email  emailaddress for entering the salesinfo app.
 	 * @apiParam (Login @FormParam) {String} password   password for entering the salesinfo app.
 	 * @apiSuccessExample Success-Response:
 	 *  HTTP/1.1 200 OK
@@ -43,12 +44,14 @@ public class LoginResource {
   	@POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public Response authenticateUser(@FormParam("username") String username, 
+    public Response authenticateUser(@FormParam("email") String email, 
                                      @FormParam("password") String password) {
+  		
+  		User user=authentication.authenticate(email, password);
 
-       if(authentication.authenticate(username, password)){
+       if(user!=null){
     	   
-        return Response.status(200).entity("Login Successful").build();
+        return Response.status(200).entity(user).build();
             
        }
        return Response.status(401).entity(new ErrorResponse("Unauthorized User!")).build();

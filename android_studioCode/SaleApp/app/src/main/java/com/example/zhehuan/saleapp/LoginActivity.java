@@ -15,6 +15,8 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -32,9 +34,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.loopj.android.http.*;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
+import android.widget.Toast;
+
+import 	java.net.HttpURLConnection;
+import java.net.URL;
+
+import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.client.ResponseHandler;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -58,7 +70,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
-    private UserLoginTask mAuthTask = null;
+    //private UserLoginTask mAuthTask = null;
 
     // UI references.
     private AutoCompleteTextView mEmailView;
@@ -72,7 +84,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         setContentView(R.layout.activity_login);
         // Set up the login form.
 
-        ImageView ourLogo = (ImageView)findViewById(R.id.LoginLogo);
+        ImageView ourLogo = (ImageView) findViewById(R.id.LoginLogo);
         Glide.with(this).load(R.drawable.logo).into(ourLogo);
 
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
@@ -154,9 +166,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
-        if (mAuthTask != null) {
-            return;
-        }
+       // if (mAuthTask != null) {
+       //     return;
+        //}
 
         // Reset errors.
         mEmailView.setError(null);
@@ -195,8 +207,65 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
+           // mAuthTask = new UserLoginTask(email, password);
+            //mAuthTask.execute((Void) null);
+
+            loginUser(email,password);
+        }
+    }
+
+    public void loginUser(String email, String password) {
+
+        RequestParams request = new RequestParams();
+        request.put("email",email);
+        request.put("password",password);
+
+        AsyncHttpClient client= new AsyncHttpClient();
+        client.post("http://192.168.11.113:8080/shares/webapi/login", request, new JsonHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, java.lang.Throwable throwable, org.json.JSONObject errorResponse) {
+
+                Toast.makeText(getApplicationContext(), "Unauthorized User!Try again or Register right now!", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(LoginActivity.this, LoginActivity.class));
+
+
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, org.json.JSONObject response) {
+
+
+                try {
+
+
+                    Intent intent=new Intent();
+                    intent.putExtra("username",response.getString("userName"));
+                    intent.setClass(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+               // startActivity(new Intent(LoginActivity.this, MainActivity.class));
+
+            }
+        });
+
+
+    }
+
+    public void RegisterActivity(View view) {
+        Intent loginIntent = new Intent(getApplicationContext(),RegisterActivity.class);
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(loginIntent);
+    }
+
+    public abstract class AlwaysAsyncHttpResponseHandler extends AsyncHttpResponseHandler {
+        @Override
+        public boolean getUseSynchronousMode() {
+            return false;
         }
     }
 
@@ -304,10 +373,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+ /*   public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
         private final String mEmail;
         private final String mPassword;
+        private boolean isSuccess = true;
+
 
         UserLoginTask(String email, String password) {
             mEmail = email;
@@ -316,7 +387,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
+
 
             try {
                 // Simulate network access.
@@ -325,21 +396,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return false;
             }
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
+            RequestParams request = new RequestParams();
+            request.put("username", mEmail);
+            request.put("password", mPassword);
 
-            // TODO: register the new account here.
-            return true;
+            invokeWebservice(request);
+
+
+            return isSuccess;
         }
 
         @Override
         protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
+            mAuthTask  = null;
             showProgress(false);
 
             if (success) {
@@ -348,7 +417,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                startActivity(new Intent(LoginActivity.this, LoginActivity.class));
             }
         }
 
@@ -357,6 +426,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = null;
             showProgress(false);
         }
-    }
+
+
+
+
+        }
+
+*/
 }
+
+
 

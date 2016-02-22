@@ -56,9 +56,10 @@ public class DataHandler {
 	    	ResultSet rs=stmt.executeQuery();
 	    	if(rs.next()){
 	    		String userName=rs.getString("username");
+	    		String email=rs.getString("email");
 	    		String password=rs.getString("password");
 	    		stmt.close();
-	    		return new User(userName,password);
+	    		return new User(userName,email,password);
 	    	}
 	    	stmt.close();
 		} catch (SQLException e) {
@@ -68,17 +69,18 @@ public class DataHandler {
     	return null;
     }
     
-    public User getUserByNameAndPassword(String name, String password){
+    public User getUserByNameAndPassword(String email, String password){
     	try{
-    		PreparedStatement stmt = con.prepareStatement("SELECT * FROM share.users WHERE (username = ? AND password = ?)");
-            stmt.setString(1, name);
+    		PreparedStatement stmt = con.prepareStatement("SELECT * FROM share.users WHERE (email = ? AND password = ?)");
+            stmt.setString(1, email);
             stmt.setString(2, password);
             ResultSet rs=stmt.executeQuery();
             if(rs.next()){
-            	String userName=rs.getString("username");
+            	String username=rs.getString("username");
+            	String emailaddress=rs.getString("email");
             	String passStr=rs.getString("password");
             	stmt.close();
-            	return new User(userName,passStr);
+            	return new User(username,emailaddress);
             }
     	}catch (SQLException e) {
 			// TODO Auto-generated catch block
