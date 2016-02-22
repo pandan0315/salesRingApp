@@ -1,0 +1,5 @@
+127.0.0.1 - - [22/Feb/2016:08:52:28 +0100] "GET / HTTP/1.1" 404 994
+0:0:0:0:0:0:0:1 - - [22/Feb/2016:08:52:42 +0100] "GET /shares/webapi/pan HTTP/1.1" 200 78
+0:0:0:0:0:0:0:1 - - [22/Feb/2016:08:53:44 +0100] "GET /shares/webapi/pan/salesinfo HTTP/1.1" 200 2
+0:0:0:0:0:0:0:1 - - [22/Feb/2016:08:55:08 +0100] "GET /shares/webapi/pan/salesinfo HTTP/1.1" 200 303
+0:0:0:0:0:0:0:1 - - [22/Feb/2016:09:00:49 +0100] "GET /shares/webapi/pan/salesinfo HTTP/1.1" 200 601

@@ -110,7 +110,7 @@ public class DataHandler {
     	
     	try {
             // Prepare the statement with SQL update command
-            PreparedStatement stmt = con.prepareStatement("SELECT * FROM share.posts" +
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM share.postedinfo" +
                     " WHERE postid = ?");
             stmt.setLong(1, postId);;
             ResultSet rs = stmt.executeQuery();
@@ -146,7 +146,7 @@ public class DataHandler {
     	
     	 try {
 			stmt=con.createStatement();
-			ResultSet rs=stmt.executeQuery("SELECT * FROM share.posts");
+			ResultSet rs=stmt.executeQuery("SELECT * FROM share.postedinfo");
 			
 			while(rs.next()){
 			
@@ -169,7 +169,8 @@ public class DataHandler {
     	ArrayList<PostInfo> allPostsByName=new ArrayList<>();
     	FollowingFriendship allfriendsByName=this.getAllFriends(name);
     	ArrayList<String> followedfriendsList= allfriendsByName.getFollowedList();
-    	StringBuilder b = new StringBuilder();
+    	StringBuilder b = new StringBuilder("'" + name + "', ");
+    	
     	for (String friendName : followedfriendsList) {
     		b.append("'" + friendName + "', ");
     	}
@@ -177,7 +178,7 @@ public class DataHandler {
     	
     	 try {
 			Statement stmt = con.createStatement();
-			ResultSet rs=stmt.executeQuery("SELECT * FROM share.posts" + " WHERE post_user IN (" + whereClause + ")");
+			ResultSet rs=stmt.executeQuery("SELECT * FROM share.postedinfo" + " WHERE post_user IN (" + whereClause + ")");
 			//stmt.setString(1,whereClause);
 	    	//stmt.executeQuery();
 	    	while(rs.next()){
@@ -197,7 +198,7 @@ public class DataHandler {
     public PostInfo storePostInfo(PostInfo newPost,String imagePath)  {
         try {
             // Prepare the statement with SQL update command
-            PreparedStatement stmt = con.prepareStatement("INSERT INTO share.posts" +
+            PreparedStatement stmt = con.prepareStatement("INSERT INTO share.postedinfo" +
                     "(postid,post_user,tagged_user,category,shop,price_before,date,salediscount,image_path,description) VALUES (?,?,?,?,?,?,?,?,?,?)");
             
             stmt.setLong(1, newPost.getId());        
@@ -236,7 +237,7 @@ public class DataHandler {
     		if(tagged_user==null){
     			return;
     		}
-    		PreparedStatement stmt = con.prepareStatement("UPDATE  share.posts SET " +
+    		PreparedStatement stmt = con.prepareStatement("UPDATE  share.postedinfo SET " +
                      "tagged_user = ? WHERE postid = ?");      
     		 
     		 stmt.setString(1, tagged_userBefore+","+tagged_user);
@@ -257,7 +258,7 @@ public class DataHandler {
     	 
     	 try {
  			stmt=con.createStatement();
- 			ResultSet rs=stmt.executeQuery("SELECT * FROM share.user_interest");
+ 			ResultSet rs=stmt.executeQuery("SELECT * FROM share.userprofile");
  			
  			while(rs.next()){
  			
@@ -281,7 +282,7 @@ public class DataHandler {
     }
     public UserProfile getUserInterestByNameAndInterest(String name, String category){
     	try{
-    		PreparedStatement stmt = con.prepareStatement("SELECT * FROM share.user_interest WHERE (username = ? AND interest_category = ?)");
+    		PreparedStatement stmt = con.prepareStatement("SELECT * FROM share.userprofile WHERE (username = ? AND interest_category = ?)");
             stmt.setString(1, name);
             stmt.setString(2, category);
             ResultSet rs=stmt.executeQuery();
@@ -305,7 +306,7 @@ public class DataHandler {
     	ArrayList<UserProfile> allInterest=new ArrayList<>();
     	 try {
   			stmt=con.createStatement();
-  			ResultSet rs=stmt.executeQuery("SELECT * FROM share.user_interest");
+  			ResultSet rs=stmt.executeQuery("SELECT * FROM share.userprofile");
   			
   			while(rs.next()){
   			
@@ -330,7 +331,7 @@ public class DataHandler {
     	//newInterest.setId(this.getAllUserInterest().size()+1);
     	  try {
               // Prepare the statement with SQL update command
-              PreparedStatement stmt = con.prepareStatement("INSERT INTO share.user_interest" +
+              PreparedStatement stmt = con.prepareStatement("INSERT INTO share.userprofile" +
                       "(username,interest_category) VALUES (?,?)");
               
              
@@ -354,7 +355,7 @@ public class DataHandler {
  	 
  	 try {
 			stmt=con.createStatement();
-			ResultSet rs=stmt.executeQuery("SELECT * FROM share.following_table");
+			ResultSet rs=stmt.executeQuery("SELECT * FROM share.followingfriendship");
 			
 			while(rs.next()){
 			    if(rs.getString("following_user").equals(username))
@@ -374,7 +375,7 @@ public class DataHandler {
  }
   public FollowingFriendship getFriendshipByFollowingAndFollowed(String followingUser, String followedUser){
   	try{
-  		PreparedStatement stmt = con.prepareStatement("SELECT * FROM share.following_table WHERE (following_user = ? AND followed_user = ?)");
+  		PreparedStatement stmt = con.prepareStatement("SELECT * FROM share.followingfriendship WHERE (following_user = ? AND followed_user = ?)");
           stmt.setString(1, followingUser);
           stmt.setString(2, followedUser);
           ResultSet rs=stmt.executeQuery();
