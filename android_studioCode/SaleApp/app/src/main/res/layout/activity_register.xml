@@ -59,27 +59,22 @@
             android:textStyle="bold" />
 
         <Button
-            android:layout_width="305dp"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="Register"
             android:id="@+id/register"
-            android:layout_gravity="center_horizontal"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
             android:onClick="registerUser"
             android:textStyle="bold"
-            android:layout_marginTop="16dp"
             android:background="#6863eb" />
 
         <Button
-            android:layout_width="322dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Back to Login"
             android:id="@+id/backlogin"
             android:onClick="goToLogin"
-
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
             android:background="#b7b7ba" />
 
     </LinearLayout>

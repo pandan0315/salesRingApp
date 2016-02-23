@@ -55,7 +55,7 @@ public class SignupResource {
 	   User newUser=new User(username,email,password);
 	   dataHandler.storeUserAccount(newUser);
     	  
-	   return  Response.status(201).entity("User created successfully!").build();
+	   return  Response.status(201).entity(newUser).build();
             
        }
        

@@ -62,7 +62,7 @@ public class RegisterActivity extends AppCompatActivity {
             if(isEmailValid(email)){
 
                 params.put("username",name);
-                params.put("email",name);
+                params.put("email",email);
                 params.put("password",password);
 
                 invokeWS(params);
@@ -110,7 +110,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, java.lang.Throwable throwable, org.json.JSONObject errorResponse) {
+            public void onFailure(int statusCode, Header[] headers, String responseString,Throwable throwable) {
                 prgDialog.hide();
                 Toast.makeText(getApplicationContext(), "Something went wrong,maybe username or email already existed,try again!", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(RegisterActivity.this, RegisterActivity.class));

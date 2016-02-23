@@ -126,7 +126,9 @@
 
       
      
-      <Context docBase="/Users/danpan/Documents/bitbucket/salesharing/salesServer/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/ROOT" path="" reloadable="false"/><Context docBase="/Users/danpan/Documents/bitbucket/salesharing/salesServer/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/shareswebservice" path="/shares" reloadable="true" source="org.eclipse.jst.jee.server:shareswebservice"/></Host>
+      <Context docBase="/Users/danpan/Documents/bitbucket/salesharing/salesServer/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/ROOT" path="" reloadable="false"/><Context docBase="/Users/danpan/Documents/bitbucket/salesharing/salesServer/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/shareswebservice" path="/shares" reloadable="true" source="org.eclipse.jst.jee.server:shareswebservice"/>
+      <Context docBase="/Users/danpan/Documents/bitbucket/salesharing/salesServer/shareswebservice/image" path="/shares/image"/>
+      </Host>
     </Engine>
   </Service>
 </Server>

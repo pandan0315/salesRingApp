@@ -94,10 +94,11 @@ public class DataHandler {
         try {
             // Prepare the statement with SQL update command
             PreparedStatement stmt = con.prepareStatement("INSERT INTO share.users " +
-                    "(username, password) VALUES (?, ?)");
+                    "(username, email,password) VALUES (?,?, ?)");
             
             stmt.setString(1, newUser.getUserName());        
-            stmt.setString(2, newUser.getPassword());
+            stmt.setString(2, newUser.getEmailAddress());
+            stmt.setString(3, newUser.getPassword());
             
             // Execute and update the data
             stmt.executeUpdate();
@@ -123,13 +124,14 @@ public class DataHandler {
             	String postUser=rs.getString("post_user");
             	String taggedUser=rs.getString("tagged_user");
             	String category=rs.getString("category");
-            	double price_before=rs.getDouble("price_before");
+            	String is_pricebefore=rs.getString("is_pricebefore");
+            	double price=rs.getDouble("price");
             	String sale_discount=rs.getString("salediscount");
             	String shop=rs.getString("shop");    	
-            	String imagepath=rs.getString("image_path");
+            	String imageName=rs.getString("image_name");
             	String description=rs.getString("description");          
                 stmt.close();
-                PostInfo newPost= new PostInfo(id,taggedUser,created,postUser,category,price_before,sale_discount,shop,imagepath,description);
+                PostInfo newPost= new PostInfo(id,taggedUser,created,postUser,category,is_pricebefore,price,sale_discount,shop,imageName,description);
                 
                 return newPost;
               
@@ -197,23 +199,24 @@ public class DataHandler {
     	 return allPostsByName;
     }
     
-    public PostInfo storePostInfo(PostInfo newPost,String imagePath)  {
+    public PostInfo storePostInfo(PostInfo newPost,String imageName)  {
         try {
             // Prepare the statement with SQL update command
             PreparedStatement stmt = con.prepareStatement("INSERT INTO share.postedinfo" +
-                    "(postid,post_user,tagged_user,category,shop,price_before,date,salediscount,image_path,description) VALUES (?,?,?,?,?,?,?,?,?,?)");
+                    "(postid,post_user,tagged_user,category,shop,is_pricebefore,price,date,salediscount,image_name,description) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
             
             stmt.setLong(1, newPost.getId());        
             stmt.setString(2, newPost.getPostUser());
             stmt.setString(3, newPost.getTaggedUser());
             stmt.setString(4, newPost.getCategory());
             stmt.setString(5, newPost.getShop());
-            stmt.setDouble(6, newPost.getPrice_before());
-            stmt.setDate(7, newPost.getCreated());
-            stmt.setString(8, newPost.getSale_discount());
+            stmt.setString(6, newPost.getIs_pricebefore());
+            stmt.setDouble(7, newPost.getPrice());
+            stmt.setDate(8, newPost.getCreated());
+            stmt.setString(9, newPost.getSale_discount());
             
-            stmt.setString(9, imagePath);
-            stmt.setString(10, newPost.getDescription());
+            stmt.setString(10, imageName);
+            stmt.setString(11, newPost.getDescription());
             /* Read image file path in the server side */
 			//File image = new File(newPost.getImageFilePath());
 			//FileInputStream fis = new FileInputStream(image);
@@ -230,14 +233,14 @@ public class DataHandler {
 		return newPost;
         
     }
-    public void updatePostInfo(long postid,String tagged_user){
+    public PostInfo updatePostInfo(long postid,String tagged_user){
     	
     	PostInfo currentPost=this.getPostById(postid);
     	String tagged_userBefore=currentPost.getTaggedUser();
     	try{
     		
     		if(tagged_user==null){
-    			return;
+    			return null;
     		}
     		PreparedStatement stmt = con.prepareStatement("UPDATE  share.postedinfo SET " +
                      "tagged_user = ? WHERE postid = ?");      
@@ -250,6 +253,7 @@ public class DataHandler {
     	}catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
+    	return this.getPostById(postid);
     }
     
     

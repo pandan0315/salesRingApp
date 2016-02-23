@@ -15,13 +15,14 @@ public class PostInfo {
 	private String postUser;
 	private String taggedUser;
 	private String category;
-	private double price_before;
+	private String is_pricebefore;
+	private double price;
 	private String sale_discount;
 	private String shop;
 	private String description;
 	private String imageName;
 	private String encodeImage;
-	private String imagePath;
+	//private String imagePath;
 	
 	
 	
@@ -34,18 +35,19 @@ public class PostInfo {
 	
 
 
-	public PostInfo(long id,String taggedUser, Date created, String postUser, String category, double price_before, String sale_discount,
-			String shop,String imagePath,String description) {
+	public PostInfo(long id,String taggedUser, Date created, String postUser, String category, String is_pricebefore,double price, String sale_discount,
+			String shop,String imageName,String description) {
 		super();
 		this.id=id;
 		this.taggedUser=taggedUser;
 		this.created = created;
 		this.postUser = postUser;
 		this.category = category;
-		this.price_before = price_before;
+		this.is_pricebefore=is_pricebefore;
+		this.price=price;
 		this.sale_discount = sale_discount;
 		this.shop = shop;
-	    this.imagePath=imagePath;
+	    this.imageName=imageName;
 	    this.description=description;
 
 		
@@ -58,14 +60,15 @@ public class PostInfo {
 	}
 
 
-	public PostInfo(String taggedUser,Date created, String postUser, String category, double price_before, String sale_discount,
+	public PostInfo(String taggedUser,Date created, String postUser, String category, String is_pricebefore,double price, String sale_discount,
 			String shop, String imageName, String encodeImage) {
 		super();
 		this.taggedUser=taggedUser;
 		this.created = created;
 		this.postUser = postUser;
 		this.category = category;
-		this.price_before = price_before;
+		this.setIs_pricebefore(is_pricebefore);
+		this.setPrice(price);
 		this.sale_discount = sale_discount;
 		this.shop = shop;
 		this.imageName = imageName;
@@ -141,16 +144,7 @@ public class PostInfo {
 
 
 
-	public double getPrice_before() {
-		return price_before;
-	}
-
-
-
-	public void setPrice_before(double price_before) {
-		this.price_before = price_before;
-	}
-
+	
 
 
 	public String getSale_discount() {
@@ -216,24 +210,6 @@ public class PostInfo {
 
 
 
-	public String getImagePath() {
-		return imagePath;
-	}
-
-
-
-
-
-
-	public void setImagePath(String imagePath) {
-		this.imagePath = imagePath;
-	}
-
-
-
-
-
-
 	public String getDescription() {
 		return description;
 	}
@@ -245,6 +221,42 @@ public class PostInfo {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+
+
+
+
+
+	public double getPrice() {
+		return price;
+	}
+
+
+
+
+
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+
+
+
+
+
+	public String getIs_pricebefore() {
+		return is_pricebefore;
+	}
+
+
+
+
+
+
+	public void setIs_pricebefore(String is_pricebefore) {
+		this.is_pricebefore = is_pricebefore;
 	}
 
 
