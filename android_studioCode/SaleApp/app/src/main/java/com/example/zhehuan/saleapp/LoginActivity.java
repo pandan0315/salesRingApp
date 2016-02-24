@@ -221,9 +221,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         request.put("password",password);
 
         AsyncHttpClient client= new AsyncHttpClient();
-        client.post("http://192.168.11.113:8080/shares/webapi/login", request, new JsonHttpResponseHandler() {
+        client.post("http://130.229.170.156:8080/shares/webapi/login", request, new JsonHttpResponseHandler() {
             @Override
-            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, java.lang.Throwable throwable, org.json.JSONObject errorResponse) {
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, String errorResponse,java.lang.Throwable throwable) {
 
                 Toast.makeText(getApplicationContext(), "Unauthorized User!Try again or Register right now!", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(LoginActivity.this, LoginActivity.class));

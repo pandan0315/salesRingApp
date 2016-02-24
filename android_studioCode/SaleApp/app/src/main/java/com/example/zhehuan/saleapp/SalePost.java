@@ -17,6 +17,7 @@ public class SalePost {
     private String imageName;
     private String is_pricebefore;
     private String postDate;
+    private String encodeImge;
 
 
     public SalePost(){
@@ -36,6 +37,20 @@ public class SalePost {
         this.price = price;
         this.imageName =imageName;
 
+    }
+
+    public SalePost(String poster, String taggedUser, String store, String category, String description, String saleValue, double price, String imageName, String is_pricebefore, String postDate, String encodeImge) {
+        this.poster = poster;
+        this.taggedUser = taggedUser;
+        this.store = store;
+        this.category = category;
+        Description = description;
+        this.saleValue = saleValue;
+        this.price = price;
+        this.imageName = imageName;
+        this.is_pricebefore = is_pricebefore;
+        this.postDate = postDate;
+        this.encodeImge = encodeImge;
     }
 
     public long getPostID() {
@@ -124,5 +139,13 @@ public class SalePost {
 
     public void setPostDate(String postDate) {
         this.postDate = postDate;
+    }
+
+    public String getEncodeImge() {
+        return encodeImge;
+    }
+
+    public void setEncodeImge(String encodeImge) {
+        this.encodeImge = encodeImge;
     }
 }

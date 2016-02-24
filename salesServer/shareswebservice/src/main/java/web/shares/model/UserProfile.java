@@ -23,7 +23,7 @@ public class UserProfile {
 	}
 
 
-	public UserProfile(String username, String interest_category) {
+	public UserProfile(String username,String interest_category) {
 		super();
 		
 		this.username = username;
@@ -59,6 +59,8 @@ public class UserProfile {
 		this.interest_category = interest_category;
 	}
 
+
+	
 
 	
 	

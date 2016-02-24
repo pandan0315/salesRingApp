@@ -102,6 +102,10 @@ public class MainActivity extends AppCompatActivity
 
 
     }
+    public String getUsername()
+    {
+        return username;
+    }
 
     private void getPosts(String username,String category) {
 
@@ -111,11 +115,11 @@ public class MainActivity extends AppCompatActivity
         String url;
 
         if(category==null){
-            url="http://192.168.11.113:8080/shares/webapi/"+username+"/salesinfo";
+            url="http://130.229.170.156:8080/shares/webapi/"+username+"/salesinfo";
 
         }
         else{
-        url="http://192.168.11.113:8080/shares/webapi/"+username+"/salesinfo"+"?category="+category;}
+        url="http://130.229.170.156:8080/shares/webapi/"+username+"/salesinfo"+"?category="+category;}
 
 
 
@@ -159,13 +163,18 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view,
                                             int position, long id) {
-                        startActivity(new Intent(MainActivity.this, DetailedViewActivity.class));
+                        Intent intent=new Intent();
+                        intent.putExtra("username",getUsername());
+                        intent.setClass(MainActivity.this, MainActivity.class);
+                        startActivity(intent);
+
                     }
                 });
 
 
 
             }
+
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String errorResponse, Throwable e) {
@@ -237,49 +246,49 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_beauty) {
             Intent intent=new Intent();
             intent.putExtra("username",username);
-            intent.putExtra("category","fashion");
+            intent.putExtra("category","Beauty");
             intent.setClass(MainActivity.this, MainActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_books) {
             Intent intent=new Intent();
             intent.putExtra("username",username);
-            intent.putExtra("category","books");
+            intent.putExtra("category","Books");
             intent.setClass(MainActivity.this, MainActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_electronics) {
             Intent intent=new Intent();
             intent.putExtra("username",username);
-            intent.putExtra("category","electronics");
+            intent.putExtra("category","Electronics");
             intent.setClass(MainActivity.this, MainActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_hobbies) {
             Intent intent=new Intent();
             intent.putExtra("username",username);
-            intent.putExtra("category","hobbies");
+            intent.putExtra("category","Hobbies");
             intent.setClass(MainActivity.this, MainActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_fashion) {
             Intent intent=new Intent();
             intent.putExtra("username",username);
-            intent.putExtra("category","fashion");
+            intent.putExtra("category","Fashion");
             intent.setClass(MainActivity.this, MainActivity.class);
             startActivity(intent);
 
         }else if(id==R.id.nav_media){
             Intent intent=new Intent();
             intent.putExtra("username",username);
-            intent.putExtra("category","media");
+            intent.putExtra("category","Music and videos");
             intent.setClass(MainActivity.this, MainActivity.class);
             startActivity(intent);
 
         }else if(id==R.id.nav_others){
             Intent intent=new Intent();
             intent.putExtra("username",username);
-            intent.putExtra("category","others");
+            intent.putExtra("category","Others");
             intent.setClass(MainActivity.this, MainActivity.class);
             startActivity(intent);
 
@@ -301,18 +310,32 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void newPost(View view)
+
     {
-        startActivity(new Intent(MainActivity.this,NewPostActivity.class));
+        Intent intent=new Intent();
+        intent.putExtra("username",username);
+        intent.setClass(MainActivity.this, NewPostActivity.class);
+        startActivity(intent);
+       // startActivity(new Intent(MainActivity.this,NewPostActivity.class));
     }
 
     public void goToProfile(View view)
     {
-        startActivity(new Intent(MainActivity.this,UserProfileActivity.class));
+        Intent intent=new Intent();
+        intent.putExtra("username", username);
+        intent.setClass(MainActivity.this, UserProfileActivity.class);
+        startActivity(intent);
+       // startActivity(new Intent(MainActivity.this,UserProfileActivity.class));
     }
 
     public void listOrAddFriends(View view)
+
     {
-        startActivity(new Intent(MainActivity.this,FriendActivity.class));
+        Intent intent=new Intent();
+        intent.putExtra("username", username);
+        intent.setClass(MainActivity.this, FriendActivity.class);
+        startActivity(intent);
+        //startActivity(new Intent(MainActivity.this,FriendActivity.class));
     }
 
     public void aboutAppClicked(View view)

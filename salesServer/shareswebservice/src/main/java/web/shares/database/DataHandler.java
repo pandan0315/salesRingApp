@@ -120,12 +120,12 @@ public class DataHandler {
             // Create the client account object and return it
             if (rs.next()) {
             	long id=rs.getLong("postid");
-            	Date created=rs.getDate("date");
+            	String created=rs.getString("date");
             	String postUser=rs.getString("post_user");
             	String taggedUser=rs.getString("tagged_user");
             	String category=rs.getString("category");
             	String is_pricebefore=rs.getString("is_pricebefore");
-            	double price=rs.getDouble("price");
+            	String price=rs.getString("price");
             	String sale_discount=rs.getString("salediscount");
             	String shop=rs.getString("shop");    	
             	String imageName=rs.getString("image_name");
@@ -211,8 +211,8 @@ public class DataHandler {
             stmt.setString(4, newPost.getCategory());
             stmt.setString(5, newPost.getShop());
             stmt.setString(6, newPost.getIs_pricebefore());
-            stmt.setDouble(7, newPost.getPrice());
-            stmt.setDate(8, newPost.getCreated());
+            stmt.setString(7, newPost.getPrice());
+            stmt.setString(8, newPost.getCreated());
             stmt.setString(9, newPost.getSale_discount());
             
             stmt.setString(10, imageName);
@@ -286,7 +286,13 @@ public class DataHandler {
 		return null;
     	
     }
+    
+    	
+
     public UserProfile getUserInterestByNameAndInterest(String name, String category){
+    	
+    	
+    		
     	try{
     		PreparedStatement stmt = con.prepareStatement("SELECT * FROM share.userprofile WHERE (username = ? AND interest_category = ?)");
             stmt.setString(1, name);
@@ -294,6 +300,7 @@ public class DataHandler {
             ResultSet rs=stmt.executeQuery();
             if(rs.next()){
             	String userName=rs.getString("username");
+
             	String interest=rs.getString("interest_category");
             	stmt.close();
             	return new UserProfile(userName,interest);
@@ -330,19 +337,18 @@ public class DataHandler {
     	
   public UserProfile addUserInterest(UserProfile newProfile){
 	  
-	   if(this.getUserInterestByNameAndInterest(newProfile.getUsername(), newProfile.getInterest_category())!=null){
-		   return null;
-	   }
+	  
     	
     	//newInterest.setId(this.getAllUserInterest().size()+1);
     	  try {
               // Prepare the statement with SQL update command
               PreparedStatement stmt = con.prepareStatement("INSERT INTO share.userprofile" +
-                      "(username,interest_category) VALUES (?,?)");
+                      "(username,interest_category) VALUES (?,?,?)");
               
              
              stmt.setString(1, newProfile.getUsername());
-             stmt.setString(2,newProfile.getInterest_category());
+
+             stmt.setString(3,newProfile.getInterest_category());
 
               // Execute and update the data
               stmt.executeUpdate();

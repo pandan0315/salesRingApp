@@ -46,7 +46,7 @@ class PostsAdapter extends ArrayAdapter<SalePost> {
         Glide.with(mainActivity).load(R.drawable.poster).into(userProfilePhoto);
         System.out.println(posts.get(position).getImageName());
 
-        Glide.with(mainActivity).load("http://192.168.11.113:8080/shares/image/"+posts.get(position).getImageName()).into(postIV);
+        Glide.with(mainActivity).load("http://130.229.170.156:8080/shares/image/"+posts.get(position).getImageName()).into(postIV);
 
         userNameTV.setText(posts.get(position).getPoster());
         dateTV.setText(posts.get(position).getPostDate());

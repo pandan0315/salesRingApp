@@ -99,7 +99,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         AsyncHttpClient client=new AsyncHttpClient();
 
-        client.post("http://192.168.11.113:8080/shares/webapi/signup", params, new JsonHttpResponseHandler() {
+        client.post("http://130.229.170.156:8080/shares/webapi/signup", params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, org.json.JSONObject response) {
                 prgDialog.hide();

@@ -12,11 +12,15 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 
 public class DetailedViewActivity extends AppCompatActivity {
+    String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed_view);
+
+        Intent intent=getIntent();
+        username=intent.getStringExtra("username");
 
         ImageView homeIV = (ImageView) findViewById(R.id.homeIB);
         ImageView userProfileIV = (ImageView)findViewById(R.id.userProfileIB);
@@ -34,7 +38,10 @@ public class DetailedViewActivity extends AppCompatActivity {
 
     public void homeClicked(View view)
     {
-        startActivity(new Intent(DetailedViewActivity.this, MainActivity.class));
+        Intent intent=new Intent();
+        intent.putExtra("username",username);
+        intent.setClass(DetailedViewActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 
     public void newPost(View view)

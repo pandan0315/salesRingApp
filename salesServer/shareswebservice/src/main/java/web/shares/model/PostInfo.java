@@ -11,12 +11,12 @@ import java.sql.Date;
 public class PostInfo {
 	
 	private long id;
-	private Date created;
+	private String created;
 	private String postUser;
 	private String taggedUser;
 	private String category;
 	private String is_pricebefore;
-	private double price;
+	private String price;
 	private String sale_discount;
 	private String shop;
 	private String description;
@@ -35,7 +35,7 @@ public class PostInfo {
 	
 
 
-	public PostInfo(long id,String taggedUser, Date created, String postUser, String category, String is_pricebefore,double price, String sale_discount,
+	public PostInfo(long id,String taggedUser, String created, String postUser, String category, String is_pricebefore,String price, String sale_discount,
 			String shop,String imageName,String description) {
 		super();
 		this.id=id;
@@ -60,19 +60,20 @@ public class PostInfo {
 	}
 
 
-	public PostInfo(String taggedUser,Date created, String postUser, String category, String is_pricebefore,double price, String sale_discount,
-			String shop, String imageName, String encodeImage) {
+	public PostInfo(String taggedUser,String created, String postUser, String category, String is_pricebefore,String price, String sale_discount,
+			String shop, String imageName, String encodeImage,String description) {
 		super();
 		this.taggedUser=taggedUser;
 		this.created = created;
 		this.postUser = postUser;
 		this.category = category;
-		this.setIs_pricebefore(is_pricebefore);
-		this.setPrice(price);
+		this.is_pricebefore=is_pricebefore;
+		this.price=price;
 		this.sale_discount = sale_discount;
 		this.shop = shop;
 		this.imageName = imageName;
 		this.encodeImage = encodeImage;
+		this.description=description;
 	}
 
 
@@ -99,15 +100,7 @@ public class PostInfo {
 		this.taggedUser = taggedUser;
 	}
 
-	public Date getCreated() {
-		return created;
-	}
-
-
-
-	public void setCreated(Date created) {
-		this.created = created;
-	}
+	
 
 
 
@@ -228,7 +221,26 @@ public class PostInfo {
 
 
 
-	public double getPrice() {
+
+	public String getCreated() {
+		return created;
+	}
+
+
+
+
+
+
+	public void setCreated(String created) {
+		this.created = created;
+	}
+
+
+
+
+
+
+	public String getPrice() {
 		return price;
 	}
 
@@ -237,7 +249,7 @@ public class PostInfo {
 
 
 
-	public void setPrice(double price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 
