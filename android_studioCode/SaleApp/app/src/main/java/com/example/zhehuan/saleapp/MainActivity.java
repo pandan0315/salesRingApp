@@ -115,11 +115,11 @@ public class MainActivity extends AppCompatActivity
         String url;
 
         if(category==null){
-            url="http://130.229.170.156:8080/shares/webapi/"+username+"/salesinfo";
+            url="http://192.168.11.113:8080/shares/webapi/"+username+"/salesinfo";
 
         }
         else{
-        url="http://130.229.170.156:8080/shares/webapi/"+username+"/salesinfo"+"?category="+category;}
+        url="http://192.168.11.113:8080/shares/webapi/"+username+"/salesinfo"+"?category="+category;}
 
 
 
@@ -163,9 +163,11 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view,
                                             int position, long id) {
+                      // System.out.println(posts.get(position).getImageName() );
                         Intent intent=new Intent();
                         intent.putExtra("username",getUsername());
-                        intent.setClass(MainActivity.this, MainActivity.class);
+                        intent.putExtra("salePost",posts.get(position));
+                        intent.setClass(MainActivity.this, DetailedViewActivity.class);
                         startActivity(intent);
 
                     }

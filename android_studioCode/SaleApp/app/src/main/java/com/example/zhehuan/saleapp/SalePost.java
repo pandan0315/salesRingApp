@@ -1,11 +1,14 @@
 package com.example.zhehuan.saleapp;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by khalid on 2/11/2016.
  */
-public class SalePost {
+@SuppressWarnings("serial")
+public class SalePost implements Serializable{
+
     private long postID;
     private String poster;
     private String taggedUser;

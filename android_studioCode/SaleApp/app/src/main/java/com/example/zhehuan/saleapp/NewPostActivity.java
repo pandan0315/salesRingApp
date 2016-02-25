@@ -105,7 +105,7 @@ public class NewPostActivity extends AppCompatActivity {
         String sale_discount=discount.getText().toString();
         String shop=store.getText().toString();
         String encodeImage=encodeImageStr();
-        imageName=String.valueOf(shop.length())+".jpeg";
+        imageName=String.valueOf(shop+price+".jpeg");
         String description=details.getText().toString();
 
         JSONObject jsonObject = new JSONObject();
@@ -151,7 +151,7 @@ public class NewPostActivity extends AppCompatActivity {
             //entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
             AsyncHttpClient client=new AsyncHttpClient();
 
-            client.post(getApplicationContext(),"http://130.229.170.156:8080/shares/webapi/"+username+"/salesinfo", entity,"application/json", new JsonHttpResponseHandler() {
+            client.post(getApplicationContext(),"http://192.168.11.113:8080/shares/webapi/"+username+"/salesinfo", entity,"application/json", new JsonHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, org.json.JSONObject response) {
 
@@ -159,6 +159,7 @@ public class NewPostActivity extends AppCompatActivity {
 
                     Intent intent=new Intent();
                     intent.putExtra("username",username);
+
                     intent.setClass(NewPostActivity.this, MainActivity.class);
                     startActivity(intent);
 
@@ -187,10 +188,7 @@ public class NewPostActivity extends AppCompatActivity {
     public boolean isNotNull(String txt){
         return txt!=null && txt.trim().length()>0 ? true:false;
     }
-    public boolean isEmailValid(String email) {
 
-        return email.contains("@");
-    }
 
     public void launchCamera(View view)
     {
@@ -199,6 +197,13 @@ public class NewPostActivity extends AppCompatActivity {
     }
 
 
+    /*
+         String[] filePathColumn = {MediaStore.Images.Media.DATA};
+            Cursor cursor = getContentResolver().query(selectedImage,
+                    filePathColumn, null, null, null);
+            cursor.moveToFirst();
+
+     */
 
   /*  public String encodeImage(Bitmap bitmap){
 
