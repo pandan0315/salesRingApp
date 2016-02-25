@@ -62,6 +62,7 @@ public class NewPostActivity extends AppCompatActivity {
     private int year, month, day;
     TextView dateTV;
     String username;
+    String fullname;
     String imageName;
 
     @Override
@@ -70,6 +71,7 @@ public class NewPostActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_post);
         Intent intent=getIntent();
         username=intent.getStringExtra("username");
+        fullname=intent.getStringExtra("fullname");
         System.out.println(username);
 
         postPhoto = (ImageView)findViewById(R.id.postPhoto);
@@ -97,14 +99,14 @@ public class NewPostActivity extends AppCompatActivity {
     public void sendPost(View view)
     {
 
-        String taggedUser=null;
+        //String taggedUser=null;
         String created=dateTV.getText().toString();
         String category=seletedcategory.getSelectedItem().toString();
         String is_pricebefore=String.valueOf(is_discountbefore.isChecked());
         String price=labeledprice.getText().toString();
         String sale_discount=discount.getText().toString();
         String shop=store.getText().toString();
-        String encodeImage=encodeImageStr();
+        String encodeImage= encodeImageStr(photo);
         imageName=String.valueOf(shop+price+".jpeg");
         String description=details.getText().toString();
 
@@ -115,6 +117,7 @@ public class NewPostActivity extends AppCompatActivity {
 
             try {
                 jsonObject.put("postUser", username);
+                jsonObject.put("posterfullname",fullname);
                 jsonObject.put("taggedUser", "Alice");
                 jsonObject.put("created", created);
                 jsonObject.put("category", category);
@@ -143,8 +146,9 @@ public class NewPostActivity extends AppCompatActivity {
     }
 
     private void uploadSalesinfo(JSONObject object) {
-        System.out.println(encodeImageStr());
+        System.out.println( encodeImageStr(photo));
         System.out.println(username);
+        System.out.println(fullname);
         try {
             StringEntity entity = new StringEntity(object.toString());
             //ByteArrayEntity entity = new ByteArrayEntity(object.toString().getBytes("UTF-8"));
@@ -159,6 +163,7 @@ public class NewPostActivity extends AppCompatActivity {
 
                     Intent intent=new Intent();
                     intent.putExtra("username",username);
+                    intent.putExtra("fullname",fullname);
 
                     intent.setClass(NewPostActivity.this, MainActivity.class);
                     startActivity(intent);
@@ -169,7 +174,12 @@ public class NewPostActivity extends AppCompatActivity {
                 public void onFailure(int statusCode, Header[] headers, String responseString,Throwable throwable) {
 
                     Toast.makeText(getApplicationContext(), "Something went wrong,try again!", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(NewPostActivity.this, NewPostActivity.class));
+                    Intent intent=new Intent();
+                    intent.putExtra("username",username);
+                    intent.putExtra("fullname",fullname);
+
+                    intent.setClass(NewPostActivity.this, NewPostActivity.class);
+                    startActivity(intent);
 
                 }
             });
@@ -178,7 +188,13 @@ public class NewPostActivity extends AppCompatActivity {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             Toast.makeText(getApplicationContext(),e.toString(), Toast.LENGTH_LONG).show();
-            startActivity(new Intent(NewPostActivity.this, NewPostActivity.class));
+            Intent intent=new Intent();
+            intent.putExtra("username",username);
+            intent.putExtra("fullname", fullname);
+
+            intent.setClass(NewPostActivity.this, NewPostActivity.class);
+            startActivity(intent);
+
 
         }
 
@@ -205,7 +221,7 @@ public class NewPostActivity extends AppCompatActivity {
 
      */
 
-  /*  public String encodeImage(Bitmap bitmap){
+    public String encodeImageStr(Bitmap bitmap){
 
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 90, stream); //compress to which format you want.
@@ -213,8 +229,8 @@ public class NewPostActivity extends AppCompatActivity {
         String image_str= Base64.encodeToString(byte_arr, 1);
         return image_str;
     }
-*/
-    public String encodeImageStr(){
+
+ /*   public String encodeImageStr(){
 
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.signs);
         //BitmapDrawable drawable = (BitmapDrawable) imageofuser.getDrawable();
@@ -226,7 +242,7 @@ public class NewPostActivity extends AppCompatActivity {
         String image_str= Base64.encodeToString(byte_arr, 1);
         return image_str;
     }
-
+*/
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode== REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK)

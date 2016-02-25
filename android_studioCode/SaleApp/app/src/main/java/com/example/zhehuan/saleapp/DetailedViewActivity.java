@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 
 public class DetailedViewActivity extends AppCompatActivity {
     String username;
+    String fullname;
     SalePost salePost;
     TextView nameTV;
     TextView dateTV;
@@ -30,6 +31,7 @@ public class DetailedViewActivity extends AppCompatActivity {
 
         Intent intent=getIntent();
         username=intent.getStringExtra("username");
+        fullname=intent.getStringExtra("fullname");
         salePost=(SalePost)intent.getSerializableExtra("salePost");
         System.out.println(salePost.getImageName());
 
@@ -48,7 +50,7 @@ public class DetailedViewActivity extends AppCompatActivity {
         ImageView posterProfileImage = (ImageView)findViewById(R.id.posterProfileImage);
         Glide.with(this).load(R.drawable.poster).into(posterProfileImage);
         nameTV=(TextView)findViewById(R.id.posterName);
-        nameTV.setText("Poster: "+salePost.getPoster());
+        nameTV.setText("Poster: "+salePost.getPosterfullname());
         dateTV=(TextView)findViewById(R.id.detailedDateTV);
         dateTV.setText(salePost.getPostDate());
         storeTV=(TextView)findViewById(R.id.detailedStoreTV);
@@ -74,6 +76,7 @@ public class DetailedViewActivity extends AppCompatActivity {
     {
         Intent intent=new Intent();
         intent.putExtra("username",username);
+       intent.putExtra("fullname",fullname);
         intent.setClass(DetailedViewActivity.this, MainActivity.class);
         startActivity(intent);
     }
@@ -82,6 +85,7 @@ public class DetailedViewActivity extends AppCompatActivity {
     {
         Intent intent=new Intent();
         intent.putExtra("username",username);
+        intent.putExtra("fullname",fullname);
         intent.setClass(DetailedViewActivity.this, NewPostActivity.class);
         startActivity(intent);
     }
@@ -90,6 +94,7 @@ public class DetailedViewActivity extends AppCompatActivity {
     {
         Intent intent=new Intent();
         intent.putExtra("username",username);
+        intent.putExtra("fullname",fullname);
         intent.setClass(DetailedViewActivity.this, UserProfileActivity.class);
         startActivity(intent);
     }
@@ -98,6 +103,7 @@ public class DetailedViewActivity extends AppCompatActivity {
     {
         Intent intent=new Intent();
         intent.putExtra("username",username);
+        intent.putExtra("fullname",fullname);
         intent.setClass(DetailedViewActivity.this,FriendActivity.class);
         startActivity(intent);
     }

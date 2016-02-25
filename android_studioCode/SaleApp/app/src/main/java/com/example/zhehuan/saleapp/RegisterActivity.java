@@ -23,6 +23,8 @@ public class RegisterActivity extends AppCompatActivity {
     TextView errorMsg;
     // Name Edit View Object
     EditText nameET;
+    //Display Name View Object
+    EditText fullnameET;
     // Email Edit View Object
     EditText emailET;
     // Passwprd Edit View Object
@@ -36,6 +38,8 @@ public class RegisterActivity extends AppCompatActivity {
         errorMsg = (TextView)findViewById(R.id.register_error);
 
         nameET=(EditText)findViewById(R.id.registerName);
+
+        fullnameET=(EditText)findViewById(R.id.displayName);
 
         emailET=(EditText)findViewById(R.id.registerEmail);
 
@@ -52,16 +56,18 @@ public class RegisterActivity extends AppCompatActivity {
     public void registerUser(View view){
 
         String name = nameET.getText().toString();
+        String fullname=fullnameET.getText().toString();
         String email = emailET.getText().toString();
         String password= pwdET.getText().toString();
 
         RequestParams params= new RequestParams();
 
-        if(isNotNull(name)&&isNotNull(email)&&isNotNull(password)){
+        if(isNotNull(name)&&isNotNull(fullname)&&isNotNull(email)&&isNotNull(password)){
 
             if(isEmailValid(email)){
 
                 params.put("username",name);
+                params.put("fullname",fullname);
                 params.put("email",email);
                 params.put("password",password);
 

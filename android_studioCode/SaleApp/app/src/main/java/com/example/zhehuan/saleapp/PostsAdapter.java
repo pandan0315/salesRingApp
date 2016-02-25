@@ -24,7 +24,6 @@ class PostsAdapter extends ArrayAdapter<SalePost> {
 
     ArrayList<SalePost> posts;
     Activity mainActivity;
-    List<String> imagefileList;
     public PostsAdapter(Activity context, ArrayList<SalePost> posts) {
         super(context, R.layout.friendsposts, posts);
         this.posts = posts;
@@ -48,9 +47,9 @@ class PostsAdapter extends ArrayAdapter<SalePost> {
 
         Glide.with(mainActivity).load("http://192.168.11.113:8080/shares/image/"+posts.get(position).getImageName()).into(postIV);
 
-        userNameTV.setText(posts.get(position).getPoster());
+        userNameTV.setText(posts.get(position).getPosterfullname());
         dateTV.setText(posts.get(position).getPostDate());
-        saleTV.setText(posts.get(position).getSaleValue()+" sale at  " +posts.get(position).getStore());
+        saleTV.setText(posts.get(position).getSaleValue()+"% OFF sale at  " +posts.get(position).getStore());
 
         return rowView;
     }

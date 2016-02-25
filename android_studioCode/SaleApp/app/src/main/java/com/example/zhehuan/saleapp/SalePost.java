@@ -11,6 +11,8 @@ public class SalePost implements Serializable{
 
     private long postID;
     private String poster;
+
+    private String posterfullname;
     private String taggedUser;
     private String store;
     private String category;
@@ -26,9 +28,10 @@ public class SalePost implements Serializable{
     public SalePost(){
 
     }
-    public SalePost(long postID, String poster, String taggedUser, String store, String category, String description, String saleValue, double price, String is_pricebefore,String imageName,String postDate) {
+    public SalePost(long postID, String poster,String posterfullname, String taggedUser, String store, String category, String description, String saleValue, double price, String is_pricebefore,String imageName,String postDate) {
         this.postID = postID;
         this.poster = poster;
+        this.posterfullname=posterfullname;
         this.taggedUser=taggedUser;
         this.store = store;
         this.is_pricebefore=is_pricebefore;
@@ -70,6 +73,14 @@ public class SalePost implements Serializable{
 
     public void setPoster(String poster) {
         this.poster = poster;
+    }
+
+    public String getPosterfullname() {
+        return posterfullname;
+    }
+
+    public void setPosterfullname(String posterfullname) {
+        this.posterfullname = posterfullname;
     }
 
     public String getTaggedUser() {
