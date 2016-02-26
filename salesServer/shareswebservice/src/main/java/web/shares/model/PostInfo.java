@@ -13,6 +13,7 @@ public class PostInfo {
 	private long id;
 	private String created;
 	private String postUser;
+	private String posterfullname;
 	private String taggedUser;
 	private String category;
 	private String is_pricebefore;
@@ -35,11 +36,12 @@ public class PostInfo {
 	
 
 
-	public PostInfo(long id,String taggedUser, String created, String postUser, String category, String is_pricebefore,String price, String sale_discount,
+	public PostInfo(long id,String posterfullname,String taggedUser, String created, String postUser, String category, String is_pricebefore,String price, String sale_discount,
 			String shop,String imageName,String description) {
 		super();
 		this.id=id;
 		this.taggedUser=taggedUser;
+		this.posterfullname=posterfullname;
 		this.created = created;
 		this.postUser = postUser;
 		this.category = category;
@@ -60,10 +62,11 @@ public class PostInfo {
 	}
 
 
-	public PostInfo(String taggedUser,String created, String postUser, String category, String is_pricebefore,String price, String sale_discount,
+	public PostInfo(String taggedUser,String posterfullname,String created, String postUser, String category, String is_pricebefore,String price, String sale_discount,
 			String shop, String imageName, String encodeImage,String description) {
 		super();
 		this.taggedUser=taggedUser;
+		this.posterfullname=posterfullname;
 		this.created = created;
 		this.postUser = postUser;
 		this.category = category;
@@ -269,6 +272,24 @@ public class PostInfo {
 
 	public void setIs_pricebefore(String is_pricebefore) {
 		this.is_pricebefore = is_pricebefore;
+	}
+
+
+
+
+
+
+	public String getPosterfullname() {
+		return posterfullname;
+	}
+
+
+
+
+
+
+	public void setPosterfullname(String posterfullname) {
+		this.posterfullname = posterfullname;
 	}
 
 

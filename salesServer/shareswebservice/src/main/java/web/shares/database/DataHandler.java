@@ -45,8 +45,59 @@ public class DataHandler {
         }
             
     }
+    
+    public User getUserFullname(String name){
+    	PreparedStatement stmt;
+		try {
+			stmt = con.prepareStatement("SELECT * FROM share.users " + 
+			        "WHERE username = ?");
+			stmt.setString(1, name);
+	    	ResultSet rs=stmt.executeQuery();
+	    	if(rs.next()){
+	    		String userName=rs.getString("username");
+	    		String fullName=rs.getString("fullname");
+	    		//String password=rs.getString("password");
+	    		stmt.close();
+	    		if(fullName!=null)
+	    		{return new User(userName,fullName);}
+	    		else
+	    		{
+	    			return null;
+	    		}
+	    	}
+	    	stmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return null;
+    	
+    	
+    }
  
     
+    public User getUserByemail(String email){
+    	PreparedStatement stmt;
+		try {
+			stmt = con.prepareStatement("SELECT * FROM share.users " + 
+			        "WHERE email = ?");
+			stmt.setString(1, email);
+	    	ResultSet rs=stmt.executeQuery();
+	    	if(rs.next()){
+	    		String userName=rs.getString("username");
+	    		String fullName=rs.getString("fullname");
+	    		String emailaddress=rs.getString("email");
+	    		String password=rs.getString("password");
+	    		stmt.close();
+	    		return new User(userName,fullName,emailaddress,password);
+	    	}
+	    	stmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return null;
+    }
     public User getUserByname(String name){
     	PreparedStatement stmt;
 		try {
@@ -56,10 +107,11 @@ public class DataHandler {
 	    	ResultSet rs=stmt.executeQuery();
 	    	if(rs.next()){
 	    		String userName=rs.getString("username");
-	    		String email=rs.getString("email");
+	    		String fullName=rs.getString("fullname");
+	    		String emailaddress=rs.getString("email");
 	    		String password=rs.getString("password");
 	    		stmt.close();
-	    		return new User(userName,email,password);
+	    		return new User(userName,fullName,emailaddress,password);
 	    	}
 	    	stmt.close();
 		} catch (SQLException e) {
@@ -69,6 +121,7 @@ public class DataHandler {
     	return null;
     }
     
+    
     public User getUserByNameAndPassword(String email, String password){
     	try{
     		PreparedStatement stmt = con.prepareStatement("SELECT * FROM share.users WHERE (email = ? AND password = ?)");
@@ -77,10 +130,11 @@ public class DataHandler {
             ResultSet rs=stmt.executeQuery();
             if(rs.next()){
             	String username=rs.getString("username");
+            	String fullname=rs.getString("fullname");
             	String emailaddress=rs.getString("email");
             	String passStr=rs.getString("password");
             	stmt.close();
-            	return new User(username,emailaddress);
+            	return new User(username,fullname);
             }
     	}catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -94,11 +148,12 @@ public class DataHandler {
         try {
             // Prepare the statement with SQL update command
             PreparedStatement stmt = con.prepareStatement("INSERT INTO share.users " +
-                    "(username, email,password) VALUES (?,?, ?)");
+                    "(username,fullname, email,password) VALUES (?,?, ?,?)");
             
-            stmt.setString(1, newUser.getUserName());        
-            stmt.setString(2, newUser.getEmailAddress());
-            stmt.setString(3, newUser.getPassword());
+            stmt.setString(1, newUser.getUserName());  
+            stmt.setString(2, newUser.getFullName());
+            stmt.setString(3, newUser.getEmailAddress());
+            stmt.setString(4, newUser.getPassword());
             
             // Execute and update the data
             stmt.executeUpdate();
@@ -122,6 +177,7 @@ public class DataHandler {
             	long id=rs.getLong("postid");
             	String created=rs.getString("date");
             	String postUser=rs.getString("post_user");
+            	String posterfullname=rs.getString("posterfullname");
             	String taggedUser=rs.getString("tagged_user");
             	String category=rs.getString("category");
             	String is_pricebefore=rs.getString("is_pricebefore");
@@ -131,7 +187,7 @@ public class DataHandler {
             	String imageName=rs.getString("image_name");
             	String description=rs.getString("description");          
                 stmt.close();
-                PostInfo newPost= new PostInfo(id,taggedUser,created,postUser,category,is_pricebefore,price,sale_discount,shop,imageName,description);
+                PostInfo newPost= new PostInfo(id,posterfullname,taggedUser,created,postUser,category,is_pricebefore,price,sale_discount,shop,imageName,description);
                 
                 return newPost;
               
@@ -170,7 +226,7 @@ public class DataHandler {
     }
     public ArrayList<PostInfo> getAllPostsByName(String name){
     	
-    	ArrayList<PostInfo> allPostsByName=new ArrayList<>();
+    	ArrayList<PostInfo>allPostsByName=new ArrayList<>();
     	FollowingFriendship allfriendsByName=this.getAllFriends(name);
     	ArrayList<String> followedfriendsList= allfriendsByName.getFollowedList();
     	StringBuilder b = new StringBuilder("'" + name + "', ");
@@ -203,20 +259,21 @@ public class DataHandler {
         try {
             // Prepare the statement with SQL update command
             PreparedStatement stmt = con.prepareStatement("INSERT INTO share.postedinfo" +
-                    "(postid,post_user,tagged_user,category,shop,is_pricebefore,price,date,salediscount,image_name,description) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+                    "(postid,post_user,posterfullname,tagged_user,category,shop,is_pricebefore,price,date,salediscount,image_name,description) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
             
             stmt.setLong(1, newPost.getId());        
             stmt.setString(2, newPost.getPostUser());
-            stmt.setString(3, newPost.getTaggedUser());
-            stmt.setString(4, newPost.getCategory());
-            stmt.setString(5, newPost.getShop());
-            stmt.setString(6, newPost.getIs_pricebefore());
-            stmt.setString(7, newPost.getPrice());
-            stmt.setString(8, newPost.getCreated());
-            stmt.setString(9, newPost.getSale_discount());
+            stmt.setString(3, newPost.getPosterfullname());
+            stmt.setString(4, newPost.getTaggedUser());
+            stmt.setString(5, newPost.getCategory());
+            stmt.setString(6, newPost.getShop());
+            stmt.setString(7, newPost.getIs_pricebefore());
+            stmt.setString(8, newPost.getPrice());
+            stmt.setString(9, newPost.getCreated());
+            stmt.setString(10, newPost.getSale_discount());
             
-            stmt.setString(10, imageName);
-            stmt.setString(11, newPost.getDescription());
+            stmt.setString(11, imageName);
+            stmt.setString(12, newPost.getDescription());
             /* Read image file path in the server side */
 			//File image = new File(newPost.getImageFilePath());
 			//FileInputStream fis = new FileInputStream(image);
@@ -259,6 +316,7 @@ public class DataHandler {
     
     public UserProfile getUserInterest(String name){
     	
+    	
     	 
     	 ArrayList<String> categoryLists=new ArrayList<>();
     	 
@@ -279,11 +337,11 @@ public class DataHandler {
  		} catch (SQLException e) {
  			// TODO Auto-generated catch block
  			e.printStackTrace();
- 			return null;
+ 		
  		}
-    	 if (!categoryLists.isEmpty())
-    	{return new UserProfile(name,categoryLists);}
-		return null;
+    	
+    	return new UserProfile(name,this.getUserFullname(name).getFullName(),categoryLists);
+		
     	
     }
     
@@ -303,7 +361,7 @@ public class DataHandler {
 
             	String interest=rs.getString("interest_category");
             	stmt.close();
-            	return new UserProfile(userName,interest);
+            	return new UserProfile(userName,this.getUserFullname(name).getFullName(),interest);
             }
     	}catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -315,15 +373,15 @@ public class DataHandler {
     	
     
     
-    public ArrayList<UserProfile> getAllInterest(){
+   /* public ArrayList<UserProfile> getAllInterest(){
     	ArrayList<UserProfile> allInterest=new ArrayList<>();
     	 try {
   			stmt=con.createStatement();
   			ResultSet rs=stmt.executeQuery("SELECT * FROM share.userprofile");
   			
   			while(rs.next()){
-  			
-  				allInterest.add(new UserProfile(rs.getString("username"),rs.getString("interest_category")));
+  			   
+  			//	allInterest.add(new UserProfile(rs.getString("username"),rs.getString("interest_category")));
   				}
   		
   			
@@ -334,30 +392,96 @@ public class DataHandler {
      	return allInterest;
     	
     }
+    */	
+    
+    public void editProfileByfullname(String username,String fullname){
     	
-  public UserProfile addUserInterest(UserProfile newProfile){
-	  
-	  
-    	
-    	//newInterest.setId(this.getAllUserInterest().size()+1);
-    	  try {
-              // Prepare the statement with SQL update command
-              PreparedStatement stmt = con.prepareStatement("INSERT INTO share.userprofile" +
-                      "(username,interest_category) VALUES (?,?,?)");
-              
+    	if(fullname==null){
+    		return;
+    	}
+    	 try {
+             // Prepare the statement with SQL update command
+   		 
+            
              
-             stmt.setString(1, newProfile.getUsername());
+             PreparedStatement stmt = con.prepareStatement("UPDATE  share.users SET " +
+                     "fullname = ? WHERE username= ?");    
+            
+          
+            stmt.setString(1,fullname);
+            
+            stmt.setString(2,username);
 
-             stmt.setString(3,newProfile.getInterest_category());
+             // Execute and update the data
+            
+             stmt.executeUpdate();
+             
+             stmt.close();
+    	 }catch (SQLException ex) {
+             System.err.println(ex.getMessage());
+         }
+    	
+    }
+    public void editProfileByInterest(String username,ArrayList<String> categories, ArrayList<String> interestLists){
 
-              // Execute and update the data
-              stmt.executeUpdate();
-              stmt.close();
-              
-          } catch (SQLException ex) {
-              System.err.println(ex.getMessage());
-          }
-    	  return newProfile;
+        if(categories.isEmpty()){
+       	 return;
+        }
+
+        ArrayList<String> categoriesNotSame=new ArrayList<>();
+        
+        for(String category:categories){
+            for(String interest:interestLists){
+           	 if(!interest.equals(category)){
+           		 categoriesNotSame.add(category);      		 
+           	 }
+           	 
+            }
+           }
+           
+        if(categoriesNotSame.isEmpty()){
+        	return;
+        }
+   	//newInterest.setId(this.getAllUserInterest().size()+1);
+        else{
+   	  try {
+             // Prepare the statement with SQL update command
+   		PreparedStatement stmt = con.prepareStatement("INSERT INTO share.userprofile" +
+                "(username,interest_category) VALUES (?,?)");
+          
+           for(String category:categoriesNotSame){
+             
+             stmt.setString(1, username);
+
+             stmt.setString(2, category);
+             stmt.executeUpdate();
+             stmt.close();  
+             
+           }
+         } catch (SQLException ex) {
+             System.err.println(ex.getMessage());
+         }
+        }
+    	
+    }
+    
+  
+  public UserProfile editProfile(UserProfile newProfile){
+	  
+	   String username=newProfile.getUsername();
+	   String fullname=newProfile.getFullname();
+	  // String category=newProfile.getInterest_category();
+	   ArrayList<String> categories=newProfile.getCategoryLists();
+        
+	    ArrayList<String> interestLists=this.getUserInterest(username).getCategoryLists();
+	   this.editProfileByfullname(username, fullname);
+	   if(categories.isEmpty()){
+		   return newProfile;
+	   }
+	   this.editProfileByInterest(username, categories, interestLists);
+	  
+	   return newProfile;
+	  
   }
   
   public FollowingFriendship getAllFriends(String username){
@@ -381,9 +505,8 @@ public class DataHandler {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
- 	 if(!friends.isEmpty())
- 	{return new FollowingFriendship(username,friends);}
- 	 return null;
+ 	
+ 	return new FollowingFriendship(username,friends);
  }
   public FollowingFriendship getFriendshipByFollowingAndFollowed(String followingUser, String followedUser){
   	try{

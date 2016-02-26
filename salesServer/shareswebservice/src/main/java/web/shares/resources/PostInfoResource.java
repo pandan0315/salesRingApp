@@ -112,7 +112,8 @@ public class PostInfoResource {
 	 *                   "description":"best chance for whom wants to buy a new PS4",
 	 *                  "encodeImage":"dfaodiopui0ere0jgvdkanvklfn;afjdasfdaffasgrafgdsfadsgdafgas",
 	 *                  "imageName": "ps4.jpeg",
-	 *                   "postUser": "Alice",
+	 *                   "postUser": "dan",
+	 *                   "posterfullname":"Pan Dan",
 	 *                   "taggedUser": "dan"
 	 *                  "price_before": 4000, 
 	 *                  "sale_discount": "10%",
