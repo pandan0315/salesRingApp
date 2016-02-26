@@ -11,9 +11,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.signature.StringSignature;
+
+import java.util.UUID;
 
 public class DetailedViewActivity extends AppCompatActivity {
     String username;
+    String fullname;
     SalePost salePost;
     TextView nameTV;
     TextView dateTV;
@@ -30,6 +34,7 @@ public class DetailedViewActivity extends AppCompatActivity {
 
         Intent intent=getIntent();
         username=intent.getStringExtra("username");
+        fullname=intent.getStringExtra("fullname");
         salePost=(SalePost)intent.getSerializableExtra("salePost");
         System.out.println(salePost.getImageName());
 
@@ -46,14 +51,17 @@ public class DetailedViewActivity extends AppCompatActivity {
        // Glide.with(this).load(R.drawable.b).into(postPhtoIV);
         Glide.with(this).load("http://192.168.11.113:8080/shares/image/"+salePost.getImageName()).into(postPhtoIV);
         ImageView posterProfileImage = (ImageView)findViewById(R.id.posterProfileImage);
-        Glide.with(this).load(R.drawable.poster).into(posterProfileImage);
+        Glide.with(this).load("http://192.168.11.113:8080/shares/image/"+username+".jpeg")
+                .signature(new StringSignature(UUID.randomUUID().toString()))
+                .error(R.drawable.poster)
+                .into(posterProfileImage);
         nameTV=(TextView)findViewById(R.id.posterName);
-        nameTV.setText("Poster: "+salePost.getPoster());
+        nameTV.setText("Poster: "+salePost.getPosterfullname());
         dateTV=(TextView)findViewById(R.id.detailedDateTV);
         dateTV.setText(salePost.getPostDate());
         storeTV=(TextView)findViewById(R.id.detailedStoreTV);
         storeTV.setText("Store: "+salePost.getStore());
-       priceTV=(TextView)findViewById(R.id.detailedPriceTV);
+        priceTV=(TextView)findViewById(R.id.detailedPriceTV);
         if(salePost.getIs_pricebefore().equals("true")){
             priceTV.setText("Price"+"(before discount): "+String.valueOf(salePost.getPrice()));
         }
@@ -74,6 +82,7 @@ public class DetailedViewActivity extends AppCompatActivity {
     {
         Intent intent=new Intent();
         intent.putExtra("username",username);
+       intent.putExtra("fullname",fullname);
         intent.setClass(DetailedViewActivity.this, MainActivity.class);
         startActivity(intent);
     }
@@ -82,6 +91,7 @@ public class DetailedViewActivity extends AppCompatActivity {
     {
         Intent intent=new Intent();
         intent.putExtra("username",username);
+        intent.putExtra("fullname",fullname);
         intent.setClass(DetailedViewActivity.this, NewPostActivity.class);
         startActivity(intent);
     }
@@ -90,6 +100,7 @@ public class DetailedViewActivity extends AppCompatActivity {
     {
         Intent intent=new Intent();
         intent.putExtra("username",username);
+        intent.putExtra("fullname",fullname);
         intent.setClass(DetailedViewActivity.this, UserProfileActivity.class);
         startActivity(intent);
     }
@@ -98,6 +109,7 @@ public class DetailedViewActivity extends AppCompatActivity {
     {
         Intent intent=new Intent();
         intent.putExtra("username",username);
+        intent.putExtra("fullname",fullname);
         intent.setClass(DetailedViewActivity.this,FriendActivity.class);
         startActivity(intent);
     }

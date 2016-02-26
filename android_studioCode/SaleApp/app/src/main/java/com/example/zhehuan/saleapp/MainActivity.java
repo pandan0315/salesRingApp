@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.HashMap;
 import java.util.List;
 import com.bumptech.glide.Glide;
 import com.loopj.android.http.AsyncHttpClient;
@@ -41,8 +42,9 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     String username;
+    String fullname;
     String category=null;
-    ArrayList<SalePost> posts;
+    ArrayList<SalePost> posts=new ArrayList<>();
     ListView postsLV;
     ImageButton homeButton;
     @Override
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         Intent intent=getIntent();
         username=intent.getStringExtra("username");
+        fullname=intent.getStringExtra("fullname");
         category=intent.getStringExtra("category");
 
         System.out.println(username);
@@ -77,7 +80,7 @@ public class MainActivity extends AppCompatActivity
         Glide.with(this).load(R.drawable.editing).into(newPostIV);
         Glide.with(this).load(R.drawable.people).into(friendsIV);
 
-        posts = new ArrayList<SalePost>();
+       // posts = new ArrayList<HashMap<String,SalePost>>();
 
 
         //posts.add(new SalePost(1,"Khalid","dan","HM","fashion","","12%",12,"","true","5-4-2016 12:32"));
@@ -136,9 +139,9 @@ public class MainActivity extends AppCompatActivity
                        JSONObject json_data = response.getJSONObject(i);
                        long postID = json_data.getLong("id");
                        String poster = json_data.getString("postUser");
-                       System.out.println(poster);
+                       String posterfullname=json_data.getString("posterfullname");
                        String taggedUser = json_data.getString("taggedUser");
-                       System.out.println(taggedUser);
+
                        String store = json_data.getString("shop");
                        String category = json_data.getString("category");
                        String Description = json_data.getString("description");
@@ -148,7 +151,7 @@ public class MainActivity extends AppCompatActivity
                        String is_pricebefore = json_data.getString("is_pricebefore");
                        String postDate = json_data.getString("created");
 
-                       posts.add(new SalePost(postID, poster, taggedUser, store, category, Description, saleValue, price, is_pricebefore, imageName,postDate));
+                      posts.add(new SalePost(postID, poster,posterfullname, taggedUser, store, category, Description, saleValue, price, is_pricebefore, imageName,postDate));
                    } catch (JSONException e) {
                        Toast.makeText(getApplicationContext(), "Some things goes wrong, internet error, please Login again!", Toast.LENGTH_LONG).show();
                        startActivity(new Intent(MainActivity.this,LoginActivity.class));
@@ -166,9 +169,11 @@ public class MainActivity extends AppCompatActivity
                       // System.out.println(posts.get(position).getImageName() );
                         Intent intent=new Intent();
                         intent.putExtra("username",getUsername());
-                        intent.putExtra("salePost",posts.get(position));
+                        intent.putExtra("fullname",fullname);
+                        intent.putExtra("salePost", posts.get(position));
                         intent.setClass(MainActivity.this, DetailedViewActivity.class);
                         startActivity(intent);
+
 
                     }
                 });
@@ -241,6 +246,7 @@ public class MainActivity extends AppCompatActivity
             // Handle the camera action
             Intent intent=new Intent();
             intent.putExtra("username",username);
+            intent.putExtra("fullname",fullname);
 
             intent.setClass(MainActivity.this, MainActivity.class);
             startActivity(intent);
@@ -248,6 +254,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_beauty) {
             Intent intent=new Intent();
             intent.putExtra("username",username);
+            intent.putExtra("fullname",fullname);
             intent.putExtra("category","Beauty");
             intent.setClass(MainActivity.this, MainActivity.class);
             startActivity(intent);
@@ -255,6 +262,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_books) {
             Intent intent=new Intent();
             intent.putExtra("username",username);
+            intent.putExtra("fullname",fullname);
             intent.putExtra("category","Books");
             intent.setClass(MainActivity.this, MainActivity.class);
             startActivity(intent);
@@ -262,6 +270,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_electronics) {
             Intent intent=new Intent();
             intent.putExtra("username",username);
+            intent.putExtra("fullname",fullname);
             intent.putExtra("category","Electronics");
             intent.setClass(MainActivity.this, MainActivity.class);
             startActivity(intent);
@@ -269,6 +278,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_hobbies) {
             Intent intent=new Intent();
             intent.putExtra("username",username);
+            intent.putExtra("fullname",fullname);
             intent.putExtra("category","Hobbies");
             intent.setClass(MainActivity.this, MainActivity.class);
             startActivity(intent);
@@ -276,6 +286,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_fashion) {
             Intent intent=new Intent();
             intent.putExtra("username",username);
+            intent.putExtra("fullname",fullname);
             intent.putExtra("category","Fashion");
             intent.setClass(MainActivity.this, MainActivity.class);
             startActivity(intent);
@@ -283,6 +294,7 @@ public class MainActivity extends AppCompatActivity
         }else if(id==R.id.nav_media){
             Intent intent=new Intent();
             intent.putExtra("username",username);
+            intent.putExtra("fullname",fullname);
             intent.putExtra("category","Music and videos");
             intent.setClass(MainActivity.this, MainActivity.class);
             startActivity(intent);
@@ -290,6 +302,7 @@ public class MainActivity extends AppCompatActivity
         }else if(id==R.id.nav_others){
             Intent intent=new Intent();
             intent.putExtra("username",username);
+            intent.putExtra("fullname",fullname);
             intent.putExtra("category","Others");
             intent.setClass(MainActivity.this, MainActivity.class);
             startActivity(intent);
@@ -306,6 +319,7 @@ public class MainActivity extends AppCompatActivity
     {
         Intent intent=new Intent();
         intent.putExtra("username",username);
+        intent.putExtra("fullname",fullname);
         intent.setClass(MainActivity.this, MainActivity.class);
         startActivity(intent);
         //startActivity(new Intent(MainActivity.this, MainActivity.class));
@@ -316,6 +330,7 @@ public class MainActivity extends AppCompatActivity
     {
         Intent intent=new Intent();
         intent.putExtra("username",username);
+        intent.putExtra("fullname",fullname);
         intent.setClass(MainActivity.this, NewPostActivity.class);
         startActivity(intent);
        // startActivity(new Intent(MainActivity.this,NewPostActivity.class));
@@ -325,6 +340,7 @@ public class MainActivity extends AppCompatActivity
     {
         Intent intent=new Intent();
         intent.putExtra("username", username);
+        intent.putExtra("fullname",fullname);
         intent.setClass(MainActivity.this, UserProfileActivity.class);
         startActivity(intent);
        // startActivity(new Intent(MainActivity.this,UserProfileActivity.class));
@@ -335,6 +351,7 @@ public class MainActivity extends AppCompatActivity
     {
         Intent intent=new Intent();
         intent.putExtra("username", username);
+        intent.putExtra("fullname",fullname);
         intent.setClass(MainActivity.this, FriendActivity.class);
         startActivity(intent);
         //startActivity(new Intent(MainActivity.this,FriendActivity.class));

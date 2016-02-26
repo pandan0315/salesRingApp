@@ -14,9 +14,11 @@ import com.bumptech.glide.Glide;
 
 
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.bumptech.glide.signature.StringSignature;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static com.example.zhehuan.saleapp.R.layout.friendsposts;
 
@@ -24,7 +26,6 @@ class PostsAdapter extends ArrayAdapter<SalePost> {
 
     ArrayList<SalePost> posts;
     Activity mainActivity;
-    List<String> imagefileList;
     public PostsAdapter(Activity context, ArrayList<SalePost> posts) {
         super(context, R.layout.friendsposts, posts);
         this.posts = posts;
@@ -43,14 +44,19 @@ class PostsAdapter extends ArrayAdapter<SalePost> {
         ImageView userProfilePhoto = (ImageView) rowView.findViewById(R.id.userProfilePhoto);
         ImageView postIV = (ImageView) rowView.findViewById(R.id.postPhoto);
         //Glide.with(mainActivity).load(R.drawable.b).into(postIV);
-        Glide.with(mainActivity).load(R.drawable.poster).into(userProfilePhoto);
+
+       // Glide.with(mainActivity).load(R.drawable.poster).into(userProfilePhoto);
+        Glide.with(mainActivity).load("http://192.168.11.113:8080/shares/image/"+posts.get(position).getPoster()+".jpeg").thumbnail(0.1f)
+                 .signature(new StringSignature(UUID.randomUUID().toString()))
+                .error(R.drawable.poster).into(userProfilePhoto);
+
         System.out.println(posts.get(position).getImageName());
 
         Glide.with(mainActivity).load("http://192.168.11.113:8080/shares/image/"+posts.get(position).getImageName()).into(postIV);
 
-        userNameTV.setText(posts.get(position).getPoster());
+        userNameTV.setText(posts.get(position).getPosterfullname());
         dateTV.setText(posts.get(position).getPostDate());
-        saleTV.setText(posts.get(position).getSaleValue()+" sale at  " +posts.get(position).getStore());
+        saleTV.setText(posts.get(position).getSaleValue()+"% OFF sale at  " +posts.get(position).getStore());
 
         return rowView;
     }

@@ -16,11 +16,19 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Please input your username:"/>
 
-
         <EditText
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:id="@+id/registerName" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Please input your fullname:"/>
+        <EditText
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/displayName" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
