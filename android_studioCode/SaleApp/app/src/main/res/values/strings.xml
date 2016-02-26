@@ -9,7 +9,7 @@
     <string-array name="category">
         <item>-----</item>
         <item>Fashion</item>
-        <item>Eelectric Appliances</item>
+        <item>Hobbies</item>
         <item>Beauty</item>
         <item>Books</item>
         <item>Electronics</item>
@@ -19,7 +19,7 @@
 
     <string-array name="categories">
         <item>Fashion</item>
-        <item>Eelectric Appliances</item>
+        <item>Hobbies</item>
         <item>Beauty</item>
         <item>Books</item>
         <item>Electronics</item>
