@@ -19,13 +19,16 @@ public class AuthenticatorService {
     	{
     		return null;
     	}
-    	return new User(user.getUserName(),user.getEmailAddress());
+    	return new User(user.getUserName(),user.getFullName());
 
 }
-    public boolean checkUser(String email){
+    public boolean checkUser(String name,String email){
     	
-    	User user=dataHandler.getUserByname(email);
-    	return user!=null;
+    	User user1=dataHandler.getUserByname(name);
+    	User user2=dataHandler.getUserByemail(email);
+    	return ((user1!=null)&&(user2!=null));
     }
+    
+   
     
 }

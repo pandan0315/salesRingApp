@@ -7,31 +7,44 @@ public class UserProfile {
 	
 	
 	private String username;
+	private String fullname;
 	private String interest_category;
 	private ArrayList<String> categoryLists;
+	private String encodeProfileIcon;
 	
 	public UserProfile(){
 		
 	}
 
 	
-	public UserProfile( String username, ArrayList<String> categoryLists) {
+	public UserProfile( String username, String fullname,ArrayList<String> categoryLists) {
 		super();
 		
 		this.username = username;
+		this.fullname = fullname;
 		this.categoryLists = categoryLists;
 	}
 
-
-	public UserProfile(String username,String interest_category) {
+	
+	public UserProfile(String username, String fullname,String interest_category) {
 		super();
 		
 		this.username = username;
-		
+		this.fullname = fullname;
 		this.interest_category = interest_category;
 	}
 
 	
+	
+
+	public UserProfile(String username, String fullname, ArrayList<String> categoryLists, String encodeProfileIcon) {
+		super();
+		this.username = username;
+		this.fullname = fullname;
+		this.categoryLists = categoryLists;
+		this.encodeProfileIcon = encodeProfileIcon;
+	}
+
 
 	public String getUsername() {
 		return username;
@@ -57,6 +70,26 @@ public class UserProfile {
 
 	public void setInterest_category(String interest_category) {
 		this.interest_category = interest_category;
+	}
+
+
+	public String getFullname() {
+		return fullname;
+	}
+
+
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
+	}
+
+
+	public String getEncodeProfileIcon() {
+		return encodeProfileIcon;
+	}
+
+
+	public void setEncodeProfileIcon(String encodeProfileIcon) {
+		this.encodeProfileIcon = encodeProfileIcon;
 	}
 
 

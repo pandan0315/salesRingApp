@@ -19,6 +19,7 @@ import web.shares.model.ErrorResponse;
 import web.shares.model.FollowingFriendship;
 import web.shares.model.User;
 import web.shares.model.UserProfile;
+import web.shares.service.PostInfoService;
 
 @Path("/{username}")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -27,6 +28,7 @@ public class UserProfileResource {
 	
 	
 	DataHandler dataHandler=new DataHandler();
+	PostInfoService postedImage=new PostInfoService();
 	
 
 	/**
@@ -77,23 +79,27 @@ public class UserProfileResource {
 	
 	/**
 	 * @api{post} /{username}    Add new user profile, username can be duplicated
-	 * @apiName AddNewUserProfile 
+	 * @apiName EditUserProfile 
 	 * @apiGroup  UserProfile
 	 * @apiParam {object} userprofile   specify userprofile object
 	 * @apiParam {String} userprofile.username   specify username.
+	 * @apiParam {String} userprofile.fullname   specify fullname
 	 * @apiParam {String} userprofile.interest_category   specify interest category
 	 * @apiParamExample {json} Request-Example:
 	 * {
 	 *   "username":"pan",
+	 *   "fullname":"Pan Dan"
 	 *   "interest_category":"electronics"
 	 * }
 	 * @apiSuccess{Object} userprofile  userprofile object
 	 * @apiSuccess {String}  userprofile.username     user name.
+	 *  @apiSuccess {String}  userprofile.fullname     fullname.
 	 * @apiSuccess {String}  userprofile.interest_category   intereste category
 	 * @apiSuccessExample Success-Response:
 	 * HTTP/1.1 201 Created
 	 * {
 	 *  "username":"pan",
+	 *  "fullname":"Pan Dan"
 	 *  "interest_category":"electronics"
 	 * }
 	 * @apiError {Object} errorResponse   return error Response object
@@ -105,20 +111,33 @@ public class UserProfileResource {
 	 *    }
 	 */
 	@POST
-	public Response addNewInterest(UserProfile newProfile){
+	public Response editProfile(UserProfile newProfile){
 		
-		if(newProfile.getUsername()==null||newProfile.getInterest_category()==null)          
+	/*	if(newProfile.getFullname()==null&&newProfile.getInterest_category()==null)          
 		{
 			return Response.status(400).entity(new ErrorResponse("Bad Request,Check Param!")).build();
 		}
         
-		else if(dataHandler.addUserInterest(newProfile)!=null)
+		else if(dataHandler.editProfile(newProfile)!=null)
 		   
 		   {return Response.status(201).entity(newProfile).build();}
 		else{
 		return Response.status(400).entity(new ErrorResponse("Bad Request,request interest category already existed")).build();
 		}
+		
+		*/
+		
+			dataHandler.editProfile(newProfile);
+			if(newProfile.getEncodeProfileIcon()!=null){
+			this.postedImage.convertStringtoImage(newProfile.getEncodeProfileIcon(), newProfile.getUsername()+".jpeg");}
+			
+			return Response.status(201).entity(newProfile).build();
+			
+		
+		
+		
 	}
+	
 	
 	/**
 	 * @api {get} /{username}/friends     Get specified user's all followed friends
