@@ -7,7 +7,9 @@ public class FollowingFriendship {
 	
 	private String followingUser;
 	private String followedUser;
-	private  ArrayList<String> followedList;
+	private String followedUserFullname;
+	private  ArrayList<User> followedList;
+	//private User friend;
 	
 	public FollowingFriendship(){
 		
@@ -20,11 +22,16 @@ public class FollowingFriendship {
 		this.followedUser = followedUser;
 	}
 	
-	public FollowingFriendship(String followingUser, ArrayList<String> followedList) {
+	
+	
+	
+	public FollowingFriendship(String followingUser, ArrayList<User> followedList) {
 		super();
+	
 		this.followingUser = followingUser;
-		this.setFollowedList(followedList);
+		this.followedList=followedList;
 	}
+	
 	public String getFollowingUser() {
 		return followingUser;
 	}
@@ -38,11 +45,19 @@ public class FollowingFriendship {
 		this.followedUser = followedUser;
 	}
 	
-	public ArrayList<String> getFollowedList() {
+	public ArrayList<User> getFollowedList() {
 		return followedList;
 	}
-	public void setFollowedList(ArrayList<String> followedList) {
+	public void setFollowedList(ArrayList<User> followedList) {
 		this.followedList = followedList;
+	}
+
+	public String getFollowedUserFullname() {
+		return followedUserFullname;
+	}
+
+	public void setFollowedUserFullname(String followedUserFullname) {
+		this.followedUserFullname = followedUserFullname;
 	}
 	
 	

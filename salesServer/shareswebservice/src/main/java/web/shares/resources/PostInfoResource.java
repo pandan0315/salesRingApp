@@ -44,11 +44,11 @@ public class PostInfoResource {
 	 * @apiSuccess {String}  postinfo.taggedUser   user who tagged by this saleinfo.
 	 * @apiSuccess {String}  postinfo.created      salesinfo created date.
 	 * @apiSuccess {String}  postinfo.category     salesinfo's category.
-	 * @apiSuccess {Number}  postinfo.price_before     sales item's before price
+	 * @apiSuccess {String}  postinfo.price_before     sales item's before price
 	 * @apiSuccess {String}  postinfo.sale_discount     sale discount.
 	 * @apiSuccess {String}  postinfo.shop          sales shop.
 	 * @apiSuccess {String}  postinfo.description     more details about saleinfo.
-	 * @apiSuccess {String}  postinfo.imagePath     salesinfo photo url.
+	 * @apiSuccess {String}  postinfo.imageName    salesinfo photo name.
 	 * @apiSuccessExample {json} Success-Response:
 	 *       HTTP/1.1 200 OK
 	 *       {
@@ -56,7 +56,7 @@ public class PostInfoResource {
     *             "created": "2016-02-16",
     *             "description": "best chance for whom wants to buy a new PS4",
     *              "id": 2,
-    *              "imagePath": "/Users/danpan/Documents/eclipse/testApp/shareswebservice/image/1.jpeg",
+    *              "imageName": "course.jpeg",
     *              "postUser": "Alice",
     *              "price_before": 4000,
     *              "sale_discount": "10%",
@@ -98,7 +98,7 @@ public class PostInfoResource {
 	 * @apiParam {String} newPostInfo.taggedUser user who tagged by this saleinfo.
 	 * @apiParam {String} newPostInfo.created salesinfo created date.
 	 * @apiParam {String} newPostInfo.category salesinfo's category.
-	 * @apiParam {Number} newPostInfo.price_before sales item's before price
+	 * @apiParam {String} newPostInfo.price_before sales item's before price
 	 * @apiParam {String} newPostInfo.sale_discount sale discount.
 	 * @apiParam {String} newPostInfo.shop sales shop.
 	 * @apiParam {String} newPostInfo.description more details about saleinfo.
