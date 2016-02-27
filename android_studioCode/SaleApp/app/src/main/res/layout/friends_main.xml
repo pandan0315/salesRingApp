@@ -2,6 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
+
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -25,6 +27,12 @@
             android:layout_height="wrap_content"
             android:id="@+id/search_friend"
             android:layout_weight="1" />
+        <Button
+            android:layout_width="40dp"
+            android:clickable="true"
+            android:id="@+id/addBtn"
+            android:onClick="addFriend"
+            android:layout_height="40dp" />
     </LinearLayout>
 
 
