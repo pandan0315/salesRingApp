@@ -39,6 +39,7 @@
         <EditText
             android:layout_width="280dp"
             android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
             android:id="@+id/registerEmail" />
 
         <TextView
@@ -65,6 +66,7 @@
             android:padding="10dip"
             android:textColor="#e30000"
             android:textStyle="bold" />
+
 
         <Button
             style="?android:textAppearanceSmall"

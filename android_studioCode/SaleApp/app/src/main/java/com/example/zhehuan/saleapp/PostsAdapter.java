@@ -46,13 +46,13 @@ class PostsAdapter extends ArrayAdapter<SalePost> {
         //Glide.with(mainActivity).load(R.drawable.b).into(postIV);
 
        // Glide.with(mainActivity).load(R.drawable.poster).into(userProfilePhoto);
-        Glide.with(mainActivity).load("http://192.168.11.113:8080/shares/image/"+posts.get(position).getPoster()+".jpeg").thumbnail(0.1f)
+        Glide.with(mainActivity).load("http://130.229.186.51:8080/shares/image/"+posts.get(position).getPoster()+".jpeg").thumbnail(0.1f)
                  .signature(new StringSignature(UUID.randomUUID().toString()))
                 .error(R.drawable.poster).into(userProfilePhoto);
 
         System.out.println(posts.get(position).getImageName());
 
-        Glide.with(mainActivity).load("http://192.168.11.113:8080/shares/image/"+posts.get(position).getImageName()).into(postIV);
+        Glide.with(mainActivity).load("http://130.229.186.51:8080/shares/image/"+posts.get(position).getImageName()).into(postIV);
 
         userNameTV.setText(posts.get(position).getPosterfullname());
         dateTV.setText(posts.get(position).getPostDate());

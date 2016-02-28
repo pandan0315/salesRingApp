@@ -221,7 +221,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         request.put("password",password);
 
         AsyncHttpClient client= new AsyncHttpClient();
-        client.post("http://192.168.11.113:8080/shares/webapi/login", request, new JsonHttpResponseHandler() {
+        client.post("http://130.229.186.51:8080/shares/webapi/login", request, new JsonHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode,Header[] headers, String errorResponse,Throwable throwable) {
 
@@ -231,7 +231,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             }
 
-
+            @Override
+            public void onFailure(int statusCode,Header[] headers, Throwable throwable, JSONObject jsonObject){
+                Toast.makeText(getApplicationContext(), "Unauthorized User!Try again or Register right now!", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(LoginActivity.this, LoginActivity.class));
+            }
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, org.json.JSONObject response) {
@@ -246,6 +250,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                     intent.setClass(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
+                    System.out.println("success!");
 
                 } catch (JSONException e) {
                     e.printStackTrace();

@@ -118,11 +118,11 @@ public class MainActivity extends AppCompatActivity
         String url;
 
         if(category==null){
-            url="http://192.168.11.113:8080/shares/webapi/"+username+"/salesinfo";
+            url="http://130.229.186.51:8080/shares/webapi/"+username+"/salesinfo";
 
         }
         else{
-        url="http://192.168.11.113:8080/shares/webapi/"+username+"/salesinfo"+"?category="+category;}
+        url="http://130.229.186.51:8080/shares/webapi/"+username+"/salesinfo"+"?category="+category;}
 
 
 
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity
 
                System.out.println(response.length());
 
-               for(int i=0;i< response.length();i++) {
+               for(int i= response.length() - 1 ;i >= 0;i--) {
                    try {
                        JSONObject json_data = response.getJSONObject(i);
                        long postID = json_data.getLong("id");
