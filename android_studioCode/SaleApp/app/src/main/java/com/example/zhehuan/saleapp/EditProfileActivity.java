@@ -58,7 +58,7 @@ public class EditProfileActivity  extends AppCompatActivity {
         username=intent.getStringExtra("username");
         fullname=intent.getStringExtra("fullname");
         profileIB= (ImageView)findViewById(R.id.userPhoto);
-        Glide.with(this).load("http://130.229.186.51:8080/shares/image/" + username + ".jpeg")
+        Glide.with(this).load("http://" + getString(R.string.IP_address) + ":8080/shares/image/" + username + ".jpeg")
                 .signature(new StringSignature(UUID.randomUUID().toString()))
                 .error(R.drawable.people).into(profileIB);
        // Glide.with(this).load(R.drawable.poster).into(profileIB);
@@ -161,7 +161,7 @@ public class EditProfileActivity  extends AppCompatActivity {
         try {
             StringEntity entity = new StringEntity(jsonObject.toString());
             AsyncHttpClient client=new AsyncHttpClient();
-            client.post(getApplicationContext(),"http://130.229.186.51:8080/shares/webapi/"+username,entity,"application/json",new JsonHttpResponseHandler(){
+            client.post(getApplicationContext(),"http://" + getString(R.string.IP_address) + ":8080/shares/webapi/"+username,entity,"application/json",new JsonHttpResponseHandler(){
 
 
                 @Override

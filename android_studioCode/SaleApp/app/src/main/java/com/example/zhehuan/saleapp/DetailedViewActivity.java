@@ -49,9 +49,9 @@ public class DetailedViewActivity extends AppCompatActivity {
        ImageView postPhtoIV = (ImageView)findViewById(R.id.postPhotoUsed);
 
        // Glide.with(this).load(R.drawable.b).into(postPhtoIV);
-        Glide.with(this).load("http://130.229.186.51:8080/shares/image/"+salePost.getImageName()).into(postPhtoIV);
+        Glide.with(this).load("http://" + getString(R.string.IP_address) + ":8080/shares/image/" + salePost.getImageName()).into(postPhtoIV);
         ImageView posterProfileImage = (ImageView)findViewById(R.id.posterProfileImage);
-        Glide.with(this).load("http://130.229.186.51:8080/shares/image/"+username+".jpeg")
+        Glide.with(this).load("http://" + getString(R.string.IP_address) + ":8080/shares/image/"+username+".jpeg")
                 .signature(new StringSignature(UUID.randomUUID().toString()))
                 .error(R.drawable.poster)
                 .into(posterProfileImage);

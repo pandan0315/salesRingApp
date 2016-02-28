@@ -116,7 +116,7 @@ public class FriendActivity extends AppCompatActivity {
         try {
             StringEntity entity = new StringEntity(jsonObject.toString());
             AsyncHttpClient client= new AsyncHttpClient();
-            client.post(getApplicationContext(), "http://130.229.186.51:8080/shares/webapi/" + username + "/friends", entity, "application/json", new JsonHttpResponseHandler() {
+            client.post(getApplicationContext(), "http://" + getString(R.string.IP_address) + ":8080/shares/webapi/" + username + "/friends", entity, "application/json", new JsonHttpResponseHandler() {
 
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, org.json.JSONObject response) {
@@ -164,7 +164,7 @@ public class FriendActivity extends AppCompatActivity {
 
     private void getFriends(final String username) {
         AsyncHttpClient client = new AsyncHttpClient();
-        client.get("http://130.229.186.51:8080/shares/webapi/" + username + "/friends", new JsonHttpResponseHandler() {
+        client.get("http://" + getString(R.string.IP_address) + ":8080/shares/webapi/" + username + "/friends", new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
@@ -243,7 +243,7 @@ public class FriendActivity extends AppCompatActivity {
         try {
             StringEntity entity = new StringEntity(jsonObject.toString());
             AsyncHttpClient client= new AsyncHttpClient();
-            client.delete(getApplicationContext(),"http://130.229.186.51:8080/shares/webapi/" + username + "/friends",entity,"application/json",new JsonHttpResponseHandler(){
+            client.delete(getApplicationContext(),"http://" + getString(R.string.IP_address) + ":8080/shares/webapi/" + username + "/friends",entity,"application/json",new JsonHttpResponseHandler(){
 
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, org.json.JSONObject response) {

@@ -64,7 +64,7 @@ public class UserProfileActivity extends AppCompatActivity {
         ImageView profilePhoto = (ImageView) findViewById(R.id.userProfilePhoto);
       //  Glide.with(this).load("http://philosophy.ucr.edu/wp-content/uploads/2014/10/no-profile-img.gif").into(profilePhoto);
 
-       Glide.with(this).load("http://192.168.11.113:8080/shares/image/"+username+".jpeg")
+       Glide.with(this).load("http://" + getString(R.string.IP_address) + ":8080/shares/image/"+username+".jpeg")
                         .signature(new StringSignature(UUID.randomUUID().toString()))
                         .error(R.drawable.poster).
                          into(profilePhoto);
@@ -94,7 +94,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private void getUserProfile(String username) {
 
         AsyncHttpClient client=new AsyncHttpClient();
-        client.get("http://130.229.186.51:8080/shares/webapi/" + username, new JsonHttpResponseHandler() {
+        client.get("http://" + getString(R.string.IP_address) + ":8080/shares/webapi/" + username, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 

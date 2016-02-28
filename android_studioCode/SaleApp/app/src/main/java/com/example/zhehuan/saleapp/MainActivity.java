@@ -118,11 +118,11 @@ public class MainActivity extends AppCompatActivity
         String url;
 
         if(category==null){
-            url="http://130.229.186.51:8080/shares/webapi/"+username+"/salesinfo";
+            url="http://" + getString(R.string.IP_address) + ":8080/shares/webapi/"+username+"/salesinfo";
 
         }
         else{
-        url="http://130.229.186.51:8080/shares/webapi/"+username+"/salesinfo"+"?category="+category;}
+        url="http://" + getString(R.string.IP_address) + ":8080/shares/webapi/"+username+"/salesinfo"+"?category="+category;}
 
 
 

@@ -221,7 +221,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         request.put("password",password);
 
         AsyncHttpClient client= new AsyncHttpClient();
-        client.post("http://130.229.186.51:8080/shares/webapi/login", request, new JsonHttpResponseHandler() {
+        client.post("http://" + getString(R.string.IP_address) + ":8080/shares/webapi/login", request, new JsonHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode,Header[] headers, String errorResponse,Throwable throwable) {
 
