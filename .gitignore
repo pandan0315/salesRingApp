@@ -1,3 +1,5 @@
+.idea/*
+.classpath/*
 salesServer/.recommenders
 salesServer/.metadata
 salesServer/shareswebservice/target/

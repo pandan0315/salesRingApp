@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.signature.StringSignature;
 
+
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -54,7 +55,7 @@ class FriendAdapter extends ArrayAdapter<FriendDetail> {
         TextView fullName = (TextView) rowView.findViewById(R.id.fullName);
         ImageView userPhoto = (ImageView) rowView.findViewById(R.id.userPhoto);
        // Glide.with(mainActivity).load(R.drawable.poster).into(userPhoto);
-        Glide.with(mainActivity).load("http://130.229.185.204:8080/shares/image/"+friends.get(position)+".jpeg")
+        Glide.with(mainActivity).load("http://"+ getContext().getString(R.string.IP_address) +":8080/shares/image/"+friends.get(position)+".jpeg")
                 .signature(new StringSignature(UUID.randomUUID().toString()))
                 .error(R.drawable.poster).
                 into(userPhoto);
