@@ -49,16 +49,16 @@ public class DetailedViewActivity extends AppCompatActivity {
        ImageView postPhtoIV = (ImageView)findViewById(R.id.postPhotoUsed);
 
        // Glide.with(this).load(R.drawable.b).into(postPhtoIV);
-        Glide.with(this).load("http://192.168.11.113:8080/shares/image/"+salePost.getImageName()).into(postPhtoIV);
+        Glide.with(this).load("http://" + getString(R.string.IP_address) + ":8080/shares/image/" + salePost.getImageName()).into(postPhtoIV);
         ImageView posterProfileImage = (ImageView)findViewById(R.id.posterProfileImage);
-        Glide.with(this).load("http://192.168.11.113:8080/shares/image/"+username+".jpeg")
+        Glide.with(this).load("http://" + getString(R.string.IP_address) + ":8080/shares/image/"+username+".jpeg")
                 .signature(new StringSignature(UUID.randomUUID().toString()))
                 .error(R.drawable.poster)
                 .into(posterProfileImage);
         nameTV=(TextView)findViewById(R.id.posterName);
-        nameTV.setText("Poster: "+salePost.getPosterfullname());
+        nameTV.setText(salePost.getPosterfullname());
         dateTV=(TextView)findViewById(R.id.detailedDateTV);
-        dateTV.setText(salePost.getPostDate());
+        dateTV.setText(" "+salePost.getPostDate());
         storeTV=(TextView)findViewById(R.id.detailedStoreTV);
         storeTV.setText("Store: "+salePost.getStore());
         priceTV=(TextView)findViewById(R.id.detailedPriceTV);

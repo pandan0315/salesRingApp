@@ -64,7 +64,7 @@ public class UserProfileActivity extends AppCompatActivity {
         ImageView profilePhoto = (ImageView) findViewById(R.id.userProfilePhoto);
       //  Glide.with(this).load("http://philosophy.ucr.edu/wp-content/uploads/2014/10/no-profile-img.gif").into(profilePhoto);
 
-       Glide.with(this).load("http://192.168.11.113:8080/shares/image/"+username+".jpeg")
+       Glide.with(this).load("http://" + getString(R.string.IP_address) + ":8080/shares/image/"+username+".jpeg")
                         .signature(new StringSignature(UUID.randomUUID().toString()))
                         .error(R.drawable.poster).
                          into(profilePhoto);
@@ -94,7 +94,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private void getUserProfile(String username) {
 
         AsyncHttpClient client=new AsyncHttpClient();
-        client.get("http://192.168.11.113:8080/shares/webapi/" + username, new JsonHttpResponseHandler() {
+        client.get("http://" + getString(R.string.IP_address) + ":8080/shares/webapi/" + username, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
@@ -124,14 +124,15 @@ public class UserProfileActivity extends AppCompatActivity {
 
 
             }
+
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 //AsyncHttpClient.log.w(LOG_TAG, "onFailure(int, Header[], Throwable, JSONObject) was not overriden, but callback was received", throwable);
                 Toast.makeText(getApplicationContext(), "Some things goes wrong, internet error,profile can not be displaied!", Toast.LENGTH_LONG).show();
 
-                Intent intent=new Intent();
-                intent.putExtra("username",getUsername());
-                intent.putExtra("fullname",fullname);
+                Intent intent = new Intent();
+                intent.putExtra("username", getUsername());
+                intent.putExtra("fullname", fullname);
                 intent.setClass(UserProfileActivity.this, EditProfileActivity.class);
                 startActivity(intent);
             }

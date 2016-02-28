@@ -155,7 +155,7 @@ public class NewPostActivity extends AppCompatActivity {
             //entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
             AsyncHttpClient client=new AsyncHttpClient();
 
-            client.post(getApplicationContext(),"http://192.168.11.113:8080/shares/webapi/"+username+"/salesinfo", entity,"application/json", new JsonHttpResponseHandler() {
+            client.post(getApplicationContext(),"http://" + getString(R.string.IP_address) + ":8080/shares/webapi/"+username+"/salesinfo", entity,"application/json", new JsonHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, org.json.JSONObject response) {
 

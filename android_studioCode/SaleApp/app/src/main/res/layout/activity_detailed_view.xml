@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.zhehuan.saleapp.DetailedViewActivity">
     <ScrollView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/scrollView"
         android:layout_weight="1"
@@ -13,7 +13,7 @@
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical" android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <GridLayout
             android:layout_width="fill_parent"

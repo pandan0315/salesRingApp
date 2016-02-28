@@ -79,7 +79,23 @@ public class PostInfo {
 		this.description=description;
 	}
 
-
+	
+	
+	public PostInfo(String taggedUser,String posterfullname,String created, String postUser, String category, String is_pricebefore,String price, String sale_discount,
+			String shop, String imageName, String description) {
+		super();
+		this.taggedUser=taggedUser;
+		this.posterfullname=posterfullname;
+		this.created = created;
+		this.postUser = postUser;
+		this.category = category;
+		this.is_pricebefore=is_pricebefore;
+		this.price=price;
+		this.sale_discount = sale_discount;
+		this.shop = shop;
+		this.imageName = imageName;
+		this.description=description;
+	}
 
 
 

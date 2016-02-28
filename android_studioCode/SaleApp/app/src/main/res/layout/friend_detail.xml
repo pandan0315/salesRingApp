@@ -17,6 +17,12 @@
             android:src="@drawable/profile29"
             android:layout_margin="10dp" />
 
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -27,6 +33,14 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginBottom="5dp" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Small Text"
+                android:id="@+id/fullName"
+                android:layout_marginLeft="10dp" />
+        </LinearLayout>
 
         <LinearLayout
             android:orientation="vertical"
@@ -55,14 +69,6 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Large Text"
-                android:id="@+id/fullName"
-                android:layout_marginLeft="10dp" />
 
 
         </LinearLayout>

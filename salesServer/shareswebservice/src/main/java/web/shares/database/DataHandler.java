@@ -123,18 +123,23 @@ public class DataHandler {
     
     
     public User getUserByNameAndPassword(String email, String password){
-    	try{
+    	try{System.out.println(email+password);
+    		
     		PreparedStatement stmt = con.prepareStatement("SELECT * FROM share.users WHERE (email = ? AND password = ?)");
             stmt.setString(1, email);
             stmt.setString(2, password);
+            System.out.println("get in!!!");
             ResultSet rs=stmt.executeQuery();
             if(rs.next()){
+            	
             	String username=rs.getString("username");
             	String fullname=rs.getString("fullname");
             	String emailaddress=rs.getString("email");
             	String passStr=rs.getString("password");
             	stmt.close();
+            	System.out.println(username+fullname);
             	return new User(username,fullname);
+            	
             }
     	}catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -228,17 +233,22 @@ public class DataHandler {
     	
     	ArrayList<PostInfo>allPostsByName=new ArrayList<>();
     	FollowingFriendship allfriendsByName=this.getAllFriends(name);
-    	ArrayList<String> followedfriendsList= allfriendsByName.getFollowedList();
+    	ArrayList<String> friends=new ArrayList<>();
+    	ArrayList<User> followedfriendsList= allfriendsByName.getFollowedList();
+    	for(User user:followedfriendsList)
+     	{
+    		friends.add(user.getUserName());
+    	}
     	StringBuilder b = new StringBuilder("'" + name + "', ");
     	
-    	for (String friendName : followedfriendsList) {
+    	for (String friendName : friends) {
     		b.append("'" + friendName + "', ");
     	}
     	String whereClause = b.toString().replaceAll(", $", "");
     	
     	 try {
 			Statement stmt = con.createStatement();
-			ResultSet rs=stmt.executeQuery("SELECT * FROM share.postedinfo" + " WHERE post_user IN (" + whereClause + ")");
+			ResultSet rs=stmt.executeQuery("SELECT * FROM share.postedinfo" + " WHERE post_user IN (" + whereClause + ") ");
 			//stmt.setString(1,whereClause);
 	    	//stmt.executeQuery();
 	    	while(rs.next()){
@@ -287,7 +297,8 @@ public class DataHandler {
             System.err.println(ex.getMessage());
             return null;
         }
-		return newPost;
+		return new PostInfo(newPost.getTaggedUser(),newPost.getPosterfullname(),newPost.getCreated(), newPost.getPostUser(), newPost.getCategory(), newPost.getIs_pricebefore(),newPost.getPrice(), newPost.getSale_discount(),
+			newPost.getShop(), imageName, newPost.getDescription());
         
     }
     public PostInfo updatePostInfo(long postid,String tagged_user){
@@ -484,10 +495,13 @@ public class DataHandler {
 	  
   }
   
+  
+  //get friends object information , include friends username and fullname
   public FollowingFriendship getAllFriends(String username){
-  	
- 	
- 	 ArrayList<String> friends=new ArrayList<>();
+	  
+	
+	
+ 	 ArrayList<User> friends=new ArrayList<>();
  	 
  	 try {
 			stmt=con.createStatement();
@@ -496,7 +510,9 @@ public class DataHandler {
 			while(rs.next()){
 			    if(rs.getString("following_user").equals(username))
 			    {
-			    friends.add(rs.getString("followed_user"));
+			    	String friend_username=rs.getString("followed_user");
+			    	String friend_fullname=this.getUserFullname(friend_username).getFullName();
+			    friends.add(new User(friend_username,friend_fullname));
 			    }
 			}
 			
@@ -532,9 +548,13 @@ public class DataHandler {
     	 if(this.getFriendshipByFollowingAndFollowed(newFriend.getFollowingUser(), newFriend.getFollowedUser())!=null){
     		 return null;
     	 }
+    	if( this.getUserByname(newFriend.getFollowedUser())==null)
+    	{
+    		return null;
+    	}
     	 try {
              // Prepare the statement with SQL update command
-             PreparedStatement stmt = con.prepareStatement("INSERT INTO share.following_table" +
+             PreparedStatement stmt = con.prepareStatement("INSERT INTO share.followingfriendship" +
                      "(following_user,followed_user) VALUES (?,?)");
              
             
@@ -561,7 +581,7 @@ public class DataHandler {
     	 }
          try {
              // Prepare the statement with SQL update command
-             PreparedStatement stmt = con.prepareStatement("DELETE FROM share.following_table WHERE " + 
+             PreparedStatement stmt = con.prepareStatement("DELETE FROM share.followingfriendship WHERE " + 
                      "(following_user = ? AND followed_user=?)");
              stmt.setString(1, friendShip.getFollowingUser());
              stmt.setString(2, friendShip.getFollowedUser());

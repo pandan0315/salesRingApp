@@ -90,6 +90,7 @@ public class UserProfileResource {
 	 *   "username":"pan",
 	 *   "fullname":"Pan Dan"
 	 *   "interest_category":"electronics"
+	 *   "encodeprofileimage":"da;lfgje00ejkdkdklakdjjdftgkrdlasfg"(if profile image not changed,then leave this null)
 	 * }
 	 * @apiSuccess{Object} userprofile  userprofile object
 	 * @apiSuccess {String}  userprofile.username     user name.
@@ -97,11 +98,6 @@ public class UserProfileResource {
 	 * @apiSuccess {String}  userprofile.interest_category   intereste category
 	 * @apiSuccessExample Success-Response:
 	 * HTTP/1.1 201 Created
-	 * {
-	 *  "username":"pan",
-	 *  "fullname":"Pan Dan"
-	 *  "interest_category":"electronics"
-	 * }
 	 * @apiError {Object} errorResponse   return error Response object
 	 * @apiError {String} errorResponse.error_message  error message
 	 * @apiErrorExample Error-Response:
@@ -140,33 +136,39 @@ public class UserProfileResource {
 	
 	
 	/**
-	 * @api {get} /{username}/friends     Get specified user's all followed friends
-	 * @apiName  GetUserFriend
+	 * @api {get} /{username}/friends Get specified user's all followed friends
+	 * @apiName GetUserFriend
 	 * @apiGroup UserFriendship
-	 * @apiExample {curl} Example usage:
-	 *     curl -i http://localhost:8080/webapi/{username}/friends
-	 * @apiParam {String} username   specify the user name.
-	 * @apiSuccess {Object} followingFriendship   followingFriendship object.
-	 * @apiSuccess {String}  FollowingFriendship.followingUser   specify followingUser name(request param:username).
-	 * @apiSuccess {String[]} followingUser.followedLists   List of followed users.
-	 * @apiSuccessExample Success-Response:
-	 *  HTTP/1.1 200 OK
-	 *  {
-	 *    "followingUser": "pan"
-	 *    "followedList":
-	 *          [
-	 *          "bob",
-     *           "Alice"
-	 *          ]
-	 *    
-	 *  }
-	 * @apiError {Object} errorResponse  return error Response object
-	 * @apiError {String} errorResponse.error_message   error message
-	 * @apiErrorExample {json} Error-Response:
-	 * HTTP/1.1 404 Not Found
-	 * {
-	 *  "error_message":"UserNotFound"
-	 * }
+	 * @apiExample {curl} Example usage: curl -i
+	 *             http://localhost:8080/webapi/{username}/friends
+	 * @apiParam {String} username specify the user name.
+	 * @apiSuccess {Object} followingFriendship followingFriendship object.
+	 * @apiSuccess {String} FollowingFriendship.followingUser specify
+	 *             followingUser name(request param:username).
+	 * @apiSuccess {String[]} followingUser.followedLists List of followed
+	 *             users.
+	 * @apiSuccessExample Success-Response: 
+	 * HTTP/1.1 200 OK 
+	 * { "followedList": [
+	 *                    { 
+	 *                    "fullName": "Gu yuqing", 
+	 *                    "userName": "yuqing"
+	 *                     }, 
+	 *                    {
+	 *                    "fullName": "Liu zhehuan",
+	 *                     "userName": "zhehuan" 
+	 *                     },
+	 *                      {
+	 *                    "fullName": "Khalid Mahgoub",
+	 *                     "userName": "khalid" 
+	 *                     }
+	 *                    ], 
+	 *  "followingUser": "pan"
+	 *   }
+	 * @apiError {Object} errorResponse return error Response object
+	 * @apiError {String} errorResponse.error_message error message
+	 * @apiErrorExample {json} Error-Response: HTTP/1.1 404 Not Found {
+	 *                  "error_message":"UserNotFound" }
 	 * 
 	 */
 	@GET
@@ -222,7 +224,7 @@ public class UserProfileResource {
 		   
 		   {return Response.status(201).entity(newFriend).build();}
 		else{
-		return Response.status(400).entity(new ErrorResponse("Bad Request,request new friendship already existed")).build();
+		return Response.status(400).entity(new ErrorResponse("Bad Request,request new friendship already existed or not existed in the system")).build();
 		}
 	}
 	
