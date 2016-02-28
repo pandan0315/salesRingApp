@@ -14,6 +14,7 @@ public class AuthenticatorService {
     	
     	
     	User user= dataHandler.getUserByNameAndPassword(email, password);
+    	
     
     	if(user==null)
     	{

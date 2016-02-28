@@ -115,8 +115,8 @@ public class PostInfoResource {
 	 *                   "postUser": "dan",
 	 *                   "posterfullname":"Pan Dan",
 	 *                   "taggedUser": "dan"
-	 *                  "price_before": 4000, 
-	 *                  "sale_discount": "10%",
+	 *                   "price_before": 4000, 
+	 *                   "sale_discount": "10%",
 	 *                   "shop":"webhallen", 
 	 *                   }
 	 * @apiSuccess {Object} postinfo sales information(return the same object attribute as post).
@@ -125,13 +125,15 @@ public class PostInfoResource {
 	 * {
 	 *                  
 	 *                 "category": "electronics",
-	 *                  "created": "2016-02-16", "description":
-	 *                  "best chance for whom wants to buy a new PS4",
-	 *                  "encodeImage":
-	 *                  "dfaodiopui0ere0jgvdkanvklfn;afjdasfdaffasgrafgdsfadsgdafgas",
-	 *                  "imageName": "ps4.jpeg", "postUser": "Alice",
-	 *                  "price_before": 4000, "sale_discount": "10%", "shop":
-	 *                  "webhallen", "taggedUser": "dan"
+	 *                  "created": "2016-02-16",
+	 *                   "description":"best chance for whom wants to buy a new PS4",
+	 *                  "imageName": "ps4.jpeg",
+	 *                   "postUser": "dan",
+	 *                   "postfullname":"Pan Dan"
+	 *                  "price_before": 4000,
+	 *                   "sale_discount": "10%",
+	 *                    "shop":"webhallen", 
+	 *                    "taggedUser": "dan"
 	 *                     
 	 * }
 	 *@apiErrorExample Error-Response:

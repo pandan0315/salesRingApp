@@ -123,18 +123,23 @@ public class DataHandler {
     
     
     public User getUserByNameAndPassword(String email, String password){
-    	try{
+    	try{System.out.println(email+password);
+    		
     		PreparedStatement stmt = con.prepareStatement("SELECT * FROM share.users WHERE (email = ? AND password = ?)");
             stmt.setString(1, email);
             stmt.setString(2, password);
+            System.out.println("get in!!!");
             ResultSet rs=stmt.executeQuery();
             if(rs.next()){
+            	
             	String username=rs.getString("username");
             	String fullname=rs.getString("fullname");
             	String emailaddress=rs.getString("email");
             	String passStr=rs.getString("password");
             	stmt.close();
+            	System.out.println(username+fullname);
             	return new User(username,fullname);
+            	
             }
     	}catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -231,7 +236,7 @@ public class DataHandler {
     	ArrayList<String> friends=new ArrayList<>();
     	ArrayList<User> followedfriendsList= allfriendsByName.getFollowedList();
     	for(User user:followedfriendsList)
-    	{
+     	{
     		friends.add(user.getUserName());
     	}
     	StringBuilder b = new StringBuilder("'" + name + "', ");
@@ -243,7 +248,7 @@ public class DataHandler {
     	
     	 try {
 			Statement stmt = con.createStatement();
-			ResultSet rs=stmt.executeQuery("SELECT * FROM share.postedinfo" + " WHERE post_user IN (" + whereClause + ")");
+			ResultSet rs=stmt.executeQuery("SELECT * FROM share.postedinfo" + " WHERE post_user IN (" + whereClause + ") ");
 			//stmt.setString(1,whereClause);
 	    	//stmt.executeQuery();
 	    	while(rs.next()){
@@ -292,7 +297,8 @@ public class DataHandler {
             System.err.println(ex.getMessage());
             return null;
         }
-		return newPost;
+		return new PostInfo(newPost.getTaggedUser(),newPost.getPosterfullname(),newPost.getCreated(), newPost.getPostUser(), newPost.getCategory(), newPost.getIs_pricebefore(),newPost.getPrice(), newPost.getSale_discount(),
+			newPost.getShop(), imageName, newPost.getDescription());
         
     }
     public PostInfo updatePostInfo(long postid,String tagged_user){
