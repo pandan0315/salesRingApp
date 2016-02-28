@@ -19,6 +19,7 @@ import web.shares.model.ErrorResponse;
 import web.shares.model.FollowingFriendship;
 import web.shares.model.User;
 import web.shares.model.UserProfile;
+import web.shares.service.PostInfoService;
 
 @Path("/{username}")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -27,6 +28,7 @@ public class UserProfileResource {
 	
 	
 	DataHandler dataHandler=new DataHandler();
+	PostInfoService postedImage=new PostInfoService();
 	
 
 	/**
@@ -77,25 +79,25 @@ public class UserProfileResource {
 	
 	/**
 	 * @api{post} /{username}    Add new user profile, username can be duplicated
-	 * @apiName AddNewUserProfile 
+	 * @apiName EditUserProfile 
 	 * @apiGroup  UserProfile
 	 * @apiParam {object} userprofile   specify userprofile object
 	 * @apiParam {String} userprofile.username   specify username.
+	 * @apiParam {String} userprofile.fullname   specify fullname
 	 * @apiParam {String} userprofile.interest_category   specify interest category
 	 * @apiParamExample {json} Request-Example:
 	 * {
 	 *   "username":"pan",
+	 *   "fullname":"Pan Dan"
 	 *   "interest_category":"electronics"
+	 *   "encodeprofileimage":"da;lfgje00ejkdkdklakdjjdftgkrdlasfg"(if profile image not changed,then leave this null)
 	 * }
 	 * @apiSuccess{Object} userprofile  userprofile object
 	 * @apiSuccess {String}  userprofile.username     user name.
+	 *  @apiSuccess {String}  userprofile.fullname     fullname.
 	 * @apiSuccess {String}  userprofile.interest_category   intereste category
 	 * @apiSuccessExample Success-Response:
 	 * HTTP/1.1 201 Created
-	 * {
-	 *  "username":"pan",
-	 *  "interest_category":"electronics"
-	 * }
 	 * @apiError {Object} errorResponse   return error Response object
 	 * @apiError {String} errorResponse.error_message  error message
 	 * @apiErrorExample Error-Response:
@@ -105,49 +107,68 @@ public class UserProfileResource {
 	 *    }
 	 */
 	@POST
-	public Response addNewInterest(UserProfile newProfile){
+	public Response editProfile(UserProfile newProfile){
 		
-		if(newProfile.getUsername()==null||newProfile.getInterest_category()==null)          
+	/*	if(newProfile.getFullname()==null&&newProfile.getInterest_category()==null)          
 		{
 			return Response.status(400).entity(new ErrorResponse("Bad Request,Check Param!")).build();
 		}
         
-		else if(dataHandler.addUserInterest(newProfile)!=null)
+		else if(dataHandler.editProfile(newProfile)!=null)
 		   
 		   {return Response.status(201).entity(newProfile).build();}
 		else{
 		return Response.status(400).entity(new ErrorResponse("Bad Request,request interest category already existed")).build();
 		}
+		
+		*/
+		
+			dataHandler.editProfile(newProfile);
+			if(newProfile.getEncodeProfileIcon()!=null){
+			this.postedImage.convertStringtoImage(newProfile.getEncodeProfileIcon(), newProfile.getUsername()+".jpeg");}
+			
+			return Response.status(201).entity(newProfile).build();
+			
+		
+		
+		
 	}
 	
+	
 	/**
-	 * @api {get} /{username}/friends     Get specified user's all followed friends
-	 * @apiName  GetUserFriend
+	 * @api {get} /{username}/friends Get specified user's all followed friends
+	 * @apiName GetUserFriend
 	 * @apiGroup UserFriendship
-	 * @apiExample {curl} Example usage:
-	 *     curl -i http://localhost:8080/webapi/{username}/friends
-	 * @apiParam {String} username   specify the user name.
-	 * @apiSuccess {Object} followingFriendship   followingFriendship object.
-	 * @apiSuccess {String}  FollowingFriendship.followingUser   specify followingUser name(request param:username).
-	 * @apiSuccess {String[]} followingUser.followedLists   List of followed users.
-	 * @apiSuccessExample Success-Response:
-	 *  HTTP/1.1 200 OK
-	 *  {
-	 *    "followingUser": "pan"
-	 *    "followedList":
-	 *          [
-	 *          "bob",
-     *           "Alice"
-	 *          ]
-	 *    
-	 *  }
-	 * @apiError {Object} errorResponse  return error Response object
-	 * @apiError {String} errorResponse.error_message   error message
-	 * @apiErrorExample {json} Error-Response:
-	 * HTTP/1.1 404 Not Found
-	 * {
-	 *  "error_message":"UserNotFound"
-	 * }
+	 * @apiExample {curl} Example usage: curl -i
+	 *             http://localhost:8080/webapi/{username}/friends
+	 * @apiParam {String} username specify the user name.
+	 * @apiSuccess {Object} followingFriendship followingFriendship object.
+	 * @apiSuccess {String} FollowingFriendship.followingUser specify
+	 *             followingUser name(request param:username).
+	 * @apiSuccess {String[]} followingUser.followedLists List of followed
+	 *             users.
+	 * @apiSuccessExample Success-Response: 
+	 * HTTP/1.1 200 OK 
+	 * { "followedList": [
+	 *                    { 
+	 *                    "fullName": "Gu yuqing", 
+	 *                    "userName": "yuqing"
+	 *                     }, 
+	 *                    {
+	 *                    "fullName": "Liu zhehuan",
+	 *                     "userName": "zhehuan" 
+	 *                     },
+	 *                      {
+	 *                    "fullName": "Khalid Mahgoub",
+	 *                     "userName": "khalid" 
+	 *                     }
+	 *                    ], 
+	 *  "followingUser": "pan"
+	 *   }
+	 * @apiError {Object} errorResponse return error Response object
+	 * @apiError {String} errorResponse.error_message error message
+	 * @apiErrorExample {json} Error-Response: HTTP/1.1 404 Not Found {
+	 *                  "error_message":"UserNotFound" }
 	 * 
 	 */
 	@GET
@@ -203,7 +224,7 @@ public class UserProfileResource {
 		   
 		   {return Response.status(201).entity(newFriend).build();}
 		else{
-		return Response.status(400).entity(new ErrorResponse("Bad Request,request new friendship already existed")).build();
+		return Response.status(400).entity(new ErrorResponse("Bad Request,request new friendship already existed or not existed in the system")).build();
 		}
 	}
 	

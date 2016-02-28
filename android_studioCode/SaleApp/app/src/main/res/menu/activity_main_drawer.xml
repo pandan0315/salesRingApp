@@ -2,6 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
+
         <item
             android:id="@+id/nav_all"
             android:title="Show All"/>
@@ -9,8 +10,8 @@
             android:id="@+id/nav_fashion"
             android:title="Fashion" />
         <item
-            android:id="@+id/nav_electric_appliances"
-            android:title="Eelectric Appliances" />
+            android:id="@+id/nav_hobbies"
+            android:title="Hobbies" />
         <item
             android:id="@+id/nav_beauty"
             android:title="Beauty" />

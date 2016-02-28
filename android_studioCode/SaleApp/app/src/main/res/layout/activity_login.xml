@@ -47,6 +47,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Please input your email:"
+                    android:text="pan@wo.com"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:singleLine="true"
@@ -63,6 +64,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Please input your password:"
+                    android:text="123456"
                     android:imeActionId="@+id/login"
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
@@ -89,6 +91,7 @@
                 android:text="Sign up and Join us!"
                 android:id="@+id/SignUpBotton"
                 android:background="#b7b7ba"
+                android:onClick="RegisterActivity"
                 android:clickable="true" />
 
         </LinearLayout>

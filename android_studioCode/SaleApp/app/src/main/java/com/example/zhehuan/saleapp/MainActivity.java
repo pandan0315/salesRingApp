@@ -21,16 +21,30 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import java.util.HashMap;
+import java.util.List;
 import com.bumptech.glide.Glide;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
 
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import cz.msebera.android.httpclient.Header;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    ArrayList<SalePost> posts;
+    String username;
+    String fullname;
+    String category=null;
+    ArrayList<SalePost> posts=new ArrayList<>();
     ListView postsLV;
     ImageButton homeButton;
     @Override
@@ -39,7 +53,12 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Intent intent=getIntent();
+        username=intent.getStringExtra("username");
+        fullname=intent.getStringExtra("fullname");
+        category=intent.getStringExtra("category");
 
+        System.out.println(username);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -61,25 +80,125 @@ public class MainActivity extends AppCompatActivity
         Glide.with(this).load(R.drawable.editing).into(newPostIV);
         Glide.with(this).load(R.drawable.people).into(friendsIV);
 
-        posts = new ArrayList<SalePost>();
-
-        posts.add(new SalePost("","Khalid","HM","","12%","12%","5-4-2016 12:32","5-4-2016 12:32",true,"",""));
-        posts.add(new SalePost("","Zhehuan","D&G","","33%","33%","1-2-2013 12:41","1-2-2013 12:41",true,"",""));
-        posts.add(new SalePost("","Sunny","HM","","22%","22%","21-1-2016 12:41","21-1-2016 12:41",true,"",""));
-        posts.add(new SalePost("","Dan","Stadium","","44%","44%","21-2-2016 15:41","21-2-2016 15:41",true,"",""));
+       // posts = new ArrayList<HashMap<String,SalePost>>();
 
 
-        PostsAdapter adapter = new PostsAdapter(MainActivity.this,posts);
+        //posts.add(new SalePost(1,"Khalid","dan","HM","fashion","","12%",12,"","true","5-4-2016 12:32"));
+       // posts.add(new SalePost("","Zhehuan","D&G","","33%","33%","1-2-2013 12:41","1-2-2013 12:41",true,"",""));
+        //posts.add(new SalePost("","Sunny","HM","","22%","22%","21-1-2016 12:41","21-1-2016 12:41",true,"",""));
+        //posts.add(new SalePost("","Dan","Stadium","","44%","44%","21-2-2016 15:41","21-2-2016 15:41",true,"",""));
+
+        getPosts(username,category);
+      /*  PostsAdapter adapter = new PostsAdapter(MainActivity.this,posts);
         postsLV = (ListView) findViewById(R.id.postsListView);
         postsLV.setAdapter(adapter);
-
-        postsLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+*/
+      /*  postsLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 startActivity(new Intent(MainActivity.this, DetailedViewActivity.class));
             }
         });
+
+*/
+
+
+    }
+    public String getUsername()
+    {
+        return username;
+    }
+
+    private void getPosts(String username,String category) {
+
+
+
+        AsyncHttpClient client=new AsyncHttpClient();
+        String url;
+
+        if(category==null){
+            url="http://192.168.11.113:8080/shares/webapi/"+username+"/salesinfo";
+
+        }
+        else{
+        url="http://192.168.11.113:8080/shares/webapi/"+username+"/salesinfo"+"?category="+category;}
+
+
+
+        client.get(url,new JsonHttpResponseHandler(){
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                // called when response HTTP status is "200 OK"
+
+               System.out.println(response.length());
+
+               for(int i=0;i< response.length();i++) {
+                   try {
+                       JSONObject json_data = response.getJSONObject(i);
+                       long postID = json_data.getLong("id");
+                       String poster = json_data.getString("postUser");
+                       String posterfullname=json_data.getString("posterfullname");
+                       String taggedUser = json_data.getString("taggedUser");
+
+                       String store = json_data.getString("shop");
+                       String category = json_data.getString("category");
+                       String Description = json_data.getString("description");
+                       String saleValue = json_data.getString("sale_discount");
+                       double price = json_data.getDouble("price");
+                       String imageName = json_data.getString("imageName");
+                       String is_pricebefore = json_data.getString("is_pricebefore");
+                       String postDate = json_data.getString("created");
+
+                      posts.add(new SalePost(postID, poster,posterfullname, taggedUser, store, category, Description, saleValue, price, is_pricebefore, imageName,postDate));
+                   } catch (JSONException e) {
+                       Toast.makeText(getApplicationContext(), "Some things goes wrong, internet error, please Login again!", Toast.LENGTH_LONG).show();
+                       startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                       e.printStackTrace();
+                   }
+
+               }
+                PostsAdapter adapter = new PostsAdapter(MainActivity.this,posts);
+                postsLV = (ListView) findViewById(R.id.postsListView);
+                postsLV.setAdapter(adapter);
+                postsLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view,
+                                            int position, long id) {
+                      // System.out.println(posts.get(position).getImageName() );
+                        Intent intent=new Intent();
+                        intent.putExtra("username",getUsername());
+                        intent.putExtra("fullname",fullname);
+                        intent.putExtra("salePost", posts.get(position));
+                        intent.setClass(MainActivity.this, DetailedViewActivity.class);
+                        startActivity(intent);
+
+
+                    }
+                });
+
+
+
+            }
+
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String errorResponse, Throwable e) {
+                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+                Toast.makeText(getApplicationContext(), "Some things goes wrong, internet error, please Login again!", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(MainActivity.this,LoginActivity.class));
+
+            }
+
+
+
+            });
+
+
+
+
+
 
     }
 
@@ -125,15 +244,68 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_all) {
             // Handle the camera action
+            Intent intent=new Intent();
+            intent.putExtra("username",username);
+            intent.putExtra("fullname",fullname);
+
+            intent.setClass(MainActivity.this, MainActivity.class);
+            startActivity(intent);
+
         } else if (id == R.id.nav_beauty) {
+            Intent intent=new Intent();
+            intent.putExtra("username",username);
+            intent.putExtra("fullname",fullname);
+            intent.putExtra("category","Beauty");
+            intent.setClass(MainActivity.this, MainActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_books) {
+            Intent intent=new Intent();
+            intent.putExtra("username",username);
+            intent.putExtra("fullname",fullname);
+            intent.putExtra("category","Books");
+            intent.setClass(MainActivity.this, MainActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_electronics) {
+            Intent intent=new Intent();
+            intent.putExtra("username",username);
+            intent.putExtra("fullname",fullname);
+            intent.putExtra("category","Electronics");
+            intent.setClass(MainActivity.this, MainActivity.class);
+            startActivity(intent);
 
-        } else if (id == R.id.nav_electric_appliances) {
+        } else if (id == R.id.nav_hobbies) {
+            Intent intent=new Intent();
+            intent.putExtra("username",username);
+            intent.putExtra("fullname",fullname);
+            intent.putExtra("category","Hobbies");
+            intent.setClass(MainActivity.this, MainActivity.class);
+            startActivity(intent);
 
-        } else if (id == R.id.nav_beauty) {
+        } else if (id == R.id.nav_fashion) {
+            Intent intent=new Intent();
+            intent.putExtra("username",username);
+            intent.putExtra("fullname",fullname);
+            intent.putExtra("category","Fashion");
+            intent.setClass(MainActivity.this, MainActivity.class);
+            startActivity(intent);
+
+        }else if(id==R.id.nav_media){
+            Intent intent=new Intent();
+            intent.putExtra("username",username);
+            intent.putExtra("fullname",fullname);
+            intent.putExtra("category","Music and videos");
+            intent.setClass(MainActivity.this, MainActivity.class);
+            startActivity(intent);
+
+        }else if(id==R.id.nav_others){
+            Intent intent=new Intent();
+            intent.putExtra("username",username);
+            intent.putExtra("fullname",fullname);
+            intent.putExtra("category","Others");
+            intent.setClass(MainActivity.this, MainActivity.class);
+            startActivity(intent);
 
         }
 
@@ -145,26 +317,49 @@ public class MainActivity extends AppCompatActivity
 
     public void homeClicked(View view)
     {
-        startActivity(new Intent(MainActivity.this, MainActivity.class));
+        Intent intent=new Intent();
+        intent.putExtra("username",username);
+        intent.putExtra("fullname",fullname);
+        intent.setClass(MainActivity.this, MainActivity.class);
+        startActivity(intent);
+        //startActivity(new Intent(MainActivity.this, MainActivity.class));
     }
 
     public void newPost(View view)
+
     {
-        startActivity(new Intent(MainActivity.this,NewPostActivity.class));
+        Intent intent=new Intent();
+        intent.putExtra("username",username);
+        intent.putExtra("fullname",fullname);
+        intent.setClass(MainActivity.this, NewPostActivity.class);
+        startActivity(intent);
+       // startActivity(new Intent(MainActivity.this,NewPostActivity.class));
     }
 
     public void goToProfile(View view)
     {
-        startActivity(new Intent(MainActivity.this,UserProfileActivity.class));
+        Intent intent=new Intent();
+        intent.putExtra("username", username);
+        intent.putExtra("fullname",fullname);
+        intent.setClass(MainActivity.this, UserProfileActivity.class);
+        startActivity(intent);
+       // startActivity(new Intent(MainActivity.this,UserProfileActivity.class));
     }
 
     public void listOrAddFriends(View view)
+
     {
-        startActivity(new Intent(MainActivity.this,FriendActivity.class));
+        Intent intent=new Intent();
+        intent.putExtra("username", username);
+        intent.putExtra("fullname",fullname);
+        intent.setClass(MainActivity.this, FriendActivity.class);
+        startActivity(intent);
+        //startActivity(new Intent(MainActivity.this,FriendActivity.class));
     }
 
     public void aboutAppClicked(View view)
     {
         startActivity(new Intent(MainActivity.this,AboutAppActivity.class));
     }
+
 }

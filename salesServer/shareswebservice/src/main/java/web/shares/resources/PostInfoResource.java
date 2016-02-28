@@ -8,7 +8,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.GenericEntity;
@@ -22,7 +22,7 @@ import web.shares.model.FollowingFriendship;
 import web.shares.model.PostInfo;
 import web.shares.service.PostInfoService;
 
-@Path("/salesinfo")
+@Path("/{username}/salesinfo")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class PostInfoResource {
@@ -31,24 +31,24 @@ public class PostInfoResource {
 	PostInfoService postService=new PostInfoService();
 	
 	/**
-	 * @api {get}  /salesinfo    Get all salesinfo from followed friends or by category
+	 * @api {get}  /{username}/salesinfo    Get all salesinfo from followed friends and himself/herself or filtered by category
 	 * @apiName GetSalesInfo
 	 * @apiGroup SalesInfo
 	 * @apiExample {curl} Example usage:
-	 *    curl -i http://localhost:8080/salesinfo?username=pan&category=electronics
+	 *    curl -i http://localhost:8080/username/salesinfo?category=electronics
 	 * @apiParam {String} username   filter salesinfo by username(following user)
-	 * @apiParam {String} category    filter salesinfo by category,if null, return all category
+	 * @apiParam {String} category    filter salesinfo by category,if null, return all categories
 	 * @apiSuccess {Object}  postinfo              sales information.
 	 * @apiSuccess {Number}  postinfo.id           salesinfo id.
 	 * @apiSuccess {String}  postinfo.postUser     user who posted the saleinfo.
 	 * @apiSuccess {String}  postinfo.taggedUser   user who tagged by this saleinfo.
 	 * @apiSuccess {String}  postinfo.created      salesinfo created date.
 	 * @apiSuccess {String}  postinfo.category     salesinfo's category.
-	 * @apiSuccess {Number}  postinfo.price_before     sales item's before price
+	 * @apiSuccess {String}  postinfo.price_before     sales item's before price
 	 * @apiSuccess {String}  postinfo.sale_discount     sale discount.
 	 * @apiSuccess {String}  postinfo.shop          sales shop.
 	 * @apiSuccess {String}  postinfo.description     more details about saleinfo.
-	 * @apiSuccess {String}  postinfo.imagePath     salesinfo photo url.
+	 * @apiSuccess {String}  postinfo.imageName    salesinfo photo name.
 	 * @apiSuccessExample {json} Success-Response:
 	 *       HTTP/1.1 200 OK
 	 *       {
@@ -56,7 +56,7 @@ public class PostInfoResource {
     *             "created": "2016-02-16",
     *             "description": "best chance for whom wants to buy a new PS4",
     *              "id": 2,
-    *              "imagePath": "/Users/danpan/Documents/eclipse/testApp/shareswebservice/image/1.jpeg",
+    *              "imageName": "course.jpeg",
     *              "postUser": "Alice",
     *              "price_before": 4000,
     *              "sale_discount": "10%",
@@ -67,7 +67,7 @@ public class PostInfoResource {
 	 *       HTTP/1.1 500 Internal Server Error
 	 */
 	@GET
-	public Response getPostInfoByUserAndCategory(@QueryParam("username") String username,@QueryParam("category") String category){
+	public Response getPostInfoByUserAndCategory(@PathParam("username") String username, @QueryParam("category") String category){
 		 List<PostInfo> postsByUser=dataHandler.getAllPostsByName(username);
 		  List<PostInfo> PostsByCategory=new ArrayList<>();
 		if(category==null){
@@ -90,17 +90,15 @@ public class PostInfoResource {
 	
 	
 	/**
-	 * @api {post} /salesinfo Add new saleinfo to the server.
-	 * @aipError (500) Internal Server Error
+	 * @api {post} /{username}/salesinfo     Add new saleinfo to the server.
 	 * @apiName  PostSalesInfo
 	 * @apiGroup SalesInfo
 	 * @apiParam {Object} newPostInfo new sale info will be sent to the server
 	 * @apiParam {String} newPostInfo.postUser user who posted the saleinfo.
-	 * @apiParam {String} newPostInfo.taggedUser user who tagged by this
-	 *           saleinfo.
+	 * @apiParam {String} newPostInfo.taggedUser user who tagged by this saleinfo.
 	 * @apiParam {String} newPostInfo.created salesinfo created date.
 	 * @apiParam {String} newPostInfo.category salesinfo's category.
-	 * @apiParam {Number} newPostInfo.price_before sales item's before price
+	 * @apiParam {String} newPostInfo.price_before sales item's before price
 	 * @apiParam {String} newPostInfo.sale_discount sale discount.
 	 * @apiParam {String} newPostInfo.shop sales shop.
 	 * @apiParam {String} newPostInfo.description more details about saleinfo.
@@ -110,18 +108,20 @@ public class PostInfoResource {
 	 * @apiParamExample {json} Request-Example:
 	 *                 { 
 	 *                 "category": "electronics",
-	 *                  "created": "2016-02-16", "description":
-	 *                  "best chance for whom wants to buy a new PS4",
-	 *                  "encodeImage":
-	 *                  "dfaodiopui0ere0jgvdkanvklfn;afjdasfdaffasgrafgdsfadsgdafgas",
-	 *                  "imageName": "ps4.jpeg", "postUser": "Alice",
-	 *                  "price_before": 4000, "sale_discount": "10%", "shop":
-	 *                  "webhallen", "taggedUser": "dan"
+	 *                  "created": "2016-02-16",
+	 *                   "description":"best chance for whom wants to buy a new PS4",
+	 *                  "encodeImage":"dfaodiopui0ere0jgvdkanvklfn;afjdasfdaffasgrafgdsfadsgdafgas",
+	 *                  "imageName": "ps4.jpeg",
+	 *                   "postUser": "dan",
+	 *                   "posterfullname":"Pan Dan",
+	 *                   "taggedUser": "dan"
+	 *                  "price_before": 4000, 
+	 *                  "sale_discount": "10%",
+	 *                   "shop":"webhallen", 
 	 *                   }
-	 * @apiSuccess {Object} postinfo sales information(return the same object
-	 *             attribute as post).
+	 * @apiSuccess {Object} postinfo sales information(return the same object attribute as post).
 	 * @apiSuccessExample {json} Success-Response:
-	 * HTTP/1.1 201 created
+	 *            HTTP/1.1 201 created
 	 * {
 	 *                  
 	 *                 "category": "electronics",
@@ -147,7 +147,7 @@ public class PostInfoResource {
 	}
 	
 	/**
-	 * @api {put} /salesinfo   Update tagged user(add new tagged user) in some posted_saleinfo. 
+	 * @api {put} /{username}/salesinfo   Update tagged user(add new tagged user) in some posted_saleinfo. 
 	 * @apiName  UpdateSalesInfo
 	 * @apiGroup SalesInfo
 	 * @apiParam {Object} updatePostInfo   update specified postInfo with new tagged user.

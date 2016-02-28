@@ -63,7 +63,7 @@ public class PostInfoService {
 	public String convertStringtoImage(String encodedImageStr,String imageName){
 		// Decode String using Base64 Class
         byte[] imageByteArray = Base64.decodeBase64(encodedImageStr); 
-        String imagePath="/Users/danpan/Documents/eclipse/testApp/shareswebservice/image/"+imageName;
+        String imagePath="/Users/danpan/Documents/bitbucket/salesharing/salesServer/shareswebservice/image/"+imageName;
      // Write Image into File system - Make sure you update the path
         FileOutputStream imageOutFile;
 		try {
@@ -71,7 +71,7 @@ public class PostInfoService {
 			imageOutFile = new FileOutputStream(imagePath);
 			 imageOutFile.write(imageByteArray);
 			 imageOutFile.close();
-			 return imagePath;
+			 return imageName;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

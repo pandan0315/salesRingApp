@@ -12,6 +12,7 @@ import javax.ws.rs.core.Response;
 import web.shares.database.DataHandler;
 import web.shares.model.ErrorResponse;
 import web.shares.model.User;
+import web.shares.model.UserProfile;
 import web.shares.service.AuthenticatorService;
 
 @Path("/signup")
@@ -26,6 +27,8 @@ public class SignupResource {
 	 * @apiName SignupToApp
 	 * @apiGroup Authentication
 	 * @apiParam (Signup @FormParam) {String} username username needed to
+	 *           register the salesinfo app.
+	 * @apiParam (Signup @FormParam) {String} email email needed to
 	 *           register the salesinfo app.
 	 * @apiParam (Signup @FormParam) {String} password password needed to
 	 *           register the salesinfo app.
@@ -44,15 +47,18 @@ public class SignupResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Response Signup(@FormParam("username") String username,
+    		                    @FormParam("email") String email,
+    		                      @FormParam("fullname") String fullname,
     		                 
                                      @FormParam("password") String password) {
 
-   if(!authentication.checkUser(username)){
+   if(!authentication.checkUser(username,email)){
 	   
-	   User newUser=new User(username,password);
+	   User newUser=new User(username,fullname,email,password);
 	   dataHandler.storeUserAccount(newUser);
+	  // dataHandler.editProfile(new UserProfile(username,"",""));
     	  
-	   return  Response.status(201).entity("User created successfully!").build();
+	   return  Response.status(201).entity(newUser).build();
             
        }
        
