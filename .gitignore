@@ -1,8 +1,5 @@
-.idea/*
-.classpath/*
 salesServer/.recommenders
 salesServer/.metadata
-salesServer/.*
 salesServer/shareswebservice/target/
 **/.DS_Store
 **/~$*
