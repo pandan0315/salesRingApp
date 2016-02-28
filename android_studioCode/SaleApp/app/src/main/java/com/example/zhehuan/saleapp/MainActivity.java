@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity
         fullname=intent.getStringExtra("fullname");
         category=intent.getStringExtra("category");
 
+
         System.out.println(username);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

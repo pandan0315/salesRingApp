@@ -226,6 +226,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             public void onFailure(int statusCode,Header[] headers, String errorResponse,Throwable throwable) {
 
                 Toast.makeText(getApplicationContext(), "Unauthorized User!Try again or Register right now!", Toast.LENGTH_LONG).show();
+
                 startActivity(new Intent(LoginActivity.this, LoginActivity.class));
 
 
@@ -243,6 +244,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     Intent intent=new Intent();
                     intent.putExtra("username",response.getString("userName"));
                     intent.putExtra("fullname",response.getString("fullName"));
+                    new NotificationReceiver(response.getString("userName"));
 
                     intent.setClass(LoginActivity.this, MainActivity.class);
                     startActivity(intent);

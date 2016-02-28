@@ -161,10 +161,13 @@ public class NewPostActivity extends AppCompatActivity {
 
                     Toast.makeText(getApplicationContext(), "You  successfully post new sales information!", Toast.LENGTH_LONG).show();
 
+                  Intent callNotification = new Intent("new_post_available");
+                   callNotification.putExtra("SalePost",new SalePost());
+                    sendBroadcast(callNotification);
+
                     Intent intent=new Intent();
                     intent.putExtra("username",username);
                     intent.putExtra("fullname",fullname);
-
                     intent.setClass(NewPostActivity.this, MainActivity.class);
                     startActivity(intent);
 
