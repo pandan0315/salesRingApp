@@ -57,15 +57,13 @@ public class FriendActivity extends AppCompatActivity {
         ImageView friendsIV = (ImageView) findViewById(R.id.friendsButt);
         ImageView newPostIV = (ImageView)findViewById(R.id.newPostButt);
         ImageView searchIcon = (ImageView) findViewById(R.id.searchIcon);
-       // ImageButton addIcon = (ImageButton)findViewById(R.id.addBtn);
-       ImageButton addIcon=(ImageButton)findViewById(R.id.addBtn);
-
+        ImageView deleteIcon = (ImageView) findViewById(R.id.deleteIB);
         Glide.with(this).load(R.drawable.internet).into(homeIV);
         Glide.with(this).load(R.drawable.social).into(userProfileIV);
         Glide.with(this).load(R.drawable.editing).into(newPostIV);
         Glide.with(this).load(R.drawable.people).into(friendsIV);
         Glide.with(this).load(R.drawable.searchicon).into(searchIcon);
-        Glide.with(this).load(R.drawable.social1).into(addIcon);
+        Glide.with(this).load(R.drawable.social1).into(deleteIcon);
 
        // friends = new ArrayList<FriendDetail>();
 
