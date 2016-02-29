@@ -18,7 +18,7 @@ public class SalePost implements Serializable{
     private String category;
     private String Description;
     private String saleValue;
-    private double price;
+    private String price;
     private String imageName;
     private String is_pricebefore;
     private String postDate;
@@ -28,7 +28,7 @@ public class SalePost implements Serializable{
     public SalePost(){
 
     }
-    public SalePost(long postID, String poster,String posterfullname, String taggedUser, String store, String category, String description, String saleValue, double price, String is_pricebefore,String imageName,String postDate) {
+    public SalePost(long postID, String poster,String posterfullname, String taggedUser, String store, String category, String description, String saleValue, String price, String is_pricebefore,String imageName,String postDate) {
         this.postID = postID;
         this.poster = poster;
         this.posterfullname=posterfullname;
@@ -45,7 +45,7 @@ public class SalePost implements Serializable{
 
     }
 
-    public SalePost(String poster, String taggedUser, String store, String category, String description, String saleValue, double price, String imageName, String is_pricebefore, String postDate, String encodeImge) {
+    public SalePost(String poster, String taggedUser, String store, String category, String description, String saleValue, String price, String imageName, String is_pricebefore, String postDate, String posterfullname) {
         this.poster = poster;
         this.taggedUser = taggedUser;
         this.store = store;
@@ -56,7 +56,7 @@ public class SalePost implements Serializable{
         this.imageName = imageName;
         this.is_pricebefore = is_pricebefore;
         this.postDate = postDate;
-        this.encodeImge = encodeImge;
+        this.posterfullname=posterfullname;
     }
 
     public long getPostID() {
@@ -123,11 +123,11 @@ public class SalePost implements Serializable{
         this.saleValue = saleValue;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 

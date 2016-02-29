@@ -40,6 +40,7 @@ public class UserProfileActivity extends AppCompatActivity {
     String encodedImage;
     TextView fullnameTV;
     TextView interestTV;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +74,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
 
         //notification test with dummy notification
-        Intent resultIntent = new Intent(this, DetailedViewActivity.class);
+    /*    Intent resultIntent = new Intent(this, DetailedViewActivity.class);
         PendingIntent pIntent = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), resultIntent, 0);
 
         Notification notification =
@@ -88,7 +89,7 @@ public class UserProfileActivity extends AppCompatActivity {
                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
         notificationManager.notify(0, notification);
-
+*/
     }
 
     private void getUserProfile(String username) {
@@ -101,7 +102,7 @@ public class UserProfileActivity extends AppCompatActivity {
                 try {
                     StringBuilder interestString = new StringBuilder("");
 
-                    ArrayList<String> interestList = new ArrayList<>();
+                   ArrayList<String> interestList = new ArrayList<>();
                     if (response.has("categoryLists")) {
                         JSONArray interestJSONArray = response.getJSONArray("categoryLists");
                         for (int i = 0; i < interestJSONArray.length(); i++) {

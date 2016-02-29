@@ -160,10 +160,24 @@ public class NewPostActivity extends AppCompatActivity {
                 public void onSuccess(int statusCode, Header[] headers, org.json.JSONObject response) {
 
                     Toast.makeText(getApplicationContext(), "You  successfully post new sales information!", Toast.LENGTH_LONG).show();
+                  try {
+                      SalePost newPost = new SalePost(response.getString("postUser"), response.getString("taggedUser"),response.getString("shop"), response.getString("category"), response.getString("description"), response.getString("sale_discount"),
+                      response.getString("price"), response.getString("imageName"), response.getString("is_pricebefore"), response.getString("created"), response.getString("posterfullname"));
+                      Intent callNotification = new Intent("new_post_available");
+                      String tagged=newPost.getTaggedUser();
+                      System.out.println(newPost.getPostDate());
+                      System.out.println(newPost.getPoster());
+                      ;
+                      callNotification.putExtra("SalePost",newPost);
+                     // callNotification.putExtra("username", username);
+                      //callNotification.putExtra("tagged", tagged);
 
-                  Intent callNotification = new Intent("new_post_available");
-                   callNotification.putExtra("SalePost",new SalePost());
-                    sendBroadcast(callNotification);
+
+                      sendBroadcast(callNotification);
+                  }catch (JSONException e){
+                      e.printStackTrace();
+                  }
+
 
                     Intent intent=new Intent();
                     intent.putExtra("username",username);
