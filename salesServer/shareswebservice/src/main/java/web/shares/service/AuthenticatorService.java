@@ -3,6 +3,7 @@ package web.shares.service;
 
 import web.shares.database.DataHandler;
 import web.shares.model.User;
+import web.shares.model.UserProfile;
 
 
 public class AuthenticatorService {
@@ -10,7 +11,7 @@ public class AuthenticatorService {
 	DataHandler dataHandler=new DataHandler();
    
 
-    public User authenticate(String email,String password){
+    public UserProfile authenticate(String email,String password){
     	
     	
     	User user= dataHandler.getUserByNameAndPassword(email, password);
@@ -20,7 +21,7 @@ public class AuthenticatorService {
     	{
     		return null;
     	}
-    	return new User(user.getUserName(),user.getFullName());
+    	return dataHandler.getUserInterest(user.getUserName());
 
 }
     public boolean checkUser(String name,String email){

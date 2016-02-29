@@ -24,13 +24,14 @@ public class PostInfoService {
 		
 		newPost.setId(allposts.size()+1);
 		//allposts.put(newPost.getId(), newPost);
+		PostInfo post=dataHandler.storePostInfo(newPost,this.convertStringtoImage(newPost.getEncodeImage(),newPost.getImageName()));
 		
-		if(dataHandler.storePostInfo(newPost,this.convertStringtoImage(newPost.getEncodeImage(),newPost.getImageName()))==null)
+		if(post==null)
 		{
 			return null;
 		}
 		
-		return newPost;
+		return post;
 	}
 	
 	public void updatePost(long postid,String tagged_user){

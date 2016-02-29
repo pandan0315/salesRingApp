@@ -47,6 +47,7 @@ public class DataHandler {
     }
     
     public User getUserFullname(String name){
+    	
     	PreparedStatement stmt;
 		try {
 			stmt = con.prepareStatement("SELECT * FROM share.users " + 
@@ -123,6 +124,7 @@ public class DataHandler {
     
     
     public User getUserByNameAndPassword(String email, String password){
+    	
     	try{System.out.println(email+password);
     		
     		PreparedStatement stmt = con.prepareStatement("SELECT * FROM share.users WHERE (email = ? AND password = ?)");
@@ -133,6 +135,7 @@ public class DataHandler {
             if(rs.next()){
             	
             	String username=rs.getString("username");
+            	//ArrayList<String> userInterests=this.getUserInterest(username).getCategoryLists();
             	String fullname=rs.getString("fullname");
             	String emailaddress=rs.getString("email");
             	String passStr=rs.getString("password");

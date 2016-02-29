@@ -13,6 +13,7 @@ import javax.ws.rs.core.Response;
 
 import web.shares.model.ErrorResponse;
 import web.shares.model.User;
+import web.shares.model.UserProfile;
 import web.shares.service.AuthenticatorService;
 
 
@@ -47,7 +48,7 @@ public class LoginResource {
     public Response authenticateUser(@FormParam("email") String email, 
                                      @FormParam("password") String password) {
   		
-  		User user=authentication.authenticate(email, password);
+  		UserProfile user=authentication.authenticate(email, password);
 
        if(user!=null){
     	   
