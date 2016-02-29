@@ -41,7 +41,7 @@ import cz.msebera.android.httpclient.Header;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    String username;
+   public static String username;
     String fullname;
     String category=null;
     ArrayList<SalePost> posts=new ArrayList<>();
@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity
         username=intent.getStringExtra("username");
         fullname=intent.getStringExtra("fullname");
         category=intent.getStringExtra("category");
+
 
         System.out.println(username);
 
@@ -146,7 +147,7 @@ public class MainActivity extends AppCompatActivity
                        String category = json_data.getString("category");
                        String Description = json_data.getString("description");
                        String saleValue = json_data.getString("sale_discount");
-                       double price = json_data.getDouble("price");
+                       String price = json_data.getString("price");
                        String imageName = json_data.getString("imageName");
                        String is_pricebefore = json_data.getString("is_pricebefore");
                        String postDate = json_data.getString("created");

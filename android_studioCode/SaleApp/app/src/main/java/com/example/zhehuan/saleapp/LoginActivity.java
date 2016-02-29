@@ -15,6 +15,8 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -226,6 +228,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             public void onFailure(int statusCode,Header[] headers, String errorResponse,Throwable throwable) {
 
                 Toast.makeText(getApplicationContext(), "Unauthorized User!Try again or Register right now!", Toast.LENGTH_LONG).show();
+
                 startActivity(new Intent(LoginActivity.this, LoginActivity.class));
 
 
@@ -239,14 +242,39 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, org.json.JSONObject response) {
+                ArrayList<String> interestList = new ArrayList<>();
+
+                try {
+                  //  StringBuilder interestString = new StringBuilder("");
+
+
+                    if (response.has("categoryLists")) {
+                        JSONArray interestJSONArray = response.getJSONArray("categoryLists");
+                        for (int i = 0; i < interestJSONArray.length(); i++) {
+                            interestList.add(interestJSONArray.getString(i));
+                        }
+                    }
+                 /*   if (interestList.size() != 0) {
+                        for (String s : interestList) {
+                            interestString.append(s);
+                            interestString.append(',');
+                        }
+                    }
+                    */
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
 
                 try {
 
 
                     Intent intent=new Intent();
-                    intent.putExtra("username",response.getString("userName"));
-                    intent.putExtra("fullname",response.getString("fullName"));
+                    intent.putExtra("username",response.getString("username"));
+                    intent.putExtra("fullname",response.getString("fullname"));
+                   // intent.putStringArrayListExtra("interestes",interestList);
+                    System.out.println(interestList);
+                    //new NotificationReceiver(response.getString("username"));
 
                     intent.setClass(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
