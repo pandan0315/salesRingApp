@@ -11,7 +11,7 @@ public class AuthenticatorService {
 	DataHandler dataHandler=new DataHandler();
    
 
-    public UserProfile authenticate(String email,String password){
+    public User authenticate(String email,String password){
     	
     	
     	User user= dataHandler.getUserByNameAndPassword(email, password);
@@ -21,7 +21,8 @@ public class AuthenticatorService {
     	{
     		return null;
     	}
-    	return dataHandler.getUserInterest(user.getUserName());
+    	//return dataHandler.getUserInterest(user.getUserName());
+    	return user;
 
 }
     public boolean checkUser(String name,String email){

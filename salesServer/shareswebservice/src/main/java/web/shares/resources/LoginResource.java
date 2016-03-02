@@ -48,7 +48,7 @@ public class LoginResource {
     public Response authenticateUser(@FormParam("email") String email, 
                                      @FormParam("password") String password) {
   		
-  		UserProfile user=authentication.authenticate(email, password);
+  		User user=authentication.authenticate(email, password);
 
        if(user!=null){
     	   

@@ -1,6 +1,6 @@
 package web.shares.service;
 
-import java.io.FileNotFoundException;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.List;
 import org.apache.commons.codec.binary.Base64;
 
 import web.shares.database.DataHandler;
-import web.shares.model.FollowingFriendship;
+
 import web.shares.model.PostInfo;
 
 public class PostInfoService {

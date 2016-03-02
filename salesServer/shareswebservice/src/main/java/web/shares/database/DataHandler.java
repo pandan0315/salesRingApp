@@ -1,9 +1,7 @@
 package web.shares.database;
 
 
-import java.io.File;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,18 +10,15 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.apache.commons.codec.binary.StringUtils;
-
-import jersey.repackaged.com.google.common.base.Joiner;
-import web.shares.model.User;
-import web.shares.model.UserProfile;
+import web.shares.model.ClientGCMToken;
 import web.shares.model.FollowingFriendship;
 import web.shares.model.PostInfo;
-
 import web.shares.model.User;
+import web.shares.model.UserProfile;
 
 public class DataHandler {
 	
@@ -300,7 +295,7 @@ public class DataHandler {
             System.err.println(ex.getMessage());
             return null;
         }
-		return new PostInfo(newPost.getTaggedUser(),newPost.getPosterfullname(),newPost.getCreated(), newPost.getPostUser(), newPost.getCategory(), newPost.getIs_pricebefore(),newPost.getPrice(), newPost.getSale_discount(),
+		return new PostInfo(newPost.getId(),newPost.getPosterfullname(),newPost.getTaggedUser(),newPost.getCreated(), newPost.getPostUser(), newPost.getCategory(), newPost.getIs_pricebefore(),newPost.getPrice(), newPost.getSale_discount(),
 			newPost.getShop(), imageName, newPost.getDescription());
         
     }
@@ -329,9 +324,8 @@ public class DataHandler {
     
     
     public UserProfile getUserInterest(String name){
-    	
-    	
-    	 
+    	UserProfile userInterest=new UserProfile();
+    	   	   	 
     	 ArrayList<String> categoryLists=new ArrayList<>();
     	 
     	 try {
@@ -353,8 +347,11 @@ public class DataHandler {
  			e.printStackTrace();
  		
  		}
+    	 userInterest.setCategoryLists(categoryLists);
+    	 userInterest.setFullname(this.getUserFullname(name).getFullName());
+    	 userInterest.setUsername(name);
     	
-    	return new UserProfile(name,this.getUserFullname(name).getFullName(),categoryLists);
+    	return userInterest;
 		
     	
     }
@@ -437,27 +434,32 @@ public class DataHandler {
     	
     }
     public void editProfileByInterest(String username,ArrayList<String> categories, ArrayList<String> interestLists){
+    	
+    	 ArrayList<String> categoriesNotSame=new ArrayList<>();
 
         if(categories.isEmpty()){
        	 return;
         }
+      
 
-        ArrayList<String> categoriesNotSame=new ArrayList<>();
+       
+         if(interestLists.isEmpty()){
+        	categoriesNotSame=categories;
+        	return;
+        }
         
         for(String category:categories){
-            for(String interest:interestLists){
-           	 if(!interest.equals(category)){
-           		 categoriesNotSame.add(category);      		 
-           	 }
-           	 
-            }
+           if(!interestLists.contains(category)){
+        	   categoriesNotSame.add(category);
+           }
            }
            
+        System.out.println(categoriesNotSame);
         if(categoriesNotSame.isEmpty()){
         	return;
         }
    	//newInterest.setId(this.getAllUserInterest().size()+1);
-        else{
+        
    	  try {
              // Prepare the statement with SQL update command
    		PreparedStatement stmt = con.prepareStatement("INSERT INTO share.userprofile" +
@@ -477,29 +479,59 @@ public class DataHandler {
          }
         }
     	
-    }
+    
     
   
   public UserProfile editProfile(UserProfile newProfile){
 	  
 	   String username=newProfile.getUsername();
+	   if(username==null){
+		   return null;
+	   }
 	   String fullname=newProfile.getFullname();
-	  // String category=newProfile.getInterest_category();
 	   ArrayList<String> categories=newProfile.getCategoryLists();
-        
+        if(this.getUserInterest(username)==null){
+        	return null;
+        }
 	    ArrayList<String> interestLists=this.getUserInterest(username).getCategoryLists();
 	   this.editProfileByfullname(username, fullname);
+	   this.editPostInfo(username,fullname);
 	   if(categories.isEmpty()){
 		   return newProfile;
 	   }
 	   this.editProfileByInterest(username, categories, interestLists);
+	   
+	   
 	  
 	   return newProfile;
 	  
   }
   
   
-  //get friends object information , include friends username and fullname
+  private void editPostInfo(String username, String fullname) {
+	// TODO Auto-generated method stub
+	  if(fullname==null){
+		  return;
+		  
+	  }
+	  
+	  try {
+		PreparedStatement stmt = con.prepareStatement("UPDATE  share.postedinfo SET " +
+		          "posterfullname = ? WHERE post_user = ?");
+		stmt.setString(1, fullname);
+		stmt.setString(2, username);
+		stmt.executeUpdate();
+		
+		stmt.close();
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}     
+	  
+	
+}
+
+//get friends object information , include friends username and fullname
   public FollowingFriendship getAllFriends(String username){
 	  
 	
@@ -519,11 +551,12 @@ public class DataHandler {
 			    }
 			}
 			
-			
+			stmt.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+ 	 
  	
  	return new FollowingFriendship(username,friends);
  }
@@ -596,10 +629,114 @@ public class DataHandler {
          }
 		return friendShip;
      }
-	  
-  
-	  
-	  
-    }
+
+     public Boolean getClientGCMToken(String gcmToken){
+    	 String token=null;
+    	 try {
+             // Prepare the statement with SQL update command
+             PreparedStatement stmt = con.prepareStatement("SELECT * FROM share.client_token" +
+                     " WHERE gcmToken = ?");
+             stmt.setString(1, gcmToken);;
+             ResultSet rs = stmt.executeQuery();
+             
+             if (rs.next()) {
+             	
+             	token=rs.getString("gcmtoken");
+             	
+                 stmt.close();
+                
+                 
+               
+             }
+             stmt.close();
+         } catch (SQLException ex) {
+             System.err.println(ex.getMessage());
+         }
+    	 
+    	 return token!=null;
+    	 
+     }
+     
+     public ArrayList<ClientGCMToken> getAllGCMToken(){
+    	 ArrayList<ClientGCMToken> allToken=new ArrayList<>();
+    	 try{
+    		 stmt=con.createStatement();
+ 			 ResultSet rs=stmt.executeQuery("SELECT * FROM share.client_token");
+ 			 while(rs.next()){
+ 				 allToken.add(new ClientGCMToken(rs.getString("gcmtoken")));
+ 			 }
+ 			    		 
+    	 }catch(SQLException ex){
+    		 ex.printStackTrace();
+    	 }
+    	 
+    	 return allToken;
+     }
+     
+     
+	public Boolean storeClientGCMToken(String gcmToken) {
+		
+		System.out.println(gcmToken);
+		if(this.getClientGCMToken(gcmToken)){
+			return false;
+		}
+		
+			 try {
+	             // Prepare the statement with SQL update command
+	             PreparedStatement stmt = con.prepareStatement("INSERT INTO share.client_token" +
+	                     "(gcmtoken) VALUES (?)");
+	             
+	            
+	            stmt.setString(1,gcmToken);
+	           
+
+	             // Execute and update the data
+	             stmt.executeUpdate();
+	             stmt.close();
+	             return true;
+	             
+	         } catch (SQLException ex) {
+	             System.err.println(ex.getMessage());
+	         }
+	   	  
+			
+			
+		
+		
+		return false; 
+		
+		
+		
+	}
+	
+	
+	 public Map<String,ArrayList<String>> getAllInterest(){
+		 
+	    	Map<String,ArrayList<String>> allInterest=new HashMap<>();
+	    	
+	    	//this.getUserInterest(name)
+	    	
+	    	
+	    	 try {
+				stmt=con.createStatement();
+				ResultSet rs=stmt.executeQuery("SELECT * FROM share.users");
+				
+				while(rs.next()){
+				
+					allInterest.put(rs.getString("username"), this.getUserInterest(rs.getString("username")).getCategoryLists());
+					
+				
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    	 
+	    	
+	    	return allInterest;
+	    	
+	    	
+	    }
+}
  
 
