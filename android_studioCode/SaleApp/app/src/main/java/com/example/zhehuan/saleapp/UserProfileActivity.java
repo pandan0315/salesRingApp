@@ -95,11 +95,13 @@ public class UserProfileActivity extends AppCompatActivity {
     private void getUserProfile(String username) {
 
         AsyncHttpClient client=new AsyncHttpClient();
-        client.get("http://" + getString(R.string.IP_address) + ":8080/shares/webapi/" + username, new JsonHttpResponseHandler() {
+        client.get("http://" + getString(R.string.IP_address) + ":8080/shares/webapi/" + username+"/profile", new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
+
                 try {
+                    String name=response.getString("fullname");
                     StringBuilder interestString = new StringBuilder("");
 
                    ArrayList<String> interestList = new ArrayList<>();
@@ -116,7 +118,8 @@ public class UserProfileActivity extends AppCompatActivity {
                         }
                     }
                     interestTV.setText(interestString);
-                    fullnameTV.setText(fullname);
+                    fullnameTV.setText(name);
+                    fullname=name;
 
                 } catch (JSONException e) {
                     e.printStackTrace();

@@ -61,6 +61,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
+    public static String user;
 
     /**
      * A dummy authentication store containing known user names and passwords.
@@ -82,6 +83,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        user=null;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
@@ -242,39 +244,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, org.json.JSONObject response) {
-                ArrayList<String> interestList = new ArrayList<>();
-
-                try {
-                  //  StringBuilder interestString = new StringBuilder("");
-
-
-                    if (response.has("categoryLists")) {
-                        JSONArray interestJSONArray = response.getJSONArray("categoryLists");
-                        for (int i = 0; i < interestJSONArray.length(); i++) {
-                            interestList.add(interestJSONArray.getString(i));
-                        }
-                    }
-                 /*   if (interestList.size() != 0) {
-                        for (String s : interestList) {
-                            interestString.append(s);
-                            interestString.append(',');
-                        }
-                    }
-                    */
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
 
 
                 try {
 
-
+                    user=response.getString("userName");
                     Intent intent=new Intent();
-                    intent.putExtra("username",response.getString("username"));
-                    intent.putExtra("fullname",response.getString("fullname"));
-                   // intent.putStringArrayListExtra("interestes",interestList);
-                    System.out.println(interestList);
-                    //new NotificationReceiver(response.getString("username"));
+                    intent.putExtra("username",response.getString("userName"));
+                    intent.putExtra("fullname",response.getString("fullName"));
+
 
                     intent.setClass(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
@@ -299,12 +277,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         startActivity(loginIntent);
     }
 
-    public abstract class AlwaysAsyncHttpResponseHandler extends AsyncHttpResponseHandler {
-        @Override
-        public boolean getUseSynchronousMode() {
-            return false;
-        }
-    }
+
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic

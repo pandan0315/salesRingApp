@@ -161,7 +161,7 @@ public class EditProfileActivity  extends AppCompatActivity {
         try {
             StringEntity entity = new StringEntity(jsonObject.toString());
             AsyncHttpClient client=new AsyncHttpClient();
-            client.post(getApplicationContext(),"http://" + getString(R.string.IP_address) + ":8080/shares/webapi/"+username,entity,"application/json",new JsonHttpResponseHandler(){
+            client.post(getApplicationContext(),"http://" + getString(R.string.IP_address) + ":8080/shares/webapi/"+username+"/profile",entity,"application/json",new JsonHttpResponseHandler(){
 
 
                 @Override
