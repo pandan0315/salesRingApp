@@ -445,20 +445,20 @@ public class DataHandler {
        
          if(interestLists.isEmpty()){
         	categoriesNotSame=categories;
-        	return;
+        	
         }
-        
+         else{
         for(String category:categories){
            if(!interestLists.contains(category)){
         	   categoriesNotSame.add(category);
            }
            }
-           
+         }
         System.out.println(categoriesNotSame);
         if(categoriesNotSame.isEmpty()){
         	return;
         }
-   	//newInterest.setId(this.getAllUserInterest().size()+1);
+   	
         
    	  try {
              // Prepare the statement with SQL update command
@@ -480,20 +480,19 @@ public class DataHandler {
         }
     	
     
-    
+   
   
   public UserProfile editProfile(UserProfile newProfile){
+	  ArrayList<String> interestLists = new ArrayList<>();
 	  
 	   String username=newProfile.getUsername();
-	   if(username==null){
-		   return null;
-	   }
 	   String fullname=newProfile.getFullname();
 	   ArrayList<String> categories=newProfile.getCategoryLists();
-        if(this.getUserInterest(username)==null){
-        	return null;
+	   
+        if(this.getUserInterest(username).getCategoryLists()!=null){
+        	interestLists=this.getUserInterest(username).getCategoryLists();
         }
-	    ArrayList<String> interestLists=this.getUserInterest(username).getCategoryLists();
+	   
 	   this.editProfileByfullname(username, fullname);
 	   this.editPostInfo(username,fullname);
 	   if(categories.isEmpty()){

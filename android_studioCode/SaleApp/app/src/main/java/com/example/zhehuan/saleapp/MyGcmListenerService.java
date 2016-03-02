@@ -20,7 +20,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import java.util.Random;
 import cz.msebera.android.httpclient.Header;
 
 /**
@@ -87,6 +87,9 @@ public class MyGcmListenerService extends GcmListenerService {
     }
 
     private void sendNotification(SalePost post) {
+        Random random=new Random();
+        int m=random.nextInt(9999-1000)+1000;
+
 
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);

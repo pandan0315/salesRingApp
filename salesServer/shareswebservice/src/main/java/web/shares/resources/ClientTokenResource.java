@@ -26,11 +26,11 @@ public class ClientTokenResource {
 	DataHandler dataHandler=new DataHandler();
 	
 	@POST
-	public Response storeClientGCMTocken(String gcmToken){
+	public Response storeClientGCMTocken(ClientGCMToken token){
 		
-		System.out.println(gcmToken);
+		System.out.println(token.getToken());
 		
-		if(dataHandler.storeClientGCMToken(gcmToken)){
+		if(dataHandler.storeClientGCMToken(token.getToken())){
 			return Response.ok().build();
 		}
 		return Response.status(400).entity(new ErrorResponse("can not store , please check!")).build();

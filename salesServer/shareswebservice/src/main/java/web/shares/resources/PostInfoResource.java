@@ -209,6 +209,12 @@ public class PostInfoResource {
 				
 							
 				}
+			
+				  
+			    System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());  
+			     	  
+			}  
+			
 			for(String name:nameList){
 				if(this.dataHandler.getFriendshipByFollowingAndFollowed(name, poster)!=null){
 					notifyNameList.add(name);
@@ -216,10 +222,7 @@ public class PostInfoResource {
 				
 				
 			}
-				  
-			    System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());  
-			     	  
-			}  
+			System.out.println("nameList = " + nameList);
 			 System.out.println("notifyNameList = " + notifyNameList);
 			 
 			
