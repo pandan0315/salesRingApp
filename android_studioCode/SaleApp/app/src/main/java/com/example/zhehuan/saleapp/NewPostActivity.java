@@ -163,17 +163,10 @@ public class NewPostActivity extends AppCompatActivity {
                   try {
                       SalePost newPost = new SalePost(response.getString("postUser"), response.getString("taggedUser"),response.getString("shop"), response.getString("category"), response.getString("description"), response.getString("sale_discount"),
                       response.getString("price"), response.getString("imageName"), response.getString("is_pricebefore"), response.getString("created"), response.getString("posterfullname"));
-                      Intent callNotification = new Intent("new_post_available");
-                      String tagged=newPost.getTaggedUser();
+
                       System.out.println(newPost.getPostDate());
                       System.out.println(newPost.getPoster());
-                      ;
-                      callNotification.putExtra("SalePost",newPost);
-                     // callNotification.putExtra("username", username);
-                      //callNotification.putExtra("tagged", tagged);
 
-
-                      sendBroadcast(callNotification);
                   }catch (JSONException e){
                       e.printStackTrace();
                   }
