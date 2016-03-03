@@ -32,6 +32,7 @@ import com.loopj.android.http.RequestParams;
 import java.io. ByteArrayOutputStream;
 
 import java.util.Calendar;
+import java.util.Random;
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.ByteArrayEntity;
@@ -98,6 +99,8 @@ public class NewPostActivity extends AppCompatActivity {
 
     public void sendPost(View view)
     {
+        Random random=new Random();
+        int n=random.nextInt(1000)+1;
 
         //String taggedUser=null;
         String created=dateTV.getText().toString();
@@ -107,7 +110,7 @@ public class NewPostActivity extends AppCompatActivity {
         String sale_discount=discount.getText().toString();
         String shop=store.getText().toString();
         String encodeImage= encodeImageStr(photo);
-        imageName=String.valueOf(shop+price+".jpeg");
+        imageName=String.valueOf(shop+String.valueOf(n)+".jpeg");
         String description=details.getText().toString();
 
         JSONObject jsonObject = new JSONObject();
@@ -161,11 +164,21 @@ public class NewPostActivity extends AppCompatActivity {
                 public void onSuccess(int statusCode, Header[] headers, org.json.JSONObject response) {
 
                     Toast.makeText(getApplicationContext(), "You  successfully post new sales information!", Toast.LENGTH_LONG).show();
+                  try {
+                      SalePost newPost = new SalePost(response.getString("postUser"), response.getString("taggedUser"),response.getString("shop"), response.getString("category"), response.getString("description"), response.getString("sale_discount"),
+                      response.getString("price"), response.getString("imageName"), response.getString("is_pricebefore"), response.getString("created"), response.getString("posterfullname"));
+
+                      System.out.println(newPost.getPostDate());
+                      System.out.println(newPost.getPoster());
+
+                  }catch (JSONException e){
+                      e.printStackTrace();
+                  }
+
 
                     Intent intent=new Intent();
                     intent.putExtra("username",username);
                     intent.putExtra("fullname",fullname);
-
                     intent.setClass(NewPostActivity.this, MainActivity.class);
                     startActivity(intent);
 
@@ -174,6 +187,17 @@ public class NewPostActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String responseString,Throwable throwable) {
 
+                    Toast.makeText(getApplicationContext(), "Something went wrong,try again!", Toast.LENGTH_LONG).show();
+                    Intent intent=new Intent();
+                    intent.putExtra("username",username);
+                    intent.putExtra("fullname",fullname);
+
+                    intent.setClass(NewPostActivity.this, NewPostActivity.class);
+                    startActivity(intent);
+
+                }
+                @Override
+                public void onFailure(int statusCode,Header[] headers, Throwable throwable, JSONObject jsonObject){
                     Toast.makeText(getApplicationContext(), "Something went wrong,try again!", Toast.LENGTH_LONG).show();
                     Intent intent=new Intent();
                     intent.putExtra("username",username);

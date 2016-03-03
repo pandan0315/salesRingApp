@@ -13,6 +13,7 @@ import javax.ws.rs.core.Response;
 
 import web.shares.model.ErrorResponse;
 import web.shares.model.User;
+import web.shares.model.UserProfile;
 import web.shares.service.AuthenticatorService;
 
 

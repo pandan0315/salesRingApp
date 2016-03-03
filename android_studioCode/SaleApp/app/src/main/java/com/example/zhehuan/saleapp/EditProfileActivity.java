@@ -58,10 +58,11 @@ public class EditProfileActivity  extends AppCompatActivity {
         username=intent.getStringExtra("username");
         fullname=intent.getStringExtra("fullname");
         profileIB= (ImageView)findViewById(R.id.userPhoto);
-        Glide.with(this).load("http://" + getString(R.string.IP_address) + ":8080/shares/image/" + username + ".jpeg")
-                .signature(new StringSignature(UUID.randomUUID().toString()))
-                .error(R.drawable.people).into(profileIB);
-       // Glide.with(this).load(R.drawable.poster).into(profileIB);
+
+        Glide.with(this).load(R.drawable.signs).into(profileIB);
+
+
+
         profilenameET=(TextView)findViewById(R.id.editText);
         profilenameET.setText(fullname);
         spinner = (Spinner) findViewById(R.id.spinner);
@@ -85,6 +86,9 @@ public class EditProfileActivity  extends AppCompatActivity {
             }
         });
     }
+
+
+
 
     public void addButt(Object item){
         final LinearLayout ll = (LinearLayout) findViewById(R.id.addedCate);
@@ -118,7 +122,7 @@ public class EditProfileActivity  extends AppCompatActivity {
         {
             Bundle extra = data.getExtras();
             photo = (Bitmap) extra.get("data");
-            profileIB.setImageDrawable(null);
+            //profileIB.setImageDrawable(null);
             profileIB.setImageBitmap(photo);
         }
     }
@@ -161,7 +165,7 @@ public class EditProfileActivity  extends AppCompatActivity {
         try {
             StringEntity entity = new StringEntity(jsonObject.toString());
             AsyncHttpClient client=new AsyncHttpClient();
-            client.post(getApplicationContext(),"http://" + getString(R.string.IP_address) + ":8080/shares/webapi/"+username,entity,"application/json",new JsonHttpResponseHandler(){
+            client.post(getApplicationContext(),"http://" + getString(R.string.IP_address) + ":8080/shares/webapi/"+username+"/profile",entity,"application/json",new JsonHttpResponseHandler(){
 
 
                 @Override
@@ -181,8 +185,17 @@ public class EditProfileActivity  extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "internet wrong, try again!", Toast.LENGTH_LONG).show();
                     Intent intent=new Intent();
                     intent.putExtra("username",username);
-                    intent.putExtra("fullname",fullname);
+                    intent.putExtra("fullname", fullname);
                     intent.setClass(EditProfileActivity.this,EditProfileActivity.class);
+                    startActivity(intent);
+                }
+                @Override
+                public void onFailure(int statusCode,Header[] headers, Throwable throwable, JSONObject jsonObject){
+                    Toast.makeText(getApplicationContext(), "internet wrong, try again!", Toast.LENGTH_LONG).show();
+                    Intent intent=new Intent();
+                    intent.putExtra("username",username);
+                    intent.putExtra("fullname", fullname);
+                    intent.setClass(EditProfileActivity.this, EditProfileActivity.class);
                     startActivity(intent);
                 }
 

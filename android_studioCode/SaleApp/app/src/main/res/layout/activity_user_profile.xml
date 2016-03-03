@@ -29,8 +29,7 @@
                     android:layout_width="0px"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:id="@+id/userProfilePhoto"
-                    android:onClick="changePhoto" />
+                    android:id="@+id/userProfilePhoto" />
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -42,7 +41,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Khalid Mahgoub"
+                        android:text=""
                         android:id="@+id/userName"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="50dp" />
@@ -72,14 +71,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Fashion, Electronics, Travel"
+                        android:text=""
                         android:id="@+id/interestsTV" />
                 </LinearLayout>
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Edit Interests"
+                    android:text="Edit Profile"
                     android:id="@+id/editProfileButton"
                     android:layout_gravity="center_horizontal"
                     android:onClick="editProfile" />

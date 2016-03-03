@@ -13,6 +13,8 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.*;
 
+import org.json.JSONObject;
+
 import cz.msebera.android.httpclient.Header;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -118,10 +120,17 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString,Throwable throwable) {
                 prgDialog.hide();
-                Toast.makeText(getApplicationContext(), "Something went wrong,maybe username or email already existed,try again!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Internet woring,maybe username or email already existed,try again!", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(RegisterActivity.this, RegisterActivity.class));
 
             }
+
+            @Override
+            public void onFailure(int statusCode,Header[] headers, Throwable throwable, JSONObject jsonObject){
+                Toast.makeText(getApplicationContext(), "Internet wrong,maybe username or email already existed,try again!", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(RegisterActivity.this, RegisterActivity.class));
+            }
+
         });
     }
 

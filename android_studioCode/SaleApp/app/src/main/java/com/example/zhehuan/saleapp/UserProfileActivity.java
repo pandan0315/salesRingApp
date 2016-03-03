@@ -40,6 +40,7 @@ public class UserProfileActivity extends AppCompatActivity {
     String encodedImage;
     TextView fullnameTV;
     TextView interestTV;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +74,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
 
         //notification test with dummy notification
-        Intent resultIntent = new Intent(this, DetailedViewActivity.class);
+    /*    Intent resultIntent = new Intent(this, DetailedViewActivity.class);
         PendingIntent pIntent = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), resultIntent, 0);
 
         Notification notification =
@@ -88,20 +89,22 @@ public class UserProfileActivity extends AppCompatActivity {
                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
         notificationManager.notify(0, notification);
-
+*/
     }
 
     private void getUserProfile(String username) {
 
         AsyncHttpClient client=new AsyncHttpClient();
-        client.get("http://" + getString(R.string.IP_address) + ":8080/shares/webapi/" + username, new JsonHttpResponseHandler() {
+        client.get("http://" + getString(R.string.IP_address) + ":8080/shares/webapi/" + username+"/profile", new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
+
                 try {
+                    String name=response.getString("fullname");
                     StringBuilder interestString = new StringBuilder("");
 
-                    ArrayList<String> interestList = new ArrayList<>();
+                   ArrayList<String> interestList = new ArrayList<>();
                     if (response.has("categoryLists")) {
                         JSONArray interestJSONArray = response.getJSONArray("categoryLists");
                         for (int i = 0; i < interestJSONArray.length(); i++) {
@@ -115,7 +118,8 @@ public class UserProfileActivity extends AppCompatActivity {
                         }
                     }
                     interestTV.setText(interestString);
-                    fullnameTV.setText(fullname);
+                    fullnameTV.setText(name);
+                    fullname=name;
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -135,6 +139,20 @@ public class UserProfileActivity extends AppCompatActivity {
                 intent.putExtra("fullname", fullname);
                 intent.setClass(UserProfileActivity.this, EditProfileActivity.class);
                 startActivity(intent);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString,Throwable throwable) {
+
+                //AsyncHttpClient.log.w(LOG_TAG, "onFailure(int, Header[], Throwable, JSONObject) was not overriden, but callback was received", throwable);
+                Toast.makeText(getApplicationContext(), "Some things goes wrong, internet error,profile can not be displaied!", Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent();
+                intent.putExtra("username", getUsername());
+                intent.putExtra("fullname", fullname);
+                intent.setClass(UserProfileActivity.this, EditProfileActivity.class);
+                startActivity(intent);
+
             }
 
         });

@@ -1,7 +1,9 @@
 package web.shares.resources;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -15,11 +17,20 @@ import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.json.simple.JSONObject;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import jersey.repackaged.com.google.common.base.Joiner;
 import jersey.repackaged.com.google.common.collect.Lists;
 import web.shares.database.DataHandler;
+import web.shares.model.ClientGCMToken;
 import web.shares.model.ErrorResponse;
 import web.shares.model.FollowingFriendship;
+import web.shares.model.Message;
 import web.shares.model.PostInfo;
+import web.shares.model.Sender;
 import web.shares.service.PostInfoService;
 
 @Path("/{username}/salesinfo")
@@ -88,6 +99,19 @@ public class PostInfoResource {
 		
 	}
 	
+	@GET
+	@Path("/{id}")
+	public Response getPostInfoById(@PathParam("id") String id ){
+		long postId=Long.valueOf(id).longValue();
+		PostInfo postInfoByid=dataHandler.getPostById(postId);
+		if(postInfoByid!=null){
+			return Response.ok(postInfoByid).build();
+		}
+		
+		return Response.status(400).entity(new ErrorResponse("no matched id post")).build();
+		
+	}
+	
 	
 	/**
 	 * @api {post} /{username}/salesinfo     Add new saleinfo to the server.
@@ -115,8 +139,8 @@ public class PostInfoResource {
 	 *                   "postUser": "dan",
 	 *                   "posterfullname":"Pan Dan",
 	 *                   "taggedUser": "dan"
-	 *                  "price_before": 4000, 
-	 *                  "sale_discount": "10%",
+	 *                   "price_before": 4000, 
+	 *                   "sale_discount": "10%",
 	 *                   "shop":"webhallen", 
 	 *                   }
 	 * @apiSuccess {Object} postinfo sales information(return the same object attribute as post).
@@ -125,13 +149,15 @@ public class PostInfoResource {
 	 * {
 	 *                  
 	 *                 "category": "electronics",
-	 *                  "created": "2016-02-16", "description":
-	 *                  "best chance for whom wants to buy a new PS4",
-	 *                  "encodeImage":
-	 *                  "dfaodiopui0ere0jgvdkanvklfn;afjdasfdaffasgrafgdsfadsgdafgas",
-	 *                  "imageName": "ps4.jpeg", "postUser": "Alice",
-	 *                  "price_before": 4000, "sale_discount": "10%", "shop":
-	 *                  "webhallen", "taggedUser": "dan"
+	 *                  "created": "2016-02-16",
+	 *                   "description":"best chance for whom wants to buy a new PS4",
+	 *                  "imageName": "ps4.jpeg",
+	 *                   "postUser": "dan",
+	 *                   "postfullname":"Pan Dan"
+	 *                  "price_before": 4000,
+	 *                   "sale_discount": "10%",
+	 *                    "shop":"webhallen", 
+	 *                    "taggedUser": "dan"
 	 *                     
 	 * }
 	 *@apiErrorExample Error-Response:
@@ -143,9 +169,91 @@ public class PostInfoResource {
 		
 		PostInfo postedInfo=postService.addNewPost(newPost);
 		
-		return Response.status(201).entity(postedInfo).build();
+		
+		String postString=null;;
+		
+		if(postedInfo!=null){
+			ObjectMapper mapper=new ObjectMapper();
+		   try {
+			postString=mapper.writeValueAsString(postedInfo);
+			
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			
+			String poster=postedInfo.getPostUser();
+			
+			
+			String newCategory=postedInfo.getCategory();
+			
+			ArrayList<String> nameList=new ArrayList<>();
+			ArrayList<String> notifyNameList=new ArrayList<>();
+			
+			ArrayList<ClientGCMToken> tokenList=this.dataHandler.getAllGCMToken();
+			
+			ArrayList<String> registraion_ids=new ArrayList<>();
+			
+		
+			
+			for(ClientGCMToken token:tokenList){
+				registraion_ids.add(token.getToken());
+			}
+			
+			Map<String, ArrayList<String>> allinterests=this.dataHandler.getAllInterest();
+			for (Map.Entry<String, ArrayList<String>> entry : allinterests.entrySet()) {  
+				
+				if((entry.getValue().contains(newCategory)) && (!entry.getKey().equals(poster))){
+					
+						nameList.add(entry.getKey());			
+				
+							
+				}
+			
+				  
+			    System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());  
+			     	  
+			}  
+			
+			for(String name:nameList){
+				if(this.dataHandler.getFriendshipByFollowingAndFollowed(name, poster)!=null){
+					notifyNameList.add(name);
+				}
+				
+				
+			}
+			System.out.println("nameList = " + nameList);
+			 System.out.println("notifyNameList = " + notifyNameList);
+			 
+			
+			 System.out.println( "Sending POST to GCM" );
+			 
+			 String apikey="AIzaSyBU4DRf-0XqkIpInxjsymQ7hYGo_oDKLqw";
+			 Message message=new Message();
+					 
+			 
+			 for(String token:registraion_ids){
+				 message.addRegId(token);
+			 }
+			 
+			 String notifyNames=Joiner.on(",").join(notifyNameList);
+			 
+			 System.out.println( "postString: "+postString );
+			 message.createData(notifyNames, postString);
+			 
+			 Sender.post(apikey, message);		 
+			 return Response.status(201).entity(postedInfo).build();
+		
+			
+			
+		}
+		
+	return Response.status(401).entity(new ErrorResponse("Can not store your post")).build();
 	}
 	
+	
+  
+
 	/**
 	 * @api {put} /{username}/salesinfo   Update tagged user(add new tagged user) in some posted_saleinfo. 
 	 * @apiName  UpdateSalesInfo

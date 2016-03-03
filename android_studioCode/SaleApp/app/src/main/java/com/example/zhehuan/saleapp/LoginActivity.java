@@ -15,6 +15,8 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -59,6 +61,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
+    public static String user;
 
     /**
      * A dummy authentication store containing known user names and passwords.
@@ -80,6 +83,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        user=null;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
@@ -225,7 +229,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public void onFailure(int statusCode,Header[] headers, String errorResponse,Throwable throwable) {
 
-                Toast.makeText(getApplicationContext(), "Unauthorized User!Try again or Register right now!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Internet wrong or Unauthorized User!Try again or Register right now!", Toast.LENGTH_LONG).show();
+
                 startActivity(new Intent(LoginActivity.this, LoginActivity.class));
 
 
@@ -233,7 +238,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             @Override
             public void onFailure(int statusCode,Header[] headers, Throwable throwable, JSONObject jsonObject){
-                Toast.makeText(getApplicationContext(), "Unauthorized User!Try again or Register right now!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Internet wrong or Unauthorized User!Try again or Register right now!", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(LoginActivity.this, LoginActivity.class));
             }
 
@@ -243,10 +248,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                 try {
 
-
+                    user=response.getString("userName");
                     Intent intent=new Intent();
                     intent.putExtra("username",response.getString("userName"));
                     intent.putExtra("fullname",response.getString("fullName"));
+
 
                     intent.setClass(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
@@ -271,12 +277,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         startActivity(loginIntent);
     }
 
-    public abstract class AlwaysAsyncHttpResponseHandler extends AsyncHttpResponseHandler {
-        @Override
-        public boolean getUseSynchronousMode() {
-            return false;
-        }
-    }
+
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic

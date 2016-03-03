@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +27,8 @@ import android.widget.Toast;
 import java.util.HashMap;
 import java.util.List;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -41,10 +44,14 @@ import cz.msebera.android.httpclient.Header;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+    private static final String TAG = "MainActivity";
+
     String username;
     String fullname;
     String category=null;
     ArrayList<SalePost> posts=new ArrayList<>();
+    AsyncHttpClient client=new AsyncHttpClient();
     ListView postsLV;
     ImageButton homeButton;
     @Override
@@ -58,7 +65,11 @@ public class MainActivity extends AppCompatActivity
         fullname=intent.getStringExtra("fullname");
         category=intent.getStringExtra("category");
 
+
+
+
         System.out.println(username);
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -80,41 +91,50 @@ public class MainActivity extends AppCompatActivity
         Glide.with(this).load(R.drawable.editing).into(newPostIV);
         Glide.with(this).load(R.drawable.people).into(friendsIV);
 
-       // posts = new ArrayList<HashMap<String,SalePost>>();
 
-
-        //posts.add(new SalePost(1,"Khalid","dan","HM","fashion","","12%",12,"","true","5-4-2016 12:32"));
-       // posts.add(new SalePost("","Zhehuan","D&G","","33%","33%","1-2-2013 12:41","1-2-2013 12:41",true,"",""));
-        //posts.add(new SalePost("","Sunny","HM","","22%","22%","21-1-2016 12:41","21-1-2016 12:41",true,"",""));
-        //posts.add(new SalePost("","Dan","Stadium","","44%","44%","21-2-2016 15:41","21-2-2016 15:41",true,"",""));
 
         getPosts(username,category);
-      /*  PostsAdapter adapter = new PostsAdapter(MainActivity.this,posts);
-        postsLV = (ListView) findViewById(R.id.postsListView);
-        postsLV.setAdapter(adapter);
-*/
-      /*  postsLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                startActivity(new Intent(MainActivity.this, DetailedViewActivity.class));
+
+        if (checkPlayServices()) {
+
+            // Start IntentService to register this application with GCM.
+            Intent registerintent = new Intent(this, RegistrationIntentService.class);
+            registerintent.putExtra("username",username);
+            startService(registerintent);
+        }
+
+
+
+    }
+
+    /**
+     * Check the device to make sure it has the Google Play Services APK. If
+     * it doesn't, display a dialog that allows users to download the APK from
+     * the Google Play Store or enable it in the device's system settings.
+     */
+    private boolean checkPlayServices() {
+        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+        int resultCode = apiAvailability.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (apiAvailability.isUserResolvableError(resultCode)) {
+                apiAvailability.getErrorDialog(this, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST)
+                        .show();
+            } else {
+                Log.i(TAG, "This device is not supported.");
+                finish();
             }
-        });
-
-*/
-
-
-    }
-    public String getUsername()
-    {
-        return username;
+            return false;
+        }
+        return true;
     }
 
-    private void getPosts(String username,String category) {
+
+
+    private void getPosts(final String username,String category) {
 
 
 
-        AsyncHttpClient client=new AsyncHttpClient();
+
         String url;
 
         if(category==null){
@@ -146,7 +166,7 @@ public class MainActivity extends AppCompatActivity
                        String category = json_data.getString("category");
                        String Description = json_data.getString("description");
                        String saleValue = json_data.getString("sale_discount");
-                       double price = json_data.getDouble("price");
+                       String price = json_data.getString("price");
                        String imageName = json_data.getString("imageName");
                        String is_pricebefore = json_data.getString("is_pricebefore");
                        String postDate = json_data.getString("created");
@@ -168,7 +188,7 @@ public class MainActivity extends AppCompatActivity
                                             int position, long id) {
                       // System.out.println(posts.get(position).getImageName() );
                         Intent intent=new Intent();
-                        intent.putExtra("username",getUsername());
+                        intent.putExtra("username",username);
                         intent.putExtra("fullname",fullname);
                         intent.putExtra("salePost", posts.get(position));
                         intent.setClass(MainActivity.this, DetailedViewActivity.class);
@@ -186,6 +206,13 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onFailure(int statusCode, Header[] headers, String errorResponse, Throwable e) {
                 // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+                Toast.makeText(getApplicationContext(), "Some things goes wrong, internet error, please Login again!", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(MainActivity.this,LoginActivity.class));
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 Toast.makeText(getApplicationContext(), "Some things goes wrong, internet error, please Login again!", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(MainActivity.this,LoginActivity.class));
 

@@ -33,10 +33,11 @@ public class DetailedViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detailed_view);
 
         Intent intent=getIntent();
-        username=intent.getStringExtra("username");
+       username=intent.getStringExtra("username");
+        System.out.println("pass by"+username);
         fullname=intent.getStringExtra("fullname");
         salePost=(SalePost)intent.getSerializableExtra("salePost");
-        System.out.println(salePost.getImageName());
+       // System.out.println(salePost.getImageName());
 
         ImageView homeIV = (ImageView) findViewById(R.id.homeIB);
         ImageView userProfileIV = (ImageView)findViewById(R.id.userProfileIB);
@@ -50,8 +51,9 @@ public class DetailedViewActivity extends AppCompatActivity {
 
        // Glide.with(this).load(R.drawable.b).into(postPhtoIV);
         Glide.with(this).load("http://" + getString(R.string.IP_address) + ":8080/shares/image/" + salePost.getImageName()).into(postPhtoIV);
+
         ImageView posterProfileImage = (ImageView)findViewById(R.id.posterProfileImage);
-        Glide.with(this).load("http://" + getString(R.string.IP_address) + ":8080/shares/image/"+username+".jpeg")
+        Glide.with(this).load("http://" + getString(R.string.IP_address) + ":8080/shares/image/"+salePost.getPoster()+".jpeg")
                 .signature(new StringSignature(UUID.randomUUID().toString()))
                 .error(R.drawable.poster)
                 .into(posterProfileImage);

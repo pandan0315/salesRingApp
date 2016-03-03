@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="version 1.0.0  Sales Ring is a social media application that allows sharing and spreading sales information among friends.   The application is developed by:  Dan Pan Khalid Saied   Shu Yang  Yuqing Gu Zhehuan Liu    The icons used in the application are designed by Freepik "
+            android:text="version 1.0.0 \nSales Ring is a social media application that allows sharing and spreading sales information among friends.\nThe application is developed by:\nDan Pan\n Khalid Saied\nShu Yang  Yuqing Gu\nZhehuan Liu\nThe icons used in the application are designed by Freepik "
             android:id="@+id/textView6"
             android:layout_gravity="center_horizontal" />
     </LinearLayout>

@@ -1,6 +1,6 @@
 package web.shares.service;
 
-import java.io.FileNotFoundException;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.List;
 import org.apache.commons.codec.binary.Base64;
 
 import web.shares.database.DataHandler;
-import web.shares.model.FollowingFriendship;
+
 import web.shares.model.PostInfo;
 
 public class PostInfoService {
@@ -24,13 +24,14 @@ public class PostInfoService {
 		
 		newPost.setId(allposts.size()+1);
 		//allposts.put(newPost.getId(), newPost);
+		PostInfo post=dataHandler.storePostInfo(newPost,this.convertStringtoImage(newPost.getEncodeImage(),newPost.getImageName()));
 		
-		if(dataHandler.storePostInfo(newPost,this.convertStringtoImage(newPost.getEncodeImage(),newPost.getImageName()))==null)
+		if(post==null)
 		{
 			return null;
 		}
 		
-		return newPost;
+		return post;
 	}
 	
 	public void updatePost(long postid,String tagged_user){
@@ -63,7 +64,7 @@ public class PostInfoService {
 	public String convertStringtoImage(String encodedImageStr,String imageName){
 		// Decode String using Base64 Class
         byte[] imageByteArray = Base64.decodeBase64(encodedImageStr); 
-        String imagePath="E:\\salesring\\image\\"+imageName;
+        String imagePath="/Users/danpan/Documents/bitbucket/salesharing/salesServer/shareswebservice/image/"+imageName;
      // Write Image into File system - Make sure you update the path
         FileOutputStream imageOutFile;
 		try {
