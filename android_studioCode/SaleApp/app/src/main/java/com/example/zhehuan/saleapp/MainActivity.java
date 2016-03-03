@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity
     String fullname;
     String category=null;
     ArrayList<SalePost> posts=new ArrayList<>();
-    ArrayList<SalePost> historyposts=new ArrayList<>();
     AsyncHttpClient client=new AsyncHttpClient();
     ListView postsLV;
     ImageButton homeButton;
@@ -88,6 +87,7 @@ public class MainActivity extends AppCompatActivity
         ImageView friendsIV = (ImageView) findViewById(R.id.friendsIB);
         ImageView newPostIV = (ImageView)findViewById(R.id.newPostIB);
         Glide.with(this).load(R.drawable.internet).into(homeIV);
+        homeIV.setBackgroundColor(121212);
         Glide.with(this).load(R.drawable.social).into(userProfileIV);
         Glide.with(this).load(R.drawable.editing).into(newPostIV);
         Glide.with(this).load(R.drawable.people).into(friendsIV);
@@ -173,9 +173,6 @@ public class MainActivity extends AppCompatActivity
                        String postDate = json_data.getString("created");
 
                       posts.add(new SalePost(postID, poster,posterfullname, taggedUser, store, category, Description, saleValue, price, is_pricebefore, imageName,postDate));
-                       if(poster.equals(username)){
-                           historyposts.add(new SalePost(postID, poster,posterfullname, taggedUser, store, category, Description, saleValue, price, is_pricebefore, imageName,postDate));
-                       }
                    } catch (JSONException e) {
                        Toast.makeText(getApplicationContext(), "Some things goes wrong, internet error, please Login again!", Toast.LENGTH_LONG).show();
                        startActivity(new Intent(MainActivity.this,LoginActivity.class));
@@ -322,6 +319,22 @@ public class MainActivity extends AppCompatActivity
             intent.setClass(MainActivity.this, MainActivity.class);
             startActivity(intent);
 
+        }else if (id == R.id.nav_malefashion) {
+            Intent intent=new Intent();
+            intent.putExtra("username",username);
+            intent.putExtra("fullname",fullname);
+            intent.putExtra("category","Male Fashion");
+            intent.setClass(MainActivity.this, MainActivity.class);
+            startActivity(intent);
+
+        } else if (id == R.id.nav_femalefashion) {
+            Intent intent=new Intent();
+            intent.putExtra("username",username);
+            intent.putExtra("fullname",fullname);
+            intent.putExtra("category","Female Fashion");
+            intent.setClass(MainActivity.this, MainActivity.class);
+            startActivity(intent);
+
         }else if(id==R.id.nav_media){
             Intent intent=new Intent();
             intent.putExtra("username",username);
@@ -338,6 +351,8 @@ public class MainActivity extends AppCompatActivity
             intent.setClass(MainActivity.this, MainActivity.class);
             startActivity(intent);
 
+        }else if(id==R.id.nav_history){
+            
 
         }
 

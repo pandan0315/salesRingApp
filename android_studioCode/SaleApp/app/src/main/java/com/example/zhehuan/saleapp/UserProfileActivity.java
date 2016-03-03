@@ -51,6 +51,7 @@ public class UserProfileActivity extends AppCompatActivity {
         ImageView userProfileIV = (ImageView)findViewById(R.id.userProfileIB);
         ImageView friendsIV = (ImageView) findViewById(R.id.friendsIB);
         ImageView newPostIV = (ImageView)findViewById(R.id.newPostIB);
+        userProfileIV.setBackgroundColor(121212);
         Glide.with(this).load(R.drawable.internet).into(homeIV);
         Glide.with(this).load(R.drawable.social).into(userProfileIV);
         Glide.with(this).load(R.drawable.editing).into(newPostIV);

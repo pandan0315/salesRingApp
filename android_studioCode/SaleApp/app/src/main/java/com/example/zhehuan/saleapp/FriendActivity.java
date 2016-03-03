@@ -59,7 +59,7 @@ public class FriendActivity extends AppCompatActivity {
         ImageView searchIcon = (ImageView) findViewById(R.id.searchIcon);
        // ImageButton addIcon = (ImageButton)findViewById(R.id.addBtn);
        ImageButton addIcon=(ImageButton)findViewById(R.id.addBtn);
-
+        friendsIV.setBackgroundColor(121212);
         Glide.with(this).load(R.drawable.internet).into(homeIV);
         Glide.with(this).load(R.drawable.social).into(userProfileIV);
         Glide.with(this).load(R.drawable.editing).into(newPostIV);

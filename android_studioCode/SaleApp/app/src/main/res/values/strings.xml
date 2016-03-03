@@ -19,6 +19,8 @@
 
     <string-array name="categories">
         <item>Fashion</item>
+        <item>Male Fashion</item>
+        <item>Female Fashion</item>
         <item>Hobbies</item>
         <item>Beauty</item>
         <item>Books</item>
