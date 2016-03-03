@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity
     String fullname;
     String category=null;
     ArrayList<SalePost> posts=new ArrayList<>();
+    ArrayList<SalePost> historyposts=new ArrayList<>();
     AsyncHttpClient client=new AsyncHttpClient();
     ListView postsLV;
     ImageButton homeButton;
@@ -172,6 +173,9 @@ public class MainActivity extends AppCompatActivity
                        String postDate = json_data.getString("created");
 
                       posts.add(new SalePost(postID, poster,posterfullname, taggedUser, store, category, Description, saleValue, price, is_pricebefore, imageName,postDate));
+                       if(poster.equals(username)){
+                           historyposts.add(new SalePost(postID, poster,posterfullname, taggedUser, store, category, Description, saleValue, price, is_pricebefore, imageName,postDate));
+                       }
                    } catch (JSONException e) {
                        Toast.makeText(getApplicationContext(), "Some things goes wrong, internet error, please Login again!", Toast.LENGTH_LONG).show();
                        startActivity(new Intent(MainActivity.this,LoginActivity.class));
@@ -333,6 +337,7 @@ public class MainActivity extends AppCompatActivity
             intent.putExtra("category","Others");
             intent.setClass(MainActivity.this, MainActivity.class);
             startActivity(intent);
+
 
         }
 
