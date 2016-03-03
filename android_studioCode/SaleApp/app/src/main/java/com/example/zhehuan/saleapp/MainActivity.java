@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     private static final String TAG = "MainActivity";
 
-    public static String username;
+    String username;
     String fullname;
     String category=null;
     ArrayList<SalePost> posts=new ArrayList<>();
