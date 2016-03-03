@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity
         ImageView friendsIV = (ImageView) findViewById(R.id.friendsIB);
         ImageView newPostIV = (ImageView)findViewById(R.id.newPostIB);
         Glide.with(this).load(R.drawable.internet).into(homeIV);
+        homeIV.setBackgroundColor(121212);
         Glide.with(this).load(R.drawable.social).into(userProfileIV);
         Glide.with(this).load(R.drawable.editing).into(newPostIV);
         Glide.with(this).load(R.drawable.people).into(friendsIV);
