@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity
     String fullname;
     String category=null;
     ArrayList<SalePost> posts=new ArrayList<>();
+    ArrayList<SalePost> postedhostory=new ArrayList<>();
     AsyncHttpClient client=new AsyncHttpClient();
     ListView postsLV;
     ImageButton homeButton;
@@ -173,6 +174,10 @@ public class MainActivity extends AppCompatActivity
                        String postDate = json_data.getString("created");
 
                       posts.add(new SalePost(postID, poster,posterfullname, taggedUser, store, category, Description, saleValue, price, is_pricebefore, imageName,postDate));
+                       if(poster.equals(username)){
+                           postedhostory.add(new SalePost(postID, poster,posterfullname, taggedUser, store, category, Description, saleValue, price, is_pricebefore, imageName,postDate));
+
+                       }
                    } catch (JSONException e) {
                        Toast.makeText(getApplicationContext(), "Some things goes wrong, internet error, please Login again!", Toast.LENGTH_LONG).show();
                        startActivity(new Intent(MainActivity.this,LoginActivity.class));
@@ -352,6 +357,25 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
 
         }else if(id==R.id.nav_history){
+
+            PostsAdapter adapter = new PostsAdapter(MainActivity.this,postedhostory);
+            postsLV = (ListView) findViewById(R.id.postsListView);
+            postsLV.setAdapter(adapter);
+            postsLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view,
+                                        int position, long id) {
+                    // System.out.println(posts.get(position).getImageName() );
+                    Intent intent=new Intent();
+                    intent.putExtra("username",username);
+                    intent.putExtra("fullname",fullname);
+                    intent.putExtra("salePost", postedhostory.get(position));
+                    intent.setClass(MainActivity.this, DetailedViewActivity.class);
+                    startActivity(intent);
+
+
+                }
+            });
             
 
         }
