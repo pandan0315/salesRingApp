@@ -64,9 +64,9 @@ public class MainActivity extends AppCompatActivity
         username=intent.getStringExtra("username");
         fullname=intent.getStringExtra("fullname");
         category=intent.getStringExtra("category");
-        String posts=MyGcmListenerService.post;
 
-        System.out.println("got a new post "+posts);
+
+
 
         System.out.println(username);
 

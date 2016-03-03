@@ -228,6 +228,12 @@ public class FriendActivity extends AppCompatActivity {
                 startActivity(new Intent(FriendActivity.this, LoginActivity.class));
 
             }
+            @Override
+            public void onFailure(int statusCode,Header[] headers, Throwable throwable, JSONObject jsonObject){
+                Toast.makeText(getApplicationContext(), "Some things goes wrong, internet error, please Login again!", Toast.LENGTH_LONG).show();
+
+                startActivity(new Intent(FriendActivity.this, LoginActivity.class));
+            }
 
 
         });

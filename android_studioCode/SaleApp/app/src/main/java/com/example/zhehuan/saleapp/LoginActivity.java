@@ -229,7 +229,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public void onFailure(int statusCode,Header[] headers, String errorResponse,Throwable throwable) {
 
-                Toast.makeText(getApplicationContext(), "Unauthorized User!Try again or Register right now!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Internet wrong or Unauthorized User!Try again or Register right now!", Toast.LENGTH_LONG).show();
 
                 startActivity(new Intent(LoginActivity.this, LoginActivity.class));
 
@@ -238,7 +238,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             @Override
             public void onFailure(int statusCode,Header[] headers, Throwable throwable, JSONObject jsonObject){
-                Toast.makeText(getApplicationContext(), "Unauthorized User!Try again or Register right now!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Internet wrong or Unauthorized User!Try again or Register right now!", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(LoginActivity.this, LoginActivity.class));
             }
 

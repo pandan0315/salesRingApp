@@ -21,6 +21,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import cz.msebera.android.httpclient.Header;
 
 /**
@@ -31,7 +34,8 @@ public class MyGcmListenerService extends GcmListenerService {
    String username=LoginActivity.user;
 
     SalePost newPost=new SalePost();
-    public static String post;
+
+
     public static String names;
     public static String[] nameArray;
     AsyncHttpClient client=new AsyncHttpClient();
@@ -39,7 +43,8 @@ public class MyGcmListenerService extends GcmListenerService {
     public void onMessageReceived(String from, Bundle data) {
         super.onMessageReceived(from, data);
         //create notification here
-        post= data.getString("newpost");
+        String post= data.getString("newpost");
+
         names=data.getString("notifyuser");
 
         if((post==null)||(names==null)){
@@ -87,6 +92,9 @@ public class MyGcmListenerService extends GcmListenerService {
     }
 
     private void sendNotification(SalePost post) {
+        Random random=new Random();
+        int m = random.nextInt(9999  ) + 1;
+
 
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -108,7 +116,7 @@ public class MyGcmListenerService extends GcmListenerService {
                         .setAutoCancel(true).build();
 
 
-        notificationManager.notify(0, notification);
+        notificationManager.notify(m, notification);
     }
 
 

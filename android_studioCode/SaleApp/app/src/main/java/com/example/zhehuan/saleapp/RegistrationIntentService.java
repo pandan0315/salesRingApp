@@ -43,12 +43,10 @@ public class RegistrationIntentService extends IntentService {
     protected void onHandleIntent(Intent intent) {
 
         username=intent.getStringExtra("username");
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+     //   SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        boolean is_getToken=sharedPreferences.getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER,false);
-        if(!is_getToken){
-            return;
-        }
+     //   boolean is_getToken=sharedPreferences.getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER,false);
+
         try {
             // [START register_for_gcm]
             // Initially this call goes out to the network to retrieve the token, subsequent calls
@@ -63,22 +61,22 @@ public class RegistrationIntentService extends IntentService {
             Log.i(TAG, "GCM Registration Token: " + token);
 
             // TODO: Implement this method to send any registration to your app's servers.
-            Looper.loop();
-            sendRegistrationToServer(token);
-            Looper.myLooper().quit();
 
+            sendRegistrationToServer(token);
+           // Looper.myLooper().quit();
+            Looper.loop();
 
 
             // You should store a boolean that indicates whether the generated token has been
             // sent to your server. If the boolean is false, send the token to your server,
             // otherwise your server should have already received the token.
-            sharedPreferences.edit().putBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, true).apply();
+           // sharedPreferences.edit().putBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, true).apply();
             // [END register_for_gcm]
         } catch (Exception e) {
             Log.d(TAG, "Failed to complete token refresh", e);
             // If an exception happens while fetching the new token or updating our registration data
             // on a third-party server, this ensures that we'll attempt the update at a later time.
-           sharedPreferences.edit().putBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false).apply();
+           //sharedPreferences.edit().putBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false).apply();
         }
         // Notify UI that registration has completed, so the progress indicator can be hidden.
         Intent registrationComplete = new Intent(QuickstartPreferences.REGISTRATION_COMPLETE);
@@ -100,34 +98,38 @@ public class RegistrationIntentService extends IntentService {
         JSONObject jsonObject=new JSONObject();
         try {
           //  jsonObject.put("username",username);
-            jsonObject.put("token",token);
+            jsonObject.put("token", token);
             StringEntity entity = new StringEntity(jsonObject.toString());
 
-            client.post(getApplicationContext(),"http://" + getString(R.string.IP_address) + ":8080/shares/webapi/gcmtocken",entity,"application/json", new JsonHttpResponseHandler(){
+            client.post(getApplicationContext(), "http://" + getString(R.string.IP_address) + ":8080/shares/webapi/gcmtoken", entity, "application/json", new JsonHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, org.json.JSONObject response) {
-                    Toast.makeText(getApplicationContext(), "send token to the server!", Toast.LENGTH_LONG).show();
-                    Log.d("token","send Successful");
+
+                    Log.d("token", "send Successful");
+
 
 
                 }
 
                 @Override
-                public void onFailure(int statusCode, Header[] headers, String responseString,Throwable throwable) {
-                    Toast.makeText(getApplicationContext(), "Something wrong with sending token!", Toast.LENGTH_LONG).show();
-                    Log.d("token", "send Falure");
+                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+
+                    Log.d("token", "send Failure");
+                    Log.d("code",String.valueOf(statusCode));
 
                 }
+
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                    Toast.makeText(getApplicationContext(), "Some things goes wrong, internet error, please Login again!", Toast.LENGTH_LONG).show();
-                    Log.d("token", "send Falure");
 
+                    Log.d("token", "send Failure");
+                    Log.d("code",String.valueOf(statusCode));
 
 
                 }
 
             });
+
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (UnsupportedEncodingException e) {

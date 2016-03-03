@@ -141,6 +141,20 @@ public class UserProfileActivity extends AppCompatActivity {
                 startActivity(intent);
             }
 
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString,Throwable throwable) {
+
+                //AsyncHttpClient.log.w(LOG_TAG, "onFailure(int, Header[], Throwable, JSONObject) was not overriden, but callback was received", throwable);
+                Toast.makeText(getApplicationContext(), "Some things goes wrong, internet error,profile can not be displaied!", Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent();
+                intent.putExtra("username", getUsername());
+                intent.putExtra("fullname", fullname);
+                intent.setClass(UserProfileActivity.this, EditProfileActivity.class);
+                startActivity(intent);
+
+            }
+
         });
 
     }
