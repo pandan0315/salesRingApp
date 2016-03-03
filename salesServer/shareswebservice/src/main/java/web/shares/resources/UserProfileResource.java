@@ -1,6 +1,6 @@
 package web.shares.resources;
 
-import java.util.ArrayList;
+
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -9,19 +9,18 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.GenericEntity;
+
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import web.shares.database.DataHandler;
 import web.shares.model.ErrorResponse;
 import web.shares.model.FollowingFriendship;
-import web.shares.model.User;
+
 import web.shares.model.UserProfile;
 import web.shares.service.PostInfoService;
 
-@Path("/{username}")
+@Path("/{username}/profile")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class UserProfileResource {
@@ -32,19 +31,21 @@ public class UserProfileResource {
 	
 
 	/**
-	 * @api {get} /{username}     Get specified user's profile
+	 * @api {get} /{username}/profile     Get specified user's profile
 	 * @apiName  GetUserProfile
 	 * @apiGroup UserProfile
 	 * @apiExample {curl} Example usage:
-	 *     curl -i http://localhost:8080/webapi/{username}
+	 *     curl -i http://localhost:8080/webapi/{username}/profile
 	 * @apiParam {String} username   specify the user name .
 	 * @apiSuccess {Object} userprofile  user profile object.
 	 * @apiSuccess {String}  userprofile.username     user name.
+	 * 
 	 * @apiSuccess {String[]} userprofile.categoryLists   List of interested category
 	 * @apiSuccessExample Success-Response:
 	 *  HTTP/1.1 200 OK
 	 *  {
 	 *    "username":"pan",
+	 *    "fullname":"Pan Dan"
 	 *    "categoryList":
 	 *          [
 	 *            "education",
@@ -78,7 +79,7 @@ public class UserProfileResource {
 	
 	
 	/**
-	 * @api{post} /{username}    Add new user profile, username can be duplicated
+	 * @api{post} /{username}/profile    Add new user profile, username can be duplicated
 	 * @apiName EditUserProfile 
 	 * @apiGroup  UserProfile
 	 * @apiParam {object} userprofile   specify userprofile object
@@ -109,21 +110,11 @@ public class UserProfileResource {
 	@POST
 	public Response editProfile(UserProfile newProfile){
 		
-	/*	if(newProfile.getFullname()==null&&newProfile.getInterest_category()==null)          
-		{
-			return Response.status(400).entity(new ErrorResponse("Bad Request,Check Param!")).build();
-		}
-        
-		else if(dataHandler.editProfile(newProfile)!=null)
-		   
-		   {return Response.status(201).entity(newProfile).build();}
-		else{
-		return Response.status(400).entity(new ErrorResponse("Bad Request,request interest category already existed")).build();
-		}
+
 		
-		*/
-		
-			dataHandler.editProfile(newProfile);
+			if(dataHandler.editProfile(newProfile)==null){
+				return Response.status(400).build();
+			}
 			if(newProfile.getEncodeProfileIcon()!=null){
 			this.postedImage.convertStringtoImage(newProfile.getEncodeProfileIcon(), newProfile.getUsername()+".jpeg");}
 			
@@ -136,7 +127,7 @@ public class UserProfileResource {
 	
 	
 	/**
-	 * @api {get} /{username}/friends Get specified user's all followed friends
+	 * @api {get} /{username}/profile/friends Get specified user's all followed friends
 	 * @apiName GetUserFriend
 	 * @apiGroup UserFriendship
 	 * @apiExample {curl} Example usage: curl -i
@@ -187,7 +178,7 @@ public class UserProfileResource {
 	}
 	
 	/**
-	 * @api {post} /{username}/friends     Add  specified user's new followed friend
+	 * @api {post} /{username}/profile/friends     Add  specified user's new followed friend
 	 * @apiName  AddUserFriend
 	 * @apiGroup UserFriendship
 	 * @apiParam {Object} FollowingFriendship         new following-followed friendship object.
@@ -230,7 +221,7 @@ public class UserProfileResource {
 	
 	
 	/**
-	 * @api {delete} /{username}/friends     Delete  specified user's followed friend
+	 * @api {delete} /{username}/profile/friends     Delete  specified user's followed friend
 	 * @apiName  DeleteUserFriend
 	 * @apiGroup UserFriendship
 	 * @apiParam {Object} FollowingFriendship         specified deleted following-followed friendship object.

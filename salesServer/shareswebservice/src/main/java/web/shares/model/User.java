@@ -10,6 +10,9 @@ public class User {
 	private String password;
 	private String email;
 	private String fullName;
+	private ArrayList<String> userInterests;
+	
+	
 	
 	
 	
@@ -17,9 +20,19 @@ public class User {
 		
 		
 	}
-	public User(String username, String fullname){
+	
+	
+	public User(String userName, String fullName) {
+		super();
+		this.userName = userName;
+		this.fullName = fullName;
+	}
+
+
+	public User(String username, String fullname,ArrayList<String> userInterests){
 		this.userName=username;
 		this.fullName=fullname;
+		this.userInterests=userInterests;
 		
 	}
 	
@@ -32,7 +45,12 @@ public class User {
 	}
 	
 	
-	
+	public ArrayList<String> getUserInterests() {
+		return userInterests;
+	}
+	public void setUserInterests(ArrayList<String> userInterests) {
+		this.userInterests = userInterests;
+	}
 	
 	public String getUserName() {
 		return userName;
