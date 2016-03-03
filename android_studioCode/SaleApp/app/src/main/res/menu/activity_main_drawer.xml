@@ -10,6 +10,12 @@
             android:id="@+id/nav_fashion"
             android:title="Fashion" />
         <item
+            android:id="@+id/nav_malefashion"
+            android:title="Male Fashion" />
+        <item
+            android:id="@+id/nav_femalefashion"
+            android:title="Female Fashion" />
+        <item
             android:id="@+id/nav_hobbies"
             android:title="Hobbies" />
         <item
@@ -28,6 +34,9 @@
         <item
             android:id="@+id/nav_others"
             android:title="Others" />
+        <item
+            android:id="@+id/nav_history"
+            android:title="History" />
 
     </group>
 </menu>

@@ -319,6 +319,22 @@ public class MainActivity extends AppCompatActivity
             intent.setClass(MainActivity.this, MainActivity.class);
             startActivity(intent);
 
+        }else if (id == R.id.nav_malefashion) {
+            Intent intent=new Intent();
+            intent.putExtra("username",username);
+            intent.putExtra("fullname",fullname);
+            intent.putExtra("category","Male Fashion");
+            intent.setClass(MainActivity.this, MainActivity.class);
+            startActivity(intent);
+
+        } else if (id == R.id.nav_femalefashion) {
+            Intent intent=new Intent();
+            intent.putExtra("username",username);
+            intent.putExtra("fullname",fullname);
+            intent.putExtra("category","Female Fashion");
+            intent.setClass(MainActivity.this, MainActivity.class);
+            startActivity(intent);
+
         }else if(id==R.id.nav_media){
             Intent intent=new Intent();
             intent.putExtra("username",username);
@@ -334,6 +350,9 @@ public class MainActivity extends AppCompatActivity
             intent.putExtra("category","Others");
             intent.setClass(MainActivity.this, MainActivity.class);
             startActivity(intent);
+
+        }else if(id==R.id.nav_history){
+            
 
         }
 
