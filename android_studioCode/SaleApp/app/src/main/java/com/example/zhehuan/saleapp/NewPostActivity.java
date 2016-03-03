@@ -128,6 +128,7 @@ public class NewPostActivity extends AppCompatActivity {
                 jsonObject.put("encodeImage", encodeImage);
                 jsonObject.put("description", description);
                 jsonObject.put("imageName", imageName);
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
